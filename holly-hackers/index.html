@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Helper Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Student Helper Tool</h1>
+    </header>
+    
+    <!-- To-Do List Section -->
+    <section class="section" id="todo-section">
+        <h2>To-Do List</h2>
+        <form id="todo-form">
+            <input type="text" id="todo-input" placeholder="Enter a task or schedule..." required>
+            <button type="submit">Add Task</button>
+        </form>
+        <h3>Pending Tasks</h3>
+        <ul id="todo-list"></ul>
+    </section>
+
+    <!-- Timer Section -->
+    <section class="section" id="timer-section">
+        <h2>Timer</h2>
+        <button id="start-timer">Start Timer</button>
+        <div id="timer-display">00:00</div>
+        <h3>Session Logs</h3>
+        <div id="timer-logs"></div>
+    </section>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
