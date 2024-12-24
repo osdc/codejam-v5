@@ -113,9 +113,10 @@ li button {
 
 /* Timer Section */
 #timer-display {
-    font-size: 2rem;
+    font-size: 3rem; /* Increased from 2rem */
     text-align: center;
-    margin: 20px 0;
+    margin: 10px 0;
+    font-weight: 500;
 }
 
 .log-entry {
@@ -224,9 +225,10 @@ li button {
 }
 
 #current-thought {
-    font-size: 1.2em;
+    font-size: 1.5em;
     color: #333;
     margin-bottom: 5px;
+    font-weight: 600; /* Added font weight */
 }
 
 .dropdown-arrow {
@@ -261,3 +263,13 @@ li button {
 .thought-option:hover {
     background-color: #f0f0f0;
 }
+
+/* Add style for stop timer state */
+#start-timer.stop {
+    background-color: #dc3545;
+}
+
+#start-timer.stop:hover {
+    background-color: #c82333;
+}
+
