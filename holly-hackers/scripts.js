@@ -26,6 +26,7 @@ function displayTodos() {
             todo.completed = !todo.completed;
             localStorage.setItem("todos", JSON.stringify(todos));
             displayTodos();
+            updateProgress();
             if (todo.completed) {
                 showCongratsPopup();
             }
@@ -39,6 +40,7 @@ function displayTodos() {
             todos.splice(index, 1);
             localStorage.setItem("todos", JSON.stringify(todos));
             displayTodos();
+            updateProgress();
         });
 
         controls.appendChild(tickButton);
@@ -46,6 +48,7 @@ function displayTodos() {
         li.appendChild(controls);
         todoList.prepend(li); // Add new tasks at the top
     });
+    updateProgress();
 }
 
 // Add new task
@@ -57,11 +60,21 @@ todoForm.addEventListener("submit", (e) => {
         localStorage.setItem("todos", JSON.stringify(todos));
         displayTodos();
         todoInput.value = ""; // Clear input
+        updateProgress();
     }
 });
 
 // Initialize todo display
 displayTodos();
+
+// Add this function after displayTodos()
+function updateProgress() {
+    const totalTasks = todos.length;
+    const completedTasks = todos.filter(todo => todo.completed).length;
+    const progressPercent = totalTasks === 0 ? 0 : (completedTasks / totalTasks) * 100;
+    const progressBar = document.getElementById('todo-progress');
+    progressBar.style.width = `${progressPercent}%`;
+}
 
 // Timer Section
 let timerInterval;
