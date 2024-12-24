@@ -26,7 +26,6 @@ function displayTodos() {
             todo.completed = !todo.completed;
             localStorage.setItem("todos", JSON.stringify(todos));
             displayTodos();
-            updateProgress();
             if (todo.completed) {
                 showCongratsPopup();
             }
@@ -40,7 +39,6 @@ function displayTodos() {
             todos.splice(index, 1);
             localStorage.setItem("todos", JSON.stringify(todos));
             displayTodos();
-            updateProgress();
         });
 
         controls.appendChild(tickButton);
@@ -60,7 +58,6 @@ todoForm.addEventListener("submit", (e) => {
         localStorage.setItem("todos", JSON.stringify(todos));
         displayTodos();
         todoInput.value = ""; // Clear input
-        updateProgress();
     }
 });
 
@@ -115,7 +112,8 @@ function startTimer() {
 // Stop Timer Function
 function stopTimer() {
     clearInterval(timerInterval);
-    if (seconds >= 10) {
+    timerDisplay.textContent = "00:00"; // Reset the timer display to 00:00
+    if (seconds >= 5) { // Changed from 10 to 5 seconds
         showSessionPopup();
     }
 }
@@ -150,6 +148,15 @@ function saveSessionLog() {
         displayTimerLogs();
     }
     closePopup();
+    resetTimer(); // Reset timer after saving the session log
+}
+
+// Reset Timer Function
+function resetTimer() {
+    seconds = 0;
+    timerDisplay.textContent = "00:00";
+    isRunning = false;
+    startTimerButton.textContent = "Start Timer";
 }
 
 // Close the popup window
