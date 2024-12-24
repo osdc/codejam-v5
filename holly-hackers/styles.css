@@ -210,3 +210,54 @@ li button {
     background-color: #28a745;
     transition: width 0.3s ease-in-out;
 }
+
+
+.thought-container {
+    text-align: center;
+    position: relative;
+    margin: 20px auto;
+    max-width: 600px;
+    padding: 15px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#current-thought {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.dropdown-arrow {
+    cursor: pointer;
+    color: #007BFF;
+    font-size: 0.8em;
+}
+
+.thought-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.thought-dropdown.show {
+    display: block;
+}
+
+.thought-option {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.thought-option:hover {
+    background-color: #f0f0f0;
+}
