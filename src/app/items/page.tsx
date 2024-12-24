@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Item } from "@/models/item.model";
+import ItemCard from "@/components/ItemCard";
 
 const getData = async () => {
   try {
@@ -15,8 +15,8 @@ const Items = async () => {
 
   return (
     <div>
-      {items.map((i: typeof Item) => (
-        <div>{i.name}</div>
+      {items.map((i: { _id: string; name: string }) => (
+        <ItemCard item={i} key={i._id} />
       ))}
     </div>
   );

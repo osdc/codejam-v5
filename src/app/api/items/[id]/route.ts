@@ -15,3 +15,17 @@ export const GET = async (
     console.log(error);
   }
 };
+
+export const DELETE = async (
+  request: Request,
+  { params }: { params: { id: string } }
+) => {
+  const { id } = await params;
+  try {
+    connectToDb();
+    const deletedItem = await Item.findByIdAndDelete(id, { new: true });
+    return NextResponse.json(deletedItem);
+  } catch (e) {
+    console.log(e);
+  }
+};
