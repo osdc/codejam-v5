@@ -8,16 +8,16 @@
 </head>
 <body>
     <header>
-        <h1>Focus App</h1>
-        <nav>
-            <a href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <nav style="display: flex; justify-content: flex-start; gap: 2rem; margin: 1rem 0; padding-left: 2rem;">
+            <a href="{{ url_for('home') }}" style="text-decoration: none; color: var(--colour-black); font-size: 1.2rem; padding: 0.5rem 1rem; border-radius: 20px; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px);">Home</a>
+            <a href="{{ url_for('dashboard') }}" style="text-decoration: none; color: var(--colour-black); font-size: 1.2rem; padding: 0.5rem 1rem; border-radius: 20px; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px);">Dashboard</a>
             {% if session.get('user_id') %}
-                <a href="{{ url_for('logout') }}">Logout</a>
+                <a href="{{ url_for('logout') }}" style="text-decoration: none; color: var(--colour-black); font-size: 1.2rem; padding: 0.5rem 1rem; border-radius: 20px; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px);">Logout</a>
             {% else %}
-                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('login') }}" style="text-decoration: none; color: var(--colour-black); font-size: 1.2rem; padding: 0.5rem 1rem; border-radius: 20px; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px);">Login</a>
             {% endif %}
         </nav>
+        <h1 class="site-title" style="font-family: 'Gloria Hallelujah', cursive; font-size: 3.5rem; text-align: left; color: var(--colour-black); text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); margin: 1rem 0; padding-left: 2rem; text-decoration: underline;">Sleigh it!</h1>
     </header>
 
     <main>
@@ -29,3 +29,4 @@
     </footer>
 </body>
 </html>
+
