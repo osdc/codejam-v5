@@ -1,0 +1,3 @@
+[submodule "elf-engineers/dashboard"]
+	path = elf-engineers/dashboard
+	url = https://github.com/Cyberpunk-San/dashboard.git
