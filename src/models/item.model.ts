@@ -1,12 +1,15 @@
 import mongoose, { Schema, model } from "mongoose";
 
-interface IItem {
+export interface IItem {
+  _id: string;
   name: string;
   description?: string;
-  founderName: string;
-  founderNumber: number;
-  founderEmail: string;
-  foundAddress: string;
+  contactInformation: string;
+  location: string;
+  category: "lost" | "found";
+  campus: 62 | 128;
+  date: Date;
+  image?: string;
 }
 
 const itemSchema = new Schema<IItem>(
@@ -16,21 +19,28 @@ const itemSchema = new Schema<IItem>(
       required: true,
     },
     description: String,
-    founderName: {
+    contactInformation: {
       type: String,
       required: true,
     },
-    founderNumber: {
+    category: {
+      type: String,
+      enum: ["lost" | "found"],
+      required: true,
+    },
+    campus: {
       type: Number,
+      enum: [62, 128],
       required: true,
     },
-    founderEmail: {
-      type: String,
+    date: {
+      type: Date,
+      default: Date.now,
       required: true,
     },
-    foundAddress: {
+    image: {
       type: String,
-      required: true,
+      required: false,
     },
   },
   { timestamps: true }

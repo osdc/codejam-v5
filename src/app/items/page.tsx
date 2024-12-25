@@ -1,5 +1,6 @@
 import axios from "axios";
 import ItemCard from "@/components/ItemCard";
+import { IItem } from "@/models/item.model";
 
 const getData = async () => {
   try {
@@ -11,11 +12,11 @@ const getData = async () => {
 };
 
 const Items = async () => {
-  const items = await getData();
+  const items: IItem[] = await getData();
 
   return (
     <div>
-      {items.map((i: { _id: string; name: string }) => (
+      {items.map((i: IItem) => (
         <ItemCard item={i} key={i._id} />
       ))}
     </div>
