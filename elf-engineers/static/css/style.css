@@ -4,6 +4,9 @@
   --base-grid: 8px;
   --colour-white: #fff;
   --colour-black: #1a1a1a;
+  --colour-bg-1: #ffd5cc;
+  --colour-bg-2: #ffb3b3;
+  --colour-bg-3: #ffc9c9;
 }
 
 *, :after, :before {
@@ -13,12 +16,27 @@
 html, body {
   font-family: 'Lato', sans-serif;
   color: #333333;
-  background-color: #ffd5cc;
+  background: linear-gradient(-45deg, var(--colour-bg-1), var(--colour-bg-2), var(--colour-bg-3));
+  background-size: 400% 400%;
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  animation: gradient 15s ease infinite;
+  position: relative;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .links {
@@ -30,6 +48,7 @@ html, body {
   width: 100%;
   min-height: 100vh;
   padding-left: 150px;
+  padding-bottom: 100px; /* Added padding to move links up */
 }
 
 .links__list {
