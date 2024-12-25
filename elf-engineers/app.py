@@ -5,11 +5,25 @@ from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 import pytz
+from flask_mail import Mail, Message
+import os
+import random
+import string
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__, template_folder='templates')
 app.secret_key = "your_secret_key"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['MAIL_SERVER'] = 'smtp.gmail.com' 
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = os.environ.get('focusapp2524@gmail.com')
+app.config['MAIL_PASSWORD'] = os.environ.get('focusapp2524ELF-ENG')
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('focusapp2524@gmail.com') 
+mail = Mail(app)
 
 
 db = SQLAlchemy(app)
@@ -29,6 +43,7 @@ class User(db.Model):
     last_focus_date = db.Column(db.Date, nullable=True)
     most_productive_day = db.Column(db.String(50), nullable=True)
     total_focus_time = db.Column(db.Integer, default=0)
+    reset_token = db.Column(db.String(100), nullable=True)  # Add this column
 
 @app.route('/')
 def home():
@@ -80,21 +95,28 @@ def register():
 
     return render_template('register.html')
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    email = request.form['email']
-    password = request.form['password']
-    
-    user = User.query.filter_by(email=email).first()
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        
+        if not email or not password:
+            flash('Please provide both email and password.', 'error')
+            return redirect(url_for('home'))
 
-    if user and check_password_hash(user.password, password):
-        session['user_id'] = user.id
-        session['start_time'] = datetime.now(pytz.UTC)  # Store timezone-aware datetime
-        flash('Login successful!', 'success')
-        return redirect(url_for('dashboard'))
-    else:
-        flash('Invalid email or password. Please try again.', 'error')
-        return redirect(url_for('home'))
+        user = User.query.filter_by(email=email).first()
+
+        if user and check_password_hash(user.password, password):
+            session['user_id'] = user.id
+            session['start_time'] = datetime.now(pytz.UTC)  # Store timezone-aware datetime
+            flash('Login successful!', 'success')
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Invalid email or password. Please try again.', 'error')
+            return redirect(url_for('home'))
+    
+    return render_template('login.html')
 
 @app.route('/dashboard')
 def dashboard():
@@ -104,7 +126,12 @@ def dashboard():
 
     user = User.query.get(session['user_id'])
     if user:
-        return render_template('dashboard.html', user=user)
+        try:
+            return render_template('dashboard.html', user=user)
+        except Exception as e:
+            flash('Error loading dashboard. Please try again.', 'error')
+            print(f"Dashboard error: {str(e)}")  # Log the error
+            return redirect(url_for('home'))
     else:
         session.pop('user_id', None)
         flash('User not found. Please login again.', 'error')
@@ -136,6 +163,122 @@ def focus():
 
     flash("Focus mode activated successfully!", 'success')
     return redirect(url_for('dashboard'))
+
+@app.route('/edit_profile', methods=['GET', 'POST'])
+def edit_profile():
+    if 'user_id' not in session:
+        flash('Please login first.', 'error')
+        return redirect(url_for('home'))
+
+    user = User.query.get(session['user_id'])
+
+    if request.method == 'POST':
+        # Retrieve updated data from the form
+        user.name = request.form.get('name')
+        user.class_sem = request.form.get('class_sem')
+        user.college = request.form.get('college')
+        user.age = request.form.get('age')
+
+        # Validate and update the database
+        try:
+            user.age = int(user.age)  # Ensure age is an integer
+        except ValueError:
+            flash('Age must be a valid number.', 'error')
+            return redirect(url_for('edit_profile'))
+
+        db.session.commit()
+        flash('Profile updated successfully!', 'success')
+        return redirect(url_for('dashboard'))
+
+    try:
+        return render_template('edit_profile.html', user=user)
+    except Exception as e:
+        flash('Unable to load profile page. Please try again.', 'error')
+        return redirect(url_for('home'))
+
+@app.route('/forgot_password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        user = User.query.filter_by(email=email).first()
+        if user:
+            # Generate a random token
+            reset_token = ''.join(random.choices(string.ascii_letters + string.digits, k=20))
+            user.reset_token = reset_token
+            
+            try:
+                db.session.commit()
+                
+                # Create reset password link
+                reset_link = url_for('reset_password', token=reset_token, _external=True)
+                
+                # Setup email
+                msg = Message(
+                    subject="Password Reset Request",
+                    sender=app.config['MAIL_DEFAULT_SENDER'],
+                    recipients=[email]
+                )
+                msg.body = f"""
+                Hello,
+                
+                You have requested to reset your password. Please click on the following link to reset your password:
+                
+                {reset_link}
+                
+                If you did not request this password reset, please ignore this email.
+                
+                Best regards,
+                Focus App Team
+                """
+                
+                # Send email
+                mail.send(msg)
+                flash('Password reset instructions have been sent to your email.', 'success')
+                return redirect(url_for('home'))
+                
+            except Exception as e:
+                print(f"Error sending email: {str(e)}")
+                db.session.rollback()
+                flash('There was an error sending the password reset email. Please verify your email settings or try again later.', 'error')
+                return redirect(url_for('forgot_password'))
+        else:
+            flash('No account found with that email address.', 'error')
+            return redirect(url_for('forgot_password'))
+
+    return render_template('forgot_password.html')
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if not token:
+        flash('Invalid reset token.', 'error')
+        return redirect(url_for('home'))
+
+    user = User.query.filter_by(reset_token=token).first()
+    if not user:
+        flash('Invalid or expired password reset token.', 'error')
+        return redirect(url_for('home'))
+
+    if request.method == 'POST':
+        new_password = request.form.get('password')
+        if not new_password:
+            flash('Password cannot be empty.', 'error')
+            return render_template('reset_password.html', token=token)
+
+        # Hash the new password and update user
+        try:
+            user.password = generate_password_hash(new_password)
+            user.reset_token = None  # Clear the reset token
+            db.session.commit()
+            flash('Your password has been reset successfully.', 'success')
+            return redirect(url_for('home'))
+        except Exception as e:
+            db.session.rollback()
+            flash('Error resetting password. Please try again.', 'error')
+            return render_template('reset_password.html', token=token)
+
+    return render_template('reset_password.html', token=token)
+
+
 
 @app.route('/logout')
 def logout():
