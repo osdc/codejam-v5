@@ -90,6 +90,11 @@
     </div>
   </header>
   <div class="wrapper">
+    <!-- User's name display -->
+    <div style="position: fixed; right: 400px; top: 50px; font-family: 'Gloria Hallelujah', cursive; font-size: 52px; color: #4A2410; text-shadow: 2px 2px 4px rgba(255,255,255,0.7); letter-spacing: 1px; font-weight: bold; text-decoration: underline;">
+      {{ user.name }}
+    </div>
+
     <!-- Calendar and Clock in upper right corner -->
     <div style="position: fixed; right: 120px; top: -80px; display: flex; flex-direction: column; gap: 30px; z-index: 900;">
       <!-- Clock -->
@@ -235,9 +240,20 @@
       <div class="streak-info-popup" id="streakInfoPopup" style="position: fixed; left: 20px; top: 20px; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: #B8860B; padding: 20px; border-radius: 15px; display: none; z-index: 1000; font-family: 'Playfair Display', serif; box-shadow: 0 4px 30px rgba(0,0,0,0.2); border: 2px solid rgba(184,134,11,0.3);">
         <div class="streak-info-content">
           <span class="close-streak-info" onclick="toggleStreakInfo()" style="position: absolute; right: 10px; top: 5px; cursor: pointer; color: #8B4513;">&times;</span>
-          <h3 style="color: #8B4513; text-align: center; font-family: 'Playfair Display', serif; font-size: 24px; text-transform: uppercase; letter-spacing: 2px;">Streak Information</h3>
+          <h3 style="color: #422008; text-align: center; font-family: 'Playfair Display', serif; font-size: 24px; text-transform: uppercase; letter-spacing: 2px;">Streak Information</h3>
           <div style="position: absolute; right: -30px; top: 50%; transform: translateY(-50%); width: 30px; border-top: 3px solid rgba(139,69,19,0.6);"></div>
-          <p style="color: #8B4513; font-family: 'Playfair Display', serif; font-size: 20px;"><strong>Current Streak:</strong> {{ user.streak }}</p>
+          <p style="color: #311806; font-family: 'Playfair Display', serif; font-size: 20px;"><strong>Current Streak:</strong> {{ user.streak }}</p>
+          <div style="text-align: center; margin-top: 15px;">
+            <svg width="100" height="100" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45" fill="none" stroke="#E0E0E0" stroke-width="10"/>
+              <circle cx="50" cy="50" r="45" fill="none" stroke="#B8860B" stroke-width="10"
+                      stroke-dasharray="282.7" stroke-dashoffset="{{ 282.7 - (user.streak / 365 * 282.7) }}"
+                      transform="rotate(-90 50 50)"/>
+              <text x="50" y="50" text-anchor="middle" dy="7" font-size="20" fill="#8B4513">
+                {{ "%.1f"|format(user.streak / 365 * 100) }}%
+              </text>
+            </svg>
+          </div>
         </div>
       </div>
 
@@ -371,4 +387,3 @@
     });
   </script>
 {% endblock %}
-
