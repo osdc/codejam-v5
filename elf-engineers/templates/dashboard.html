@@ -1,17 +1,374 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h2>Welcome, {{ user.name }}</h2>
-<p>Email: {{ user.email }}</p>
-<p>Class/Semester: {{ user.class_sem }}</p>
-<p>College: {{ user.college }}</p>
-<p>Age: {{ user.age }}</p>
-<p>Streak: {{ user.streak }}</p>
-<p>Gems: {{ user.gems }}</p>
-<p>Total Focus Time: {{ user.total_focus_time }} minutes</p>
-<p>Most Productive Day: {{ user.most_productive_day }}</p>
+<header>
+    <div class="links">
+        <ul class="links__list" style="--item-total: 5">
+            <li class="links__item" style="--item-count: 1">
+                <a class="links__link" href="{{ url_for('home') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="red"/>
+                      </svg>                      
+                    <span class="links__text">Home</span>
+                </a>
+            </li>
+            <li class="links__item" style="--item-count: 2">
+                <a class="links__link" href="focus.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48">
+                        <g fill="none" stroke="gold" stroke-width="2">
+                            <path d="M12 3c-2.2 0-4 1.8-4 4 0 1.6.9 2.9 2.2 3.6L9 15H7l-1 3h12l-1-3h-2l-1.2-4.4C15.1 9.9 16 8.6 16 7c0-2.2-1.8-4-4-4z"/>
+                            <circle cx="12" cy="7" r="2"/>
+                            <path d="M6 18h12M8 21h8"/>
+                        </g>
+                    </svg>
+                    <span class="links__text">Focus Mode</span>
+                </a>
+            </li>
+            <li class="links__item" style="--item-count: 3">
+                <a class="links__link" href="{{ url_for('edit_profile') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48">
+                        <!-- Tree trunk -->
+                        <rect x="11" y="20" width="2" height="4" fill="#8B4513"/>
+                        <!-- Tree layers -->
+                        <polygon points="12,2 4,8 20,8" fill="#228B22"/>
+                        <polygon points="12,6 3,13 21,13" fill="#228B22"/>
+                        <polygon points="12,10 2,18 22,18" fill="#228B22"/>
+                        <!-- Ornaments -->
+                        <circle cx="8" cy="7" r="0.5" fill="red"/>
+                        <circle cx="16" cy="7" r="0.5" fill="gold"/>
+                        <circle cx="7" cy="12" r="0.5" fill="gold"/>
+                        <circle cx="17" cy="12" r="0.5" fill="red"/>
+                        <circle cx="12" cy="10" r="0.5" fill="gold"/>
+                        <circle cx="6" cy="16" r="0.5" fill="red"/>
+                        <circle cx="18" cy="16" r="0.5" fill="gold"/>
+                        <!-- Star -->
+                        <polygon points="12,1 11.3,2.5 9.7,2.5 10.5,4 9.7,5.5 11.3,5.5 12,7 12.7,5.5 14.3,5.5 13.5,4 14.3,2.5 12.7,2.5" fill="gold"/>
+                    </svg>                                      
+                    <span class="links__text">Edit Profile</span>
+                </a>
+            </li>
+            <li class="links__item" style="--item-count: 4">
+                <a class="links__link" href="{{ url_for('dashboard') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48">
+                        <!-- Main chocolate bar shape -->
+                        <rect x="2" y="2" width="20" height="20" rx="2" fill="#3E1C0C"/>
+                        <!-- Inner chocolate segments -->
+                        <rect x="4" y="4" width="8" height="8" rx="1" fill="#5C2C14"/>
+                        <rect x="12" y="4" width="8" height="8" rx="1" fill="#4A2410"/>
+                        <rect x="4" y="12" width="8" height="8" rx="1" fill="#4A2410"/>
+                        <rect x="12" y="12" width="8" height="8" rx="1" fill="#5C2C14"/>
+                        <!-- Chocolate shine/highlights -->
+                        <path d="M4 4 L10 10" stroke="#8B4513" stroke-width="0.5" opacity="0.6"/>
+                        <path d="M14 4 L20 10" stroke="#8B4513" stroke-width="0.5" opacity="0.6"/>
+                        <path d="M4 12 L10 20" stroke="#8B4513" stroke-width="0.5" opacity="0.6"/>
+                        <path d="M14 12 L20 20" stroke="#8B4513" stroke-width="0.5" opacity="0.6"/>
+                        <!-- Chocolate drips -->
+                        <path d="M6 2 C6 0 8 0 8 2" fill="#3E1C0C"/>
+                        <path d="M16 2 C16 0 18 0 18 2" fill="#3E1C0C"/>
+                    </svg>
+                    <span class="links__text">Dashboard</span>
+                </a>
+            </li>
+            <li class="links__item" style="--item-count: 5">
+                {% if session.get('user_id') %}
+                    <a class="links__link" href="{{ url_for('logout') }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                            <path d="M12 2v20m-7-7h14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="rotate(180 12 12)"/>
+                          </svg>                                                                                                                                               
+                        <span class="links__text">Logout</span>
+                    </a>
+                {% else %}
+                    <a class="links__link" href="{{ url_for('login') }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                            <path d="M12 2v20m-7-7h14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="rotate(180 12 12)"/>
+                          </svg>  
+                        <span class="links__text">Login</span>
+                    </a>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+  </header>
+  <div class="wrapper">
+    <!-- Calendar and Clock in upper right corner -->
+    <div style="position: fixed; right: 120px; top: -80px; display: flex; flex-direction: column; gap: 30px; z-index: 900;">
+      <!-- Clock -->
+      <div class="clock" onclick="toggleClockInfo()" style="cursor: pointer;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64">
+          <circle cx="12" cy="12" r="10" fill="#fff" stroke="#4A2410" stroke-width="2"/>
+          <line x1="12" y1="12" x2="12" y2="6" stroke="#4A2410" stroke-width="2" id="hourHand"/>
+          <line x1="12" y1="12" x2="16" y2="12" stroke="#4A2410" stroke-width="2" id="minuteHand"/>
+        </svg>
+      </div>
 
-<form method="POST" action="{{ url_for('focus') }}">
-    <button type="submit">Start Focus Mode</button>
-</form>
+      <!-- Calendar -->
+      <div class="calendar" onclick="toggleCalendarInfo()" style="cursor: pointer;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64">
+          <rect x="2" y="4" width="20" height="18" fill="#fff" stroke="#B8860B" stroke-width="2"/>
+          <line x1="2" y1="10" x2="22" y2="10" stroke="#B8860B" stroke-width="2"/>
+          <line x1="7" y1="2" x2="7" y2="6" stroke="#B8860B" stroke-width="2"/>
+          <line x1="17" y1="2" x2="17" y2="6" stroke="#B8860B" stroke-width="2"/>
+          <text x="12" y="18" text-anchor="middle" fill="#B8860B" font-family="'Playfair Display', serif" font-size="8" id="calendarDate">
+          </text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Calendar Info Popup -->
+    <div class="calendar-info-popup" id="calendarInfoPopup" style="position: fixed; right: 30px; top: 110px; background: rgba(255,255,255,0.15); backdrop-filter: blur(15px); color: #B8860B; padding: 20px; border-radius: 15px; display: none; z-index: 1001; font-family: 'Playfair Display', serif; box-shadow: 0 8px 32px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.3); min-width: 300px;">
+      <div class="calendar-info-content">
+        <span class="close-calendar-info" onclick="toggleCalendarInfo()" style="position: absolute; right: 15px; top: 10px; cursor: pointer; color: #B8860B; font-size: 20px;">&times;</span>
+        <h3 style="color: #4b3705; text-align: center; font-size: 22px; text-transform: uppercase; letter-spacing: 2px;">Today's Date</h3>
+        <p id="todayDate" style="color: #493708; font-size: 18px; text-align: center;"></p>
+        <div id="miniCalendar" style="margin-top: 20px; color: #473505;">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th>
+              </tr>
+            </thead>
+            <tbody id="calendarBody">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clock Info Popup -->
+    <div class="clock-info-popup" id="clockInfoPopup" style="position: fixed; left: 30px; top: 110px; background: rgba(255,255,255,0.15); backdrop-filter: blur(15px); color: #4A2410; padding: 20px; border-radius: 15px; display: none; z-index: 1001; font-family: 'Playfair Display', serif; box-shadow: 0 8px 32px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.3); min-width: 250px;">
+      <div class="clock-info-content">
+        <span class="close-clock-info" onclick="toggleClockInfo()" style="position: absolute; right: 15px; top: 10px; cursor: pointer; color: #4A2410; font-size: 20px;">&times;</span>
+        <h3 style="color: #4A2410; text-align: center; font-size: 22px; text-transform: uppercase; letter-spacing: 2px;">Focus Time Stats</h3>
+        <p style="color: #4A2410; font-size: 16px;"><strong>Total Focus Time:</strong> {{ user.total_focus_time }} minutes</p>
+        <p style="color: #4A2410; font-size: 16px;"><strong>Most Productive Day:</strong> {{ user.most_productive_day }}</p>
+        <p id="currentTime" style="color: #4A2410; font-size: 18px; text-align: center; margin-top: 15px;"></p>
+      </div>
+    </div>
+
+    <ul class="wall">
+      {% for i in range(15) %}
+        <li></li>
+      {% endfor %}
+    </ul>
+    <div class="crown" onclick="toggleCrownInfo()" data-tooltip="Class/Semester: {{ user.class_sem }}&#10;College: {{ user.college }}&#10;Age: {{ user.age }}" style="font-family: 'Playfair Display', serif; font-size: 18px;">
+      <ul class="round">
+        {% for i in range(17) %}
+          <li></li>
+        {% endfor %}
+      </ul>
+      <ul class="ball">
+        {% for i in range(12) %}
+          <li></li>
+        {% endfor %}
+      </ul>
+      <div class="crown-info-popup" id="crownInfoPopup" style="position: fixed; left: 20px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: #B8860B; padding: 20px; border-radius: 15px; display: none; z-index: 1000; font-family: 'Cinzel', serif; box-shadow: 0 4px 30px rgba(0,0,0,0.2); border: 2px solid rgba(184,134,11,0.3);">
+        <div class="crown-info-content">
+          <span class="close-crown-info" onclick="toggleCrownInfo()" style="position: absolute; right: 10px; top: 5px; cursor: pointer; color: #8B4513;">&times;</span>
+          <h3 style="color: #8B4513; text-align: center; font-family: 'Cormorant Garamond', serif; font-size: 24px; text-transform: uppercase; letter-spacing: 2px;">User Information</h3>
+          <div style="position: absolute; left: -30px; top: 50%; transform: translateY(-50%); width: 30px; border-top: 3px solid rgba(139,69,19,0.6);"></div>
+          <p style="color: #8B4513; font-family: 'Crimson Text', serif;"><strong>Class/Semester:</strong> {{ user.class_sem }}</p>
+          <p style="color: #8B4513; font-family: 'Crimson Text', serif;"><strong>College:</strong> {{ user.college }}</p>
+          <p style="color: #8B4513; font-family: 'Crimson Text', serif;"><strong>Age:</strong> {{ user.age }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="fireplace">
+      <div class="bottom">
+        <ul class="ground">
+          {% for i in range(10) %}
+            <li></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <ul class="top">
+        {% for i in range(10) %}
+          <li></li>
+        {% endfor %}
+      </ul>
+      <ul class="bricks">
+        {% for i in range(15) %}
+          <li></li>
+        {% endfor %}
+      </ul>
+      <div class="chimney"></div>
+      <div class="chimney-shadow"></div>
+      <div class="chimney-fire-wrapper">
+        <ul class="wood">
+          {% for i in range(9) %}
+            <li></li>
+          {% endfor %}
+        </ul>
+        <div class="fire"></div>
+        <div class="streak-info" style="font-family: 'Crimson Text', serif; color: #8B4513; font-size: 18px; text-align: right; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">
+          <strong>Streak:</strong> {{ user.streak }}
+        </div>
+        <ul class="embers">
+          {% for i in range(7) %}
+            <li></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Socks -->
+      <div class="sock" onclick="toggleGemsInfo()">
+        <div class="second"></div>
+      </div>
+      <div class="sock" id="sock-2" onclick="toggleGemsInfo()">
+        <div class="second"></div>
+      </div>
+      <div class="sock" id="sock-3" onclick="toggleGemsInfo()">
+        <div class="second"></div>
+      </div>
+
+      <!-- Candles -->
+      <div class="candle">
+        <div class="fire" onclick="toggleStreakInfo()"></div>
+      </div>
+      <div class="candle" id="candle-2">
+        <div class="fire" onclick="toggleStreakInfo()"></div>
+      </div>
+      <div class="candle" id="candle-3">
+        <div class="fire" onclick="toggleStreakInfo()"></div>
+      </div>
+
+      <!-- Streak Info Popup -->
+      <div class="streak-info-popup" id="streakInfoPopup" style="position: fixed; left: 20px; top: 20px; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: #B8860B; padding: 20px; border-radius: 15px; display: none; z-index: 1000; font-family: 'Playfair Display', serif; box-shadow: 0 4px 30px rgba(0,0,0,0.2); border: 2px solid rgba(184,134,11,0.3);">
+        <div class="streak-info-content">
+          <span class="close-streak-info" onclick="toggleStreakInfo()" style="position: absolute; right: 10px; top: 5px; cursor: pointer; color: #8B4513;">&times;</span>
+          <h3 style="color: #8B4513; text-align: center; font-family: 'Playfair Display', serif; font-size: 24px; text-transform: uppercase; letter-spacing: 2px;">Streak Information</h3>
+          <div style="position: absolute; right: -30px; top: 50%; transform: translateY(-50%); width: 30px; border-top: 3px solid rgba(139,69,19,0.6);"></div>
+          <p style="color: #8B4513; font-family: 'Playfair Display', serif; font-size: 20px;"><strong>Current Streak:</strong> {{ user.streak }}</p>
+        </div>
+      </div>
+
+      <!-- Gems Info Popup -->
+      <div class="gems-info-popup" id="gemsInfoPopup" style="position: fixed; left: 20px; bottom: 20px; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: #B8860B; padding: 20px; border-radius: 15px; display: none; z-index: 1000; font-family: 'Playfair Display', serif; box-shadow: 0 4px 30px rgba(0,0,0,0.2); border: 2px solid rgba(184,134,11,0.3);">
+        <div class="gems-info-content">
+          <span class="close-gems-info" onclick="toggleGemsInfo()" style="position: absolute; right: 10px; top: 5px; cursor: pointer; color: #8B4513;">&times;</span>
+          <h3 style="color: #8B4513; text-align: center; font-family: 'Playfair Display', serif; font-size: 24px; text-transform: uppercase; letter-spacing: 2px;">Gems Information</h3>
+          <div style="position: absolute; right: -30px; top: 50%; transform: translateY(-50%); width: 30px; border-top: 3px solid rgba(139,69,19,0.6);"></div>
+          <p style="color: #8B4513; font-family: 'Playfair Display', serif; font-size: 20px;"><strong>Gems:</strong> {{ user.gems }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Update calendar date
+    function updateCalendarDate() {
+      const date = new Date().getDate();
+      document.getElementById('calendarDate').textContent = date;
+    }
+    updateCalendarDate();
+
+    // Generate calendar
+    function generateCalendar() {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = today.getMonth();
+      
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+      
+      const startingDay = firstDay.getDay();
+      const totalDays = lastDay.getDate();
+      
+      const calendarBody = document.getElementById('calendarBody');
+      calendarBody.innerHTML = '';
+      
+      let date = 1;
+      for (let i = 0; i < 6; i++) {
+        const row = document.createElement('tr');
+        for (let j = 0; j < 7; j++) {
+          const cell = document.createElement('td');
+          cell.style.padding = '5px';
+          cell.style.textAlign = 'center';
+          
+          if (i === 0 && j < startingDay) {
+            cell.textContent = '';
+          } else if (date > totalDays) {
+            break;
+          } else {
+            cell.textContent = date;
+            if (date === today.getDate()) {
+              cell.style.backgroundColor = 'rgba(184,134,11,0.2)';
+              cell.style.borderRadius = '50%';
+            }
+            date++;
+          }
+          row.appendChild(cell);
+        }
+        calendarBody.appendChild(row);
+      }
+    }
+
+    // Update clock hands
+    function updateClock() {
+      const now = new Date();
+      const hours = now.getHours() % 12;
+      const minutes = now.getMinutes();
+      
+      const hourHand = document.getElementById('hourHand');
+      const minuteHand = document.getElementById('minuteHand');
+      
+      const hourAngle = (hours + minutes/60) * 30;
+      const minuteAngle = minutes * 6;
+      
+      hourHand.setAttribute('transform', `rotate(${hourAngle} 12 12)`);
+      minuteHand.setAttribute('transform', `rotate(${minuteAngle} 12 12)`);
+      
+      document.getElementById('currentTime').textContent = now.toLocaleTimeString();
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    function toggleCrownInfo() {
+      const popup = document.getElementById('crownInfoPopup');
+      popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function toggleStreakInfo() {
+      const popup = document.getElementById('streakInfoPopup');
+      popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function toggleGemsInfo() {
+      const popup = document.getElementById('gemsInfoPopup');
+      popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function toggleClockInfo() {
+      const popup = document.getElementById('clockInfoPopup');
+      popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function toggleCalendarInfo() {
+      const popup = document.getElementById('calendarInfoPopup');
+      if (popup.style.display !== 'block') {
+        const today = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('todayDate').textContent = today.toLocaleDateString('en-US', options);
+        generateCalendar();
+      }
+      popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Close popups when clicking outside
+    window.addEventListener('click', function(event) {
+      const popups = {
+        'crownInfoPopup': document.getElementById('crownInfoPopup'),
+        'streakInfoPopup': document.getElementById('streakInfoPopup'),
+        'gemsInfoPopup': document.getElementById('gemsInfoPopup'),
+        'clockInfoPopup': document.getElementById('clockInfoPopup'),
+        'calendarInfoPopup': document.getElementById('calendarInfoPopup')
+      };
+      
+      Object.entries(popups).forEach(([id, popup]) => {
+        if (event.target === popup) {
+          popup.style.display = 'none';
+        }
+      });
+    });
+  </script>
 {% endblock %}
+
