@@ -53,7 +53,179 @@ function saveCustomThought() {
     }
 }
 
+// DOM Elements
+const notesContainer = document.getElementById("notes-container");
+const addNoteBtn = document.getElementById("add-note-btn");
+const addEditPopup = document.getElementById("add-edit-popup");
+const saveNoteBtn = document.getElementById("save-note-btn");
+const cancelAddBtn = document.getElementById("cancel-add-btn");
+const noteTitleInput = document.getElementById("note-title-input");
+const noteContentInput = document.getElementById("note-content-input");
+const viewPopup = document.getElementById("view-popup");
+const viewPopupTitle = document.getElementById("view-popup-title");
+const viewPopupContent = document.getElementById("view-popup-content");
+const closeViewPopupBtn = document.getElementById("close-view-popup-btn");
 
+let notes = JSON.parse(localStorage.getItem("notes")) || [];
+let currentNoteIndex = null;
+
+// Create background overlay for popups
+const overlay = document.createElement("div");
+overlay.classList.add("overlay");
+document.body.appendChild(overlay);
+
+function renderNotes() {
+    notesContainer.innerHTML = "";
+    if (notes.length === 0) {
+        notesContainer.innerHTML = '<div class="no-notes">No notes yet. Click "Add Note" to create one.</div>';
+        return;
+    }
+
+    notes.forEach((note, index) => {
+        const noteCard = document.createElement("div");
+        noteCard.classList.add("note-card");
+
+        // Limit title to 30 characters
+        const displayTitle = note.title.length > 30 ?
+            note.title.substring(0, 30) + '...' :
+            note.title;
+
+        noteCard.innerHTML = `
+      <h3>${displayTitle}</h3>
+      <div class="note-actions">
+        <button class="edit-btn" onclick="editNote(${index})">✏️</button>
+        <button class="delete-btn" onclick="deleteNote(${index})">🗑️</button>
+      </div>
+    `;
+
+        noteCard.addEventListener("click", (e) => {
+            if (!e.target.closest('.edit-btn') && !e.target.closest('.delete-btn')) {
+                openViewPopup(index);
+            }
+        });
+
+        notesContainer.appendChild(noteCard);
+    });
+}
+
+document.getElementById("add-note-btn").addEventListener("click", () => {
+    currentNoteIndex = null;  // Reset current index for new note
+    openAddEditPopup(false);  // Pass false to indicate new note
+});
+
+function openAddEditPopup(isEdit = false) {
+    const popupHeader = document.getElementById("popup-header");
+    addEditPopup.classList.add("show");
+    overlay.classList.add("active");
+
+    if (isEdit && currentNoteIndex !== null) {
+        popupHeader.textContent = "Edit Note";
+        noteTitleInput.value = notes[currentNoteIndex].title;
+        noteContentInput.value = notes[currentNoteIndex].content;
+    } else {
+        popupHeader.textContent = "Add Note";
+        noteTitleInput.value = "";
+        noteContentInput.value = "";
+    }
+}
+
+function closeAddEditPopup() {
+    addEditPopup.classList.remove("show");
+    overlay.classList.remove("active");
+    noteTitleInput.value = "";
+    noteContentInput.value = "";
+}
+
+function saveNote() {
+    const title = noteTitleInput.value.trim();
+    const content = noteContentInput.value.trim();
+
+    if (title && content) {
+        const note = {
+            title,
+            content,
+            timestamp: new Date().toLocaleString()
+        };
+
+        if (currentNoteIndex !== null) {
+            notes[currentNoteIndex] = note;
+        } else {
+            notes.push(note);
+        }
+
+        localStorage.setItem('notes', JSON.stringify(notes));
+        closeAddEditPopup();
+        renderNotes();
+    }
+}
+
+function openViewPopup(index) {
+    currentNoteIndex = index;
+    viewPopup.classList.add("show");
+    overlay.classList.add("active");
+    viewPopupTitle.textContent = notes[index].title;
+    viewPopupContent.textContent = notes[index].content;
+    document.getElementById("view-popup-timestamp").textContent = notes[index].timestamp || 'No timestamp available';
+}
+
+function closeViewPopup() {
+    viewPopup.classList.remove("show");
+    overlay.classList.remove("active");
+}
+
+function editNote(index) {
+    currentNoteIndex = index;
+    openAddEditPopup(true);
+}
+
+let noteToDelete = null;
+
+function deleteNote(index) {
+    noteToDelete = index;
+    const deletePopup = document.getElementById('delete-confirm-popup');
+    deletePopup.classList.add('show');
+    overlay.classList.add('active');
+}
+
+document.getElementById('confirm-delete-btn').addEventListener('click', () => {
+    if (noteToDelete !== null) {
+        notes.splice(noteToDelete, 1);
+        localStorage.setItem('notes', JSON.stringify(notes));
+        closeDeletePopup();
+        renderNotes();
+    }
+});
+
+document.getElementById('cancel-delete-btn').addEventListener('click', closeDeletePopup);
+
+function closeDeletePopup() {
+    const deletePopup = document.getElementById('delete-confirm-popup');
+    deletePopup.classList.remove('show');
+    overlay.classList.remove('active');
+    noteToDelete = null;
+}
+
+// Event Listeners
+addNoteBtn.addEventListener("click", openAddEditPopup);
+saveNoteBtn.addEventListener("click", saveNote);
+cancelAddBtn.addEventListener("click", closeAddEditPopup);
+closeViewPopupBtn.addEventListener("click", closeViewPopup);
+
+// Close popups when clicking overlay
+overlay.addEventListener("click", () => {
+    closeAddEditPopup();
+    closeViewPopup();
+    closeDeletePopup();
+});
+
+// Auto-resize textarea
+noteContentInput.addEventListener('input', function () {
+    this.style.height = 'auto';
+    this.style.height = this.scrollHeight + 'px';
+});
+
+// Initial Render
+renderNotes();
 
 // To-Do List Functionality
 const todoForm = document.getElementById("todo-form");

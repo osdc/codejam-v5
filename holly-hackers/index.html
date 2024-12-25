@@ -1,57 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Helper Tool</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Helper Tool</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <header>
-        <h1>STARK</h1>
-        <h2>Student Task And Reminder Keeper</h2>
-    </header>
-    
-    <!-- Motivation Thought Section -->
-    <div class="thought-container">
-        <div id="current-thought">Click arrow to select your motivation</div>
-        <div class="dropdown-arrow">▼</div>
-        <div class="thought-dropdown">
-            <div class="thought-option" data-thought="Success is not final, failure is not fatal: it is the courage to continue that counts.">Churchill Quote</div>
-            <div class="thought-option" data-thought="The future belongs to those who believe in the beauty of their dreams.">Eleanor Roosevelt Quote</div>
-            <div class="thought-option" data-thought="It does not matter how slowly you go as long as you do not stop.">Confucius Quote</div>
-            <div class="thought-option" data-thought="Believe you can and you're halfway there.">Theodore Roosevelt Quote</div>
-            <div class="thought-option" id="custom-thought">Custom Thought</div>
-        </div>
+  <header>
+    <h1>STARK</h1>
+    <h2>Student Task And Reminder Keeper</h2>
+  </header>
+
+  <!-- Motivation Thought Section -->
+  <div class="thought-container">
+    <div id="current-thought">Click arrow to select your motivation</div>
+    <div class="dropdown-arrow">▼</div>
+    <div class="thought-dropdown">
+      <div class="thought-option"
+        data-thought="Success is not final, failure is not fatal: it is the courage to continue that counts.">Churchill
+        Quote</div>
+      <div class="thought-option" data-thought="The future belongs to those who believe in the beauty of their dreams.">
+        Eleanor Roosevelt Quote</div>
+      <div class="thought-option" data-thought="It does not matter how slowly you go as long as you do not stop.">
+        Confucius Quote</div>
+      <div class="thought-option" data-thought="Believe you can and you're halfway there.">Theodore Roosevelt Quote
+      </div>
+      <div class="thought-option" id="custom-thought">Custom Thought</div>
     </div>
+  </div>
 
-    
-    <!-- To-Do List Section -->
-    <section class="section" id="todo-section">
-        <h2>To-Do List</h2>
-        <div class="progress-bar">
-            <div class="progress" id="todo-progress"></div>
-        </div>
-        <form id="todo-form">
-            <!-- Change todo input placeholder -->
-            <input type="text" id="todo-input" placeholder="Enter a task or schedule..." maxlength="40" required>
-            <button type="submit">Add Task</button>
-        </form>
-        <h3>Pending Tasks</h3>
-        <ul id="todo-list"></ul>
-    </section>
 
-    
+  <section id="notes-section">
+    <h2>Notes</h2>
+    <div id="notes-container">
+      <!-- Notes will be dynamically added here -->
+    </div>
+    <button id="add-note-btn">Add Note</button>
+  </section>
 
-    <!-- Timer Section -->
-    <section class="section" id="timer-section">
-        <h2>Timer</h2>
-        <button id="start-timer">Start Timer</button>
-        <div id="timer-display">00:00</div>
-        <h3>Session Logs</h3>
-        <div id="timer-logs"></div>
-    </section>
+  <!-- Add/Edit Note Popup -->
+  <div id="add-edit-popup" class="hidden">
+    <div class="popup-content">
+      <h3 id="popup-header">Add Note</h3>
+      <input type="text" id="note-title-input" placeholder="Enter title (required)" maxlength="50" />
+      <textarea id="note-content-input" placeholder="Enter content (max 200 characters)" maxlength="200"></textarea>
+      <div class="popup-buttons">
+        <button id="save-note-btn">Save</button>
+        <button id="cancel-add-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
 
-    <script src="scripts.js"></script>
+  <!-- View/Edit Note Popup -->
+  <div id="view-popup" class="hidden">
+    <div class="popup-content">
+      <h3 id="view-popup-title"></h3>
+      <textarea id="view-popup-content" readonly></textarea>
+      <div class="note-timestamp" id="view-popup-timestamp"></div>
+      <div class="popup-buttons">
+        <button id="close-view-popup-btn">Close</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- To-Do List Section -->
+  <section class="section" id="todo-section">
+    <h2>To-Do List</h2>
+    <div class="progress-bar">
+      <div class="progress" id="todo-progress"></div>
+    </div>
+    <form id="todo-form">
+      <!-- Change todo input placeholder -->
+      <input type="text" id="todo-input" placeholder="Enter a task or schedule..." maxlength="40" required>
+      <button type="submit">Add Task</button>
+    </form>
+    <h3>Pending Tasks</h3>
+    <ul id="todo-list"></ul>
+  </section>
+
+  <!-- Timer Section -->
+  <section class="section" id="timer-section">
+    <h2>Timer</h2>
+    <button id="start-timer">Start Timer</button>
+    <div id="timer-display">00:00</div>
+    <h3>Session Logs</h3>
+    <div id="timer-logs"></div>
+  </section>
+
+  <div id="delete-confirm-popup" class="hidden">
+    <div class="popup-content">
+      <h3>Delete Note</h3>
+      <p>Are you sure you want to delete this note?</p>
+      <div class="popup-buttons">
+        <button id="confirm-delete-btn">Delete</button>
+        <button id="cancel-delete-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="scripts.js"></script>
 </body>
+
 </html>
