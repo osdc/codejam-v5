@@ -1,29 +1,57 @@
 "use client";
 import axios from "axios";
+import { useState } from "react";
 
 const NewItemForm = () => {
+  const [image, setImage] = useState<File | null>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setImage(e.target.files[0]);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
+    try {
+      const formData = new FormData();
+      if (image) {
+        formData.append("image", image);
+      }
 
-    const { data: resData } = await axios.post(
-      "http://localhost:3000/api/items",
-      data
-    );
-    console.log(resData);
+      const { data } = await axios.post(
+        "http://localhost:3000/api/items",
+        formData
+      );
+      console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
   };
   return (
     <form action="" onSubmit={handleSubmit}>
       <input type="text" placeholder="item name" name="name" />
       <input type="text" placeholder="description" name="description" />
-      <input type="text" placeholder="your name" name="founderName" />
-      <input type="text" placeholder="your number" name="founderNumber" />
-      <input type="text" placeholder="your email" name="founderEmail" />
+      <input
+        type="text"
+        placeholder="contact information"
+        name="contactInformation"
+      />
+      <input type="date" />
+      <select name="campus" id="">
+        <option value="62">62</option>
+        <option value="128">128</option>
+      </select>
       <input
         type="text"
         placeholder="where did you find this item?"
-        name="foundAddress"
+        name="location"
+      />
+      <input
+        type="file"
+        accept="image/*"
+        name="image"
+        onChange={handleFileChange}
       />
       <button type="submit">Add</button>
     </form>

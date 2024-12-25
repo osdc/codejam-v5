@@ -25,8 +25,8 @@ const itemSchema = new Schema<IItem>(
     },
     category: {
       type: String,
-      enum: ["lost" | "found"],
       required: true,
+      enum: ["lost", "found"],
     },
     campus: {
       type: Number,
