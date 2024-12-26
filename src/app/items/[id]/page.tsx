@@ -11,12 +11,9 @@ const getData = async (id: string) => {
     console.log(e);
   }
 };
-export type PageProps = {
-  params: { id: string };
-};
 
-const ItemDetails = async ({ params }: PageProps) => {
-  const { id } = await params;
+const ItemDetails = async ({ params }: { params: { id: string } }) => {
+  const { id } = params;
   const item: IItem = await getData(id);
   if (!item) {
     return (
