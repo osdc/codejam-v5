@@ -15,6 +15,14 @@ const getData = async (id: string) => {
 const ItemDetails = async ({ params }: { params: { id: string } }) => {
   const { id } = await params;
   const item: IItem = await getData(id);
+  if (!item) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-white">
+        Item not found
+      </div>
+    );
+  }
+
   const date = new Date(item.date);
   return (
     <div className="min-h-screen h-fit w-full bg-black md:flex md:pt-12">
