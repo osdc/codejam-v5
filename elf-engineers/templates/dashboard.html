@@ -457,7 +457,7 @@
       
       // Update month/year display
       const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-      document.getElementById('currentMonth').textContent = ${monthNames[selectedMonth]} ${selectedYear};
+      document.getElementById('currentMonth').textContent = `${monthNames[selectedMonth]} ${selectedYear}`;
       
       const calendarBody = document.getElementById('calendarBody');
       calendarBody.innerHTML = '';
@@ -477,7 +477,7 @@
             break;
           } else {
             cell.textContent = date;
-            cell.setAttribute('data-date', ${selectedYear}-${(selectedMonth + 1).toString().padStart(2, '0')}-${date.toString().padStart(2, '0')});
+            cell.setAttribute('data-date', `${selectedYear}-${(selectedMonth + 1).toString().padStart(2, '0')}-${date.toString().padStart(2, '0')}`);
             
             if (date === today.getDate() && selectedMonth === today.getMonth() && selectedYear === today.getFullYear()) {
               cell.style.backgroundColor = 'rgba(184,134,11,0.2)';
@@ -487,11 +487,11 @@
             // Add click handler for notes
             cell.addEventListener('click', function(e) {
               const dateStr = e.target.getAttribute('data-date');
-              const existingNote = localStorage.getItem(note_${dateStr}) || '';
+              const existingNote = localStorage.getItem(`note_${dateStr}`) || '';
               const note = prompt('Enter note for ' + dateStr, existingNote);
               
               if (note !== null) {
-                localStorage.setItem(note_${dateStr}, note);
+                localStorage.setItem(`note_${dateStr}`, note);
                 // Visual indicator for dates with notes
                 if (note) {
                   e.target.style.border = '2px solid rgba(184,134,11,0.5)';
@@ -502,7 +502,7 @@
             });
             
             // Show visual indicator for existing notes
-            const existingNote = localStorage.getItem(note_${cell.getAttribute('data-date')});
+            const existingNote = localStorage.getItem(`note_${cell.getAttribute('data-date')}`);
             if (existingNote) {
               cell.style.border = '2px solid rgba(184,134,11,0.5)';
             }
@@ -561,9 +561,9 @@
       const minuteAngle = minutes * 6;
       const secondAngle = seconds * 6;
       
-      hourHand.setAttribute('transform', rotate(${hourAngle} 12 12));
-      minuteHand.setAttribute('transform', rotate(${minuteAngle} 12 12));
-      secondHand.setAttribute('transform', rotate(${secondAngle} 12 12));
+      hourHand.setAttribute('transform', `rotate(${hourAngle} 12 12)`);
+      minuteHand.setAttribute('transform', `rotate(${minuteAngle} 12 12)`);
+      secondHand.setAttribute('transform', `rotate(${secondAngle} 12 12)`);
       
       document.getElementById('currentTime').textContent = now.toLocaleTimeString();
     }
@@ -572,48 +572,65 @@
 
     function toggleCrownInfo() {
       const popup = document.getElementById('crownInfoPopup');
-      popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+      popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
     }
 
     function toggleStreakInfo() {
       const popup = document.getElementById('streakInfoPopup');
-      popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+      popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
     }
 
     function toggleGemsInfo() {
       const popup = document.getElementById('gemsInfoPopup');
-      popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+      popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
     }
 
     function toggleClockInfo() {
       const popup = document.getElementById('clockInfoPopup');
-      popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+      popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
     }
 
     function toggleCalendarInfo() {
       const popup = document.getElementById('calendarInfoPopup');
-      if (popup.style.display !== 'block') {
+      if (popup.style.display === 'none') {
         const today = new Date();
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         document.getElementById('todayDate').textContent = today.toLocaleDateString('en-US', options);
         generateCalendar();
       }
-      popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+      popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
     }
+
+    // Initialize popups as hidden
+    document.addEventListener('DOMContentLoaded', function() {
+      const popups = [
+        'crownInfoPopup',
+        'streakInfoPopup', 
+        'gemsInfoPopup',
+        'clockInfoPopup',
+        'calendarInfoPopup'
+      ];
+      
+      popups.forEach(id => {
+        document.getElementById(id).style.display = 'none';
+      });
+    });
 
     // Close popups when clicking outside
     window.addEventListener('click', function(event) {
       const popups = {
-        'crownInfoPopup': document.getElementById('crownInfoPopup'),
-        'streakInfoPopup': document.getElementById('streakInfoPopup'),
-        'gemsInfoPopup': document.getElementById('gemsInfoPopup'),
-        'clockInfoPopup': document.getElementById('clockInfoPopup'),
-        'calendarInfoPopup': document.getElementById('calendarInfoPopup')
+        'crownInfoPopup': {elem: document.getElementById('crownInfoPopup'), trigger: '.crown'},
+        'streakInfoPopup': {elem: document.getElementById('streakInfoPopup'), trigger: '.fire'}, 
+        'gemsInfoPopup': {elem: document.getElementById('gemsInfoPopup'), trigger: '.sock'},
+        'clockInfoPopup': {elem: document.getElementById('clockInfoPopup'), trigger: '.clock'},
+        'calendarInfoPopup': {elem: document.getElementById('calendarInfoPopup'), trigger: '.calendar'}
       };
       
-      Object.entries(popups).forEach(([id, popup]) => {
-        if (event.target === popup) {
-          popup.style.display = 'none';
+      Object.entries(popups).forEach(([id, {elem, trigger}]) => {
+        if (event.target !== elem && 
+            !elem.contains(event.target) && 
+            !event.target.closest(trigger)) {
+          elem.style.display = 'none';
         }
       });
     });
