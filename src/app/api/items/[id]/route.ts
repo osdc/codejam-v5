@@ -1,8 +1,11 @@
 import { connectToDb } from "@/lib/connection";
 import { Item } from "@/models/item.model";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async ({ params }: { params: { id: string } }) => {
+export const GET = async (
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) => {
   const { id } = await params;
   try {
     connectToDb();
