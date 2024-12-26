@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { IItem } from "@/models/item.model";
-import Image from "next/image";
 import styles from "@/components/ItemCard.module.css";
 
 const ItemCard = ({ item }: { item: IItem }) => {

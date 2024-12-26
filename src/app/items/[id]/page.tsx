@@ -1,4 +1,3 @@
-import DeleteButton from "@/components/DeleteButton";
 import { IItem } from "@/models/item.model";
 import axios from "axios";
 

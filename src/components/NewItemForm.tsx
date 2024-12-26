@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "./ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
 const NewItemForm = () => {
@@ -23,6 +23,7 @@ const NewItemForm = () => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
+      console.log(image);
       setImage(e.target.files[0]);
     }
   };

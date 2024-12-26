@@ -3,7 +3,7 @@ import { Item } from "@/models/item.model";
 import { NextRequest, NextResponse } from "next/server";
 import { uploadImage } from "@/lib/cloudinary";
 
-export const GET = async (request: Request) => {
+export const GET = async () => {
   try {
     connectToDb();
     const allItems = await Item.find({});
