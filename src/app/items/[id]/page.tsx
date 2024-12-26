@@ -4,7 +4,9 @@ import axios from "axios";
 
 const getData = async (id: string) => {
   try {
-    const { data } = await axios.get(`http://localhost:3000/api/items/${id}`);
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/items/${id}`
+    );
     return data;
   } catch (e) {
     console.log(e);

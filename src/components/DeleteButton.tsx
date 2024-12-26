@@ -5,7 +5,7 @@ import axios from "axios";
 const handleClick = async (id: string) => {
   try {
     const { data } = await axios.delete(
-      `http://localhost:3000/api/items/${id}`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/items/${id}`
     );
     console.log(data);
   } catch (e) {

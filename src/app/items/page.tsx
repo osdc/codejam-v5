@@ -4,7 +4,9 @@ import { IItem } from "@/models/item.model";
 
 const getData = async () => {
   try {
-    const { data } = await axios.get("http://localhost:3000/api/items");
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/items`
+    );
     return data;
   } catch (e) {
     console.log(e);

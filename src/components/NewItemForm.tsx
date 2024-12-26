@@ -19,6 +19,7 @@ const NewItemForm = () => {
   const [image, setImage] = useState<File | null>(null);
   const router = useRouter();
   const formRef = useRef<HTMLFormElement | null>(null);
+  console.log(process.env.NEXT_PUBLIC_BACKEND_URL);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -37,7 +38,7 @@ const NewItemForm = () => {
       }
 
       const { data } = await axios.post(
-        "http://localhost:3000/api/items",
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/items`,
         formData
       );
       if (data.status === 200) {
