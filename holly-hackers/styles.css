@@ -563,3 +563,70 @@ li button {
 #confirm-delete-btn:hover {
     background: #c82333;
 }
+
+/* Calculator Styles */
+.calculator {
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    width: 100%;
+    max-width: 300px;
+    margin: 20px auto;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.calculator-screen {
+    width: 280px;
+    height: 50px;
+    border: 1px solid #ddd;
+    background-color: #000000e7;
+    color: #333;
+    text-align: right;
+    padding: 10px 20px;
+    font-size: 2rem;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.calculator-keys {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 8px;
+    padding: 10px;
+}
+
+.calculator-keys button {
+    height: 50px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    color: #333;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+}
+
+.operator {
+    background-color: #e9ecef;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.equal-sign {
+    background-color: #007bff;
+    color: white;
+}
+
+.all-clear {
+    background-color: #dc3545;
+    color: white;
+}
+
+.calculator-keys button:hover {
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+}

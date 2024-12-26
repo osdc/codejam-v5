@@ -462,3 +462,106 @@ function closeCongratsPopup() {
         congratsPopup.remove();
     }
 }
+
+// Add at the end of the file
+const calculator = {
+    displayValue: '0',
+    expression: ''
+};
+
+document.querySelector('.calculator-keys').addEventListener('click', (event) => {
+    const { target } = event;
+    if (!target.matches('button')) return;
+
+    if (target.classList.contains('equal-sign')) {
+        // Don't append = to expression, calculate immediately
+        calculateResult();
+        updateDisplay();
+        return;
+    }
+
+    if (target.classList.contains('operator')) {
+        inputOperator(target.value);
+        updateDisplay();
+        return;
+    }
+
+    if (target.classList.contains('decimal')) {
+        inputDecimal();
+        updateDisplay();
+        return;
+    }
+
+    if (target.classList.contains('all-clear')) {
+        clearCalculator();
+        updateDisplay();
+        return;
+    }
+
+    inputDigit(target.value);
+    updateDisplay();
+});
+
+function updateDisplay() {
+    const display = document.querySelector('.calculator-screen');
+    display.value = calculator.displayValue;
+}
+
+function inputDigit(digit) {
+    if (calculator.displayValue === '0') {
+        calculator.displayValue = digit;
+        calculator.expression = digit;
+    } else {
+        calculator.displayValue += digit;
+        calculator.expression += digit;
+    }
+}
+
+function inputOperator(operator) {
+    calculator.displayValue += operator;
+    calculator.expression += operator;
+}
+
+function inputDecimal() {
+    if (!calculator.displayValue.includes('.')) {
+        calculator.displayValue += '.';
+        calculator.expression += '.';
+    }
+}
+
+function clearCalculator() {
+    calculator.displayValue = '0';
+    calculator.expression = '';
+}
+
+function validateExpression(expr) {
+    // Check for valid mathematical expression
+    try {
+        // Replace ^ with ** for exponentiation
+        expr = expr.replace(/\^/g, '**');
+        // Test evaluation
+        Function(`'use strict'; return (${expr})`)();
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
+function calculateResult() {
+    try {
+        if (!validateExpression(calculator.expression)) {
+            throw new Error('Invalid Expression');
+        }
+        let expr = calculator.expression.replace(/\^/g, '**');
+        let result = Function(`'use strict'; return (${expr})`)();
+        // Update both display and expression with result
+        calculator.displayValue = String(result);
+        calculator.expression = String(result);
+    } catch (e) {
+        calculator.displayValue = 'Syntax Error';
+        setTimeout(() => {
+            clearCalculator();
+            updateDisplay();
+        }, 2000);
+    }
+}
