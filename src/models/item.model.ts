@@ -42,6 +42,10 @@ const itemSchema = new Schema<IItem>(
       type: String,
       required: false,
     },
+    location: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

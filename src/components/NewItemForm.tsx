@@ -7,12 +7,13 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "./ui/input";
 import { Textarea } from "@/components/ui/textarea";
+
+import { ToastContainer, toast } from "react-toastify";
 
 const NewItemForm = () => {
   const [image, setImage] = useState<File | null>(null);
@@ -32,7 +33,17 @@ const NewItemForm = () => {
         "http://localhost:3000/api/items",
         formData
       );
-      console.log(data);
+      if (data.status === 200) {
+        toast.success("Your item has been listed successfully!", {
+          position: "bottom-right",
+          theme: "dark",
+        });
+      } else {
+        toast.error("Something went wrong! Please try again", {
+          position: "bottom-right",
+          theme: "dark",
+        });
+      }
     } catch (e) {
       console.log(e);
     }
@@ -145,6 +156,7 @@ const NewItemForm = () => {
           </button>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 };

@@ -14,25 +14,29 @@ export const GET = async (request: Request) => {
 };
 
 export const POST = async (req: NextRequest) => {
-  const formData = await req.formData();
-  const image = formData.get("image") as File;
-  const body = Object.fromEntries(formData.entries());
-  console.log(body);
-  if (image) {
-    const data: { url: string } = (await uploadImage(image)) as { url: string };
-    body.image = data.url as string;
-  }
   try {
+    const formData = await req.formData();
+    const image = formData.get("image") as File | null;
+    const body = Object.fromEntries(formData.entries());
+    console.log(body);
+    if (image) {
+      const data: { url: string } = (await uploadImage(image)) as {
+        url: string;
+      };
+      body.image = data.url as string;
+    }
+
     connectToDb();
     const newItem = await Item.create(body);
-    return NextResponse.json(
-      {
-        message: "all good",
-        newItem,
-      },
-      { status: 200 }
-    );
+    return NextResponse.json({
+      message: "all good",
+      newItem,
+      status: 200,
+    });
   } catch (error) {
-    throw new Error("Some error occurred while creating document.");
+    return NextResponse.json({
+      message: "Something went wrong!",
+      status: 500,
+    });
   }
 };
