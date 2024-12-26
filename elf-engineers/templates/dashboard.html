@@ -94,37 +94,71 @@
     <div style="position: fixed; right: 400px; top: 50px; font-family: 'Gloria Hallelujah', cursive; font-size: 52px; color: #4A2410; text-shadow: 2px 2px 4px rgba(255,255,255,0.7); letter-spacing: 1px; font-weight: bold; text-decoration: underline;">
       {{ user.name }}
     </div>
-
     <!-- Calendar and Clock in upper right corner -->
     <div style="position: fixed; right: 120px; top: -80px; display: flex; flex-direction: column; gap: 30px; z-index: 900;">
       <!-- Clock -->
       <div class="clock" onclick="toggleClockInfo()" style="cursor: pointer;">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96">
+          <!-- Clock face with enhanced design -->
           <circle cx="12" cy="12" r="10" fill="#fff" stroke="#4A2410" stroke-width="2"/>
-          <line x1="12" y1="12" x2="12" y2="6" stroke="#4A2410" stroke-width="2" id="hourHand"/>
-          <line x1="12" y1="12" x2="16" y2="12" stroke="#4A2410" stroke-width="2" id="minuteHand"/>
+          <!-- Hour markers -->
+          <line x1="12" y1="3" x2="12" y2="4" stroke="#4A2410" stroke-width="1"/>
+          <line x1="12" y1="20" x2="12" y2="21" stroke="#4A2410" stroke-width="1"/>
+          <line x1="3" y1="12" x2="4" y2="12" stroke="#4A2410" stroke-width="1"/>
+          <line x1="20" y1="12" x2="21" y2="12" stroke="#4A2410" stroke-width="1"/>
+          <!-- Clock center dot -->
+          <circle cx="12" cy="12" r="0.5" fill="#4A2410"/>
+          <!-- Clock hands -->
+          <line x1="12" y1="12" x2="16" y2="12" stroke="#4A2410" stroke-width="1" id="hourHand" stroke-linecap="round"/>
+          <line x1="12" y1="12" x2="12" y2="7" stroke="#4A2410" stroke-width="0.75" id="minuteHand" stroke-linecap="round"/>
+          <line x1="12" y1="12" x2="12" y2="6" stroke="#FF0000" stroke-width="0.5" id="secondHand" stroke-linecap="round"/>
+          <!-- Decorative outer ring -->
+          <circle cx="12" cy="12" r="11" fill="none" stroke="#4A2410" stroke-width="0.5" stroke-dasharray="2,2"/>
         </svg>
       </div>
 
       <!-- Calendar -->
       <div class="calendar" onclick="toggleCalendarInfo()" style="cursor: pointer;">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64">
-          <rect x="2" y="4" width="20" height="18" fill="#fff" stroke="#B8860B" stroke-width="2"/>
-          <line x1="2" y1="10" x2="22" y2="10" stroke="#B8860B" stroke-width="2"/>
-          <line x1="7" y1="2" x2="7" y2="6" stroke="#B8860B" stroke-width="2"/>
-          <line x1="17" y1="2" x2="17" y2="6" stroke="#B8860B" stroke-width="2"/>
-          <text x="12" y="18" text-anchor="middle" fill="#B8860B" font-family="'Playfair Display', serif" font-size="8" id="calendarDate">
+          <!-- Calendar background -->
+          <rect x="2" y="4" width="20" height="18" fill="#fff" stroke="#B8860B" stroke-width="1.5" rx="3"/>
+          
+          <!-- Month header background -->
+          <rect x="2" y="4" width="20" height="6" fill="#B8860B" rx="3 3 0 0"/>
+          
+          <!-- Calendar hangers -->
+          <line x1="7" y1="2" x2="7" y2="6" stroke="#B8860B" stroke-width="1.5"/>
+          <line x1="17" y1="2" x2="17" y2="6" stroke="#B8860B" stroke-width="1.5"/>
+          
+          <!-- Month text -->
+          <text x="12" y="8.5" text-anchor="middle" fill="#fff" font-family="monospace" font-size="4" id="calendarMonth" style="letter-spacing: 1px;">
+            D_E_C
           </text>
+          
+          <!-- Date text -->
+          <text x="12" y="16" text-anchor="middle" fill="#B8860B" font-family="monospace" font-size="8" font-weight="bold" id="calendarDate" style="letter-spacing: 2px;">
+            [25]
+          </text>
+          <!-- Decorative elements -->
+          <circle cx="7" cy="2" r="0.75" fill="#B8860B"/>
+          <circle cx="17" cy="2" r="0.75" fill="#B8860B"/>
+          
+          <!-- Grid lines suggestion -->
+          <line x1="8" y1="13" x2="16" y2="13" stroke="#B8860B" stroke-width="0.5" opacity="0.3"/>
+          <line x1="8" y1="18" x2="16" y2="18" stroke="#B8860B" stroke-width="0.5" opacity="0.3"/>
         </svg>
       </div>
     </div>
-
-    <!-- Calendar Info Popup -->
-    <div class="calendar-info-popup" id="calendarInfoPopup" style="position: fixed; right: 30px; top: 110px; background: rgba(255,255,255,0.15); backdrop-filter: blur(15px); color: #B8860B; padding: 20px; border-radius: 15px; display: none; z-index: 1001; font-family: 'Playfair Display', serif; box-shadow: 0 8px 32px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.3); min-width: 300px;">
+    <div class="calendar-info-popup" id="calendarInfoPopup" style="display: none; position: fixed; right: 30px; top: 110px; background: rgba(255,255,255,0.95); color: #B8860B; padding: 20px; border-radius: 15px; z-index: 1001; font-family: 'Playfair Display', serif; box-shadow: 0 8px 32px rgba(0,0,0,0.1); border: 1px solid rgba(184,134,11,0.3); min-width: 300px;">
       <div class="calendar-info-content">
         <span class="close-calendar-info" onclick="toggleCalendarInfo()" style="position: absolute; right: 15px; top: 10px; cursor: pointer; color: #B8860B; font-size: 20px;">&times;</span>
         <h3 style="color: #4b3705; text-align: center; font-size: 22px; text-transform: uppercase; letter-spacing: 2px;">Today's Date</h3>
         <p id="todayDate" style="color: #493708; font-size: 18px; text-align: center;"></p>
+        <div id="currentMonth" style="text-align: center; margin: 10px 0; font-size: 20px; color: #4b3705;"></div>
+        <div style="text-align: center; margin: 10px 0;">
+          <button onclick="previousMonth()" style="margin-right: 10px; padding: 5px 10px;">Previous</button>
+          <button onclick="nextMonth()" style="padding: 5px 10px;">Next</button>
+        </div>
         <div id="miniCalendar" style="margin-top: 20px; color: #473505;">
           <table style="width: 100%; border-collapse: collapse;">
             <thead>
@@ -149,7 +183,6 @@
         <p id="currentTime" style="color: #4A2410; font-size: 18px; text-align: center; margin-top: 15px;"></p>
       </div>
     </div>
-
     <ul class="wall">
       {% for i in range(15) %}
         <li></li>
@@ -278,16 +311,17 @@
     updateCalendarDate();
 
     // Generate calendar
-    function generateCalendar() {
+    function generateCalendar(selectedMonth = new Date().getMonth(), selectedYear = new Date().getFullYear()) {
       const today = new Date();
-      const year = today.getFullYear();
-      const month = today.getMonth();
-      
-      const firstDay = new Date(year, month, 1);
-      const lastDay = new Date(year, month + 1, 0);
+      const firstDay = new Date(selectedYear, selectedMonth, 1);
+      const lastDay = new Date(selectedYear, selectedMonth + 1, 0);
       
       const startingDay = firstDay.getDay();
       const totalDays = lastDay.getDate();
+      
+      // Update month/year display
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      document.getElementById('currentMonth').textContent = ${monthNames[selectedMonth]} ${selectedYear};
       
       const calendarBody = document.getElementById('calendarBody');
       calendarBody.innerHTML = '';
@@ -299,6 +333,7 @@
           const cell = document.createElement('td');
           cell.style.padding = '5px';
           cell.style.textAlign = 'center';
+          cell.style.cursor = 'pointer';
           
           if (i === 0 && j < startingDay) {
             cell.textContent = '';
@@ -306,10 +341,36 @@
             break;
           } else {
             cell.textContent = date;
-            if (date === today.getDate()) {
+            cell.setAttribute('data-date', ${selectedYear}-${(selectedMonth + 1).toString().padStart(2, '0')}-${date.toString().padStart(2, '0')});
+            
+            if (date === today.getDate() && selectedMonth === today.getMonth() && selectedYear === today.getFullYear()) {
               cell.style.backgroundColor = 'rgba(184,134,11,0.2)';
               cell.style.borderRadius = '50%';
             }
+            
+            // Add click handler for notes
+            cell.addEventListener('click', function(e) {
+              const dateStr = e.target.getAttribute('data-date');
+              const existingNote = localStorage.getItem(note_${dateStr}) || '';
+              const note = prompt('Enter note for ' + dateStr, existingNote);
+              
+              if (note !== null) {
+                localStorage.setItem(note_${dateStr}, note);
+                // Visual indicator for dates with notes
+                if (note) {
+                  e.target.style.border = '2px solid rgba(184,134,11,0.5)';
+                } else {
+                  e.target.style.border = 'none';
+                }
+              }
+            });
+            
+            // Show visual indicator for existing notes
+            const existingNote = localStorage.getItem(note_${cell.getAttribute('data-date')});
+            if (existingNote) {
+              cell.style.border = '2px solid rgba(184,134,11,0.5)';
+            }
+            
             date++;
           }
           row.appendChild(cell);
@@ -318,20 +379,55 @@
       }
     }
 
+    // Add navigation functions
+    function previousMonth() {
+      const currentMonth = document.getElementById('currentMonth').textContent;
+      const [month, year] = currentMonth.split(' ');
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      let newMonth = monthNames.indexOf(month) - 1;
+      let newYear = parseInt(year);
+      
+      if (newMonth < 0) {
+        newMonth = 11;
+        newYear--;
+      }
+      
+      generateCalendar(newMonth, newYear);
+    }
+
+    function nextMonth() {
+      const currentMonth = document.getElementById('currentMonth').textContent;
+      const [month, year] = currentMonth.split(' ');
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      let newMonth = monthNames.indexOf(month) + 1;
+      let newYear = parseInt(year);
+      
+      if (newMonth > 11) {
+        newMonth = 0;
+        newYear++;
+      }
+      
+      generateCalendar(newMonth, newYear);
+    }
+
     // Update clock hands
     function updateClock() {
       const now = new Date();
-      const hours = now.getHours() % 12;
+      const hours = (now.getHours() - 3) % 12; // Subtract 3 hours to fix time
       const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
       
       const hourHand = document.getElementById('hourHand');
       const minuteHand = document.getElementById('minuteHand');
+      const secondHand = document.getElementById('secondHand');
       
       const hourAngle = (hours + minutes/60) * 30;
       const minuteAngle = minutes * 6;
+      const secondAngle = seconds * 6;
       
-      hourHand.setAttribute('transform', `rotate(${hourAngle} 12 12)`);
-      minuteHand.setAttribute('transform', `rotate(${minuteAngle} 12 12)`);
+      hourHand.setAttribute('transform', rotate(${hourAngle} 12 12));
+      minuteHand.setAttribute('transform', rotate(${minuteAngle} 12 12));
+      secondHand.setAttribute('transform', rotate(${secondAngle} 12 12));
       
       document.getElementById('currentTime').textContent = now.toLocaleTimeString();
     }
