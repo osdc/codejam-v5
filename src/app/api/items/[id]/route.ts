@@ -2,11 +2,8 @@ import { connectToDb } from "@/lib/connection";
 import { Item } from "@/models/item.model";
 import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async (
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) => {
-  const { id } = await params;
+export const GET = async (request: NextRequest) => {
+  const id = request.nextUrl.pathname.split("/").pop();
   try {
     connectToDb();
     const item = await Item.findById(id);
