@@ -3,7 +3,7 @@ import mongoose, { Schema, model } from "mongoose";
 export interface IItem {
   _id: string;
   name: string;
-  description?: string;
+  description: string;
   contactInformation: string;
   location: string;
   category: "lost" | "found";
@@ -18,7 +18,10 @@ const itemSchema = new Schema<IItem>(
       type: String,
       required: true,
     },
-    description: String,
+    description: {
+      type: String,
+      required: true,
+    },
     contactInformation: {
       type: String,
       required: true,

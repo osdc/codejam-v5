@@ -25,6 +25,7 @@ export const POST = async (req: NextRequest) => {
       };
       body.image = data.url as string;
     }
+    console.log(body);
 
     connectToDb();
     const newItem = await Item.create(body);

@@ -1,6 +1,6 @@
 "use client";
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 const NewItemForm = () => {
   const [image, setImage] = useState<File | null>(null);
   const router = useRouter();
+  const formRef = useRef<HTMLFormElement | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -27,14 +28,22 @@ const NewItemForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     try {
       const formData = new FormData(e.currentTarget);
+      const image = formData.get("image") as { size: number };
+      if (image.size === 0) {
+        formData.delete("image");
+      }
 
       const { data } = await axios.post(
         "http://localhost:3000/api/items",
         formData
       );
       if (data.status === 200) {
+        if (formRef.current) {
+          formRef.current.reset(); // This will clear all form fields
+        }
         toast.success("Your item has been listed successfully!", {
           position: "bottom-right",
           theme: "dark",
@@ -60,6 +69,7 @@ const NewItemForm = () => {
           method="POST"
           encType="multipart/form-data"
           className="flex flex-col"
+          ref={formRef}
         >
           <Label htmlFor="category" className="text-white py-2">
             Category
@@ -94,6 +104,7 @@ const NewItemForm = () => {
           <Textarea
             placeholder="A short and detailed description of the item."
             className="text-white"
+            name="description"
           />
           <Label htmlFor="contactInformation" className="text-white py-2">
             Contact Information

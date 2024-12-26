@@ -36,7 +36,7 @@ const Navbar = () => {
               </Link>
               <Link
                 href="/items/new"
-                className="bg-red-500 text-black hover:bg-red-900 rounded-lg p-2"
+                className="bg-red-500 text-white hover:bg-red-900 rounded-lg p-2"
               >
                 Report Item
               </Link>

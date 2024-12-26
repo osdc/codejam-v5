@@ -15,10 +15,12 @@ const Items = async () => {
   const items: IItem[] = await getData();
 
   return (
-    <div>
-      {items.map((i: IItem) => (
-        <ItemCard item={i} key={i._id} />
-      ))}
+    <div className="min-h-screen h-fit w-full bg-black flex justify-center">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 justify-center">
+        {items.map((i: IItem) => (
+          <ItemCard item={i} key={i._id} />
+        ))}
+      </div>
     </div>
   );
 };

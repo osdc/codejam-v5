@@ -2,7 +2,7 @@ import NewItemForm from "@/components/NewItemForm";
 
 const NewItemPage = () => {
   return (
-    <div className="h-fit w-full bg-black  flex flex-col items-center">
+    <div className="min-h-screen h-fit w-full bg-black  flex flex-col items-center">
       <NewItemForm />
     </div>
   );
