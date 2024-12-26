@@ -13,11 +13,8 @@ export const GET = async (request: NextRequest) => {
   }
 };
 
-export const DELETE = async (
-  request: Request,
-  { params }: { params: { id: string } }
-) => {
-  const { id } = await params;
+export const DELETE = async (request: NextRequest) => {
+  const id = request.nextUrl.pathname.split("/").pop();
   try {
     connectToDb();
     const deletedItem = await Item.findByIdAndDelete(id, { new: true });
