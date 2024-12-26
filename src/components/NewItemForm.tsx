@@ -12,11 +12,12 @@ import {
 } from "@/components/ui/select";
 import { Input } from "./ui/input";
 import { Textarea } from "@/components/ui/textarea";
-
 import { ToastContainer, toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const NewItemForm = () => {
   const [image, setImage] = useState<File | null>(null);
+  const router = useRouter();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -38,6 +39,7 @@ const NewItemForm = () => {
           position: "bottom-right",
           theme: "dark",
         });
+        router.push("/items");
       } else {
         toast.error("Something went wrong! Please try again", {
           position: "bottom-right",
@@ -80,7 +82,7 @@ const NewItemForm = () => {
           </Label>
           <Input
             type="name"
-            placeholder="Your name"
+            placeholder="Item name"
             name="name"
             id="name"
             className="text-white"
@@ -156,7 +158,6 @@ const NewItemForm = () => {
           </button>
         </form>
       </div>
-      <ToastContainer />
     </div>
   );
 };
