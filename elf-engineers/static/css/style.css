@@ -48,14 +48,13 @@ html, body {
   width: 100%;
   min-height: 100vh;
   padding-left: 150px;
-  padding-bottom: 100px; /* Added padding to move links up */
+  padding-bottom: 100px;
 }
 
 .links__list {
   position: relative;
   list-style: none;
 }
-
 .links__item {
   width: var(--link-size);
   height: var(--link-size);
@@ -67,6 +66,28 @@ html, body {
   --angle: calc(360deg / var(--item-total));
   --rotation: calc(140deg + var(--angle) * var(--item-count));
   transform: rotate(var(--rotation)) translate(calc(var(--link-size) + var(--base-grid) * 2)) rotate(calc(var(--rotation) * -1));
+  animation: glow 2s ease-in-out infinite alternate;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px #fff,
+                0 0 10px #fff,
+                0 0 15px var(--colour-bg-1),
+                0 0 20px var(--colour-bg-1);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+  to {
+    box-shadow: 0 0 10px #fff,
+                0 0 20px #fff,
+                0 0 30px var(--colour-bg-1),
+                0 0 40px var(--colour-bg-1);
+    border-color: rgba(255, 255, 255, 0.6);
+  }
 }
 
 .links__link {
@@ -85,6 +106,7 @@ html, body {
   text-decoration: none;
   color: inherit;
   transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
 }
 
 .links__icon {
@@ -92,6 +114,9 @@ html, body {
   height: calc(var(--base-grid) * 4);
   transition: all .3s ease-in-out;
   fill: var(--colour-black);
+  border-radius: 50%;
+  padding: 5px;
+  background-color: var(--colour-white);
 }
 
 .links__text {
@@ -124,8 +149,10 @@ html, body {
 
 .links__link:hover {
   transform: scale(1.2);
-  filter: brightness(1.2);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+  filter: brightness(1.4);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.8),
+              0 0 50px rgba(255, 255, 255, 0.6),
+              0 0 70px rgba(255, 255, 255, 0.4);
 }
 
 .links__link:hover .links__icon {
@@ -142,7 +169,7 @@ html, body {
   transition: all .3s cubic-bezier(.37, .74, .15, 1.65);
   transform: scale(1.3);
   opacity: 1;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
 }
 
 @keyframes on-load {
@@ -177,6 +204,53 @@ html, body {
 	 transform: translate(-50%,-50%);
 	 height: 400px;
 }
+ .links__link:hover svg {
+     animation: wiggle 0.5s ease-in-out forwards, rise 0.5s ease forwards;
+     filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+ }
+
+ @keyframes wiggle {
+     0% { transform: rotate(0deg); }
+     25% { transform: rotate(5deg); }
+     50% { transform: rotate(-5deg); }
+     75% { transform: rotate(5deg); }
+     100% { transform: rotate(0deg); }
+ }
+
+ @keyframes rise {
+     0% { transform: translateY(0); }
+     100% { transform: translateY(-10px); }
+ }
+ 
+.snowman:hover {
+    animation: wiggle 0.5s ease-in-out forwards, rise 0.5s ease forwards, hatRise 0.5s ease forwards, handsChange 0.5s ease forwards;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+}
+
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    50% { transform: rotate(-5deg); }
+    75% { transform: rotate(5deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes rise {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+
+@keyframes hatRise {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-5px); }
+}
+
+@keyframes handsChange {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(15deg); }
+}
+
+
  ul.wall {
 	 position: absolute;
 	 top: 0;
