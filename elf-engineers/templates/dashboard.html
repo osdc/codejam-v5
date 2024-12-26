@@ -94,8 +94,47 @@
     <div style="position: fixed; right: 400px; top: 50px; font-family: 'Gloria Hallelujah', cursive; font-size: 52px; color: #4A2410; text-shadow: 2px 2px 4px rgba(255,255,255,0.7); letter-spacing: 1px; font-weight: bold; text-decoration: underline;">
       {{ user.name }}
     </div>
-    <!-- Snowman -->
-    <div class="snowman" onclick="toggleChatbot()" style="position: fixed; right: -450px; top: 200px; cursor: pointer; z-index: 1000;">
+    <div class="tree-container">
+      <canvas id="canvas"></canvas>
+      <svg id="tree" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 125.8 180">
+          <g>
+              <g>
+                  <rect x="55.9" y="135" class="st0" width="13.7" height="45" />
+                  <polygon class="st1" points="24,84.3 37.5,81.3 14.9,121.7 28.8,118.6 0,170.3 62.6,156.1 62.6,15.3" />
+                  <polygon class="st2" points="125.8,170.3 96.9,118.6 110.9,121.7 88.2,81.3 101.7,84.3 62.8,14.9 62.6,15.3 62.6,156.1 62.8,156" />
+              </g>
+              <g id="lights">
+                  <g id="blue-lt">
+                      <circle class="blue-lt g1" cx="70.2" cy="134.7" r="3.7" />
+                      <circle class="blue-lt g3" cx="23.1" cy="147.5" r="4.2" />
+                      <circle class="blue-lt g1" cx="59.3" cy="116.9" r="5.8" />
+                  </g>
+                  <g id="blue-dk">
+                      <circle class="blue-dk g3" cx="77.1" cy="55.3" r="4.8" />
+                      <circle class="blue-dk g1" cx="98.6" cy="148.6" r="4.5" />
+                      <circle class="blue-dk g2" cx="62.7" cy="80.2" r="4.4" />
+                  </g>
+                  <g id="red">
+                      <circle class="red g1" cx="37" cy="125.3" r="5.9" />
+                      <circle class="red g1" cx="78.2" cy="95.2" r="5.7" />
+                      <circle class="red g2" cx="54.8" cy="144.2" r="3.4" />
+                      <circle class="red g2" cx="59.8" cy="44.2" r="5.2" />
+                  </g>
+                  <g id="gold-lt">
+                      <circle class="gold-lt g1" cx="51.7" cy="64.8" r="5.7" />
+                      <circle class="gold-lt g2" cx="39.5" cy="140.4" r="4.4" />
+                  </g>
+                  <g id="gold-dk">
+                      <circle class="gold-dk g2" cx="76.9" cy="76.7" r="4.4" />
+                      <circle class="gold-dk g3" cx="83.9" cy="125.3" r="4.8" />
+                      <circle class="gold-dk g3" cx="46" cy="99.6" r="4.0" />
+                  </g>
+              </g>
+          </g>
+      </svg>
+    </div>
+        <!-- Snowman -->
+    <div class="snowman" onclick="toggleChatbot()" style="position: fixed; right: -390px; top: 200px; cursor: pointer; z-index: 1000;">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150" width="200" height="300">
         <!-- Bottom snowball -->
         <circle cx="50" cy="110" r="35" fill="white" stroke="#ddd" stroke-width="2"/>
