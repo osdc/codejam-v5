@@ -1,19 +1,7 @@
 import { connectToDb } from "@/lib/connection";
 import { Item } from "@/models/item.model";
 import { NextRequest, NextResponse } from "next/server";
-import { NextApiRequest, NextApiResponse } from "next";
-import cloudinary from "cloudinary";
-
-import multer from "multer";
-import { storage, uploadImage } from "@/lib/cloudinary";
-
-const upload = multer({ storage: storage });
-
-export const config = {
-  api: {
-    bodyParser: false, // Disable body parser to allow multer to parse the request
-  },
-};
+import { uploadImage } from "@/lib/cloudinary";
 
 export const GET = async (request: Request) => {
   try {
@@ -27,12 +15,23 @@ export const GET = async (request: Request) => {
 
 export const POST = async (req: NextRequest) => {
   const formData = await req.formData();
-  const image = formData.get("image") as unknown as File;
-  const data = await uploadImage(image);
-  return NextResponse.json(
-    {
-      message: data,
-    },
-    { status: 200 }
-  );
+  const image = formData.get("image") as File;
+  const body = Object.fromEntries(formData.entries());
+  if (image) {
+    const data: { url: string } = (await uploadImage(image)) as { url: string };
+    body.image = data.url as string;
+  }
+  try {
+    connectToDb();
+    const newItem = await Item.create(body);
+    return NextResponse.json(
+      {
+        message: "all good",
+        newItem,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    throw new Error("Some error occurred while creating document.");
+  }
 };

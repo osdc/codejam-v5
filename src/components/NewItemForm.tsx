@@ -14,10 +14,7 @@ const NewItemForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const formData = new FormData();
-      if (image) {
-        formData.append("image", image);
-      }
+      const formData = new FormData(e.currentTarget);
 
       const { data } = await axios.post(
         "http://localhost:3000/api/items",
@@ -29,7 +26,16 @@ const NewItemForm = () => {
     }
   };
   return (
-    <form action="" onSubmit={handleSubmit}>
+    <form
+      action=""
+      onSubmit={handleSubmit}
+      method="POST"
+      encType="multipart/form-data"
+    >
+      <select name="category" id="">
+        <option value="lost">Lost</option>
+        <option value="found">Found</option>
+      </select>
       <input type="text" placeholder="item name" name="name" />
       <input type="text" placeholder="description" name="description" />
       <input
@@ -37,7 +43,7 @@ const NewItemForm = () => {
         placeholder="contact information"
         name="contactInformation"
       />
-      <input type="date" />
+      <input type="date" name="date" />
       <select name="campus" id="">
         <option value="62">62</option>
         <option value="128">128</option>
