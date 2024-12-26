@@ -565,3 +565,75 @@ function calculateResult() {
         }, 2000);
     }
 }
+
+// Theme Toggle Functionality
+const themeToggle = document.getElementById('theme-toggle');
+let isDarkMode = localStorage.getItem('darkMode') === 'true';
+
+// Initialize theme
+function updateTheme() {
+    const elements = {
+        body: document.body,
+        header: document.querySelector('header'),
+        sections: document.querySelectorAll('.section'),
+        inputs: document.querySelectorAll('input, textarea'),
+        buttons: document.querySelectorAll('button'),
+        noteCards: document.querySelectorAll('.note-card'),
+        popups: document.querySelectorAll('.popup-content'),
+        calculator: document.querySelector('.calculator'),
+        calculatorScreen: document.querySelector('.calculator-screen'),
+        calculatorButtons: document.querySelectorAll('.calculator-keys button'),
+        // Add these new selectors
+        thoughtContainer: document.querySelector('.thought-container'),
+        todoSection: document.getElementById('todo-section'),
+        todoList: document.querySelectorAll('li'),
+        notesSection: document.getElementById('notes-section'),
+        motivationSection: document.querySelector('.thought-container'),
+        dropdownContent: document.querySelector('.thought-dropdown'),
+        currentThought: document.getElementById('current-thought'),
+        logEntries: document.querySelectorAll('.log-entry'),
+        timerSection: document.getElementById('timer-section'),
+        timerLogs: document.getElementById('timer-logs'),
+        thoughtOptions: document.querySelectorAll('.thought-option')
+    };
+
+    if (isDarkMode) {
+        themeToggle.textContent = '☀️ Light Mode';
+        Object.values(elements).forEach(elementOrNodeList => {
+            if (elementOrNodeList instanceof NodeList) {
+                elementOrNodeList.forEach(el => el && el.classList.add('dark-mode'));
+            } else if (elementOrNodeList) {
+                elementOrNodeList.classList.add('dark-mode');
+            }
+        });
+    } else {
+        themeToggle.textContent = '🌙 Dark Mode';
+        Object.values(elements).forEach(elementOrNodeList => {
+            if (elementOrNodeList instanceof NodeList) {
+                elementOrNodeList.forEach(el => el && el.classList.remove('dark-mode'));
+            } else if (elementOrNodeList) {
+                elementOrNodeList.classList.remove('dark-mode');
+            }
+        });
+    }
+}
+
+// Toggle theme
+themeToggle.addEventListener('click', () => {
+    isDarkMode = !isDarkMode;
+    localStorage.setItem('darkMode', isDarkMode);
+    updateTheme();
+});
+
+// Initialize theme on page load
+updateTheme();
+
+// Update theme for dynamically added elements
+const observer = new MutationObserver(() => {
+    updateTheme();
+});
+
+observer.observe(document.body, {
+    childList: true,
+    subtree: true
+});

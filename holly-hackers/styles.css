@@ -166,7 +166,8 @@ li button {
     padding: 20px;
     border-radius: 8px;
     text-align: center;
-    width: 300px;
+    width: 90%;
+    max-width: 400px;
 }
 
 .popup h2 {
@@ -352,28 +353,31 @@ li button {
 
 .popup-content {
     background: white;
-    border-radius: 8pxx;
+    border-radius: 8px;
     padding: 20px;
     width: 90%;
-    max-width: 500px;
+    max-width: 400px;
     z-index: 999;
 }
 
 #note-title-input,
-#note-content-input,
+#note-content-input,        
 #view-popup-content {
-    width: 100%;
+    width: 95%;
     padding: 10px;
-    margin: 10px 0;
+    margin: 10px auto;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 14px;
+    display: block;
 }
 
 #note-content-input,
 #view-popup-content {
     min-height: 150px;
     resize: vertical;
+    height: 120px;
+    resize: none;
 }
 
 .popup-buttons {
@@ -579,12 +583,12 @@ li button {
 .calculator-screen {
     width: 280px;
     height: 50px;
-    border: 1px solid #ddd;
+    border: 1px solid #dddddd;
     background-color: #000000e7;
-    color: #333;
+    color: #a7a7a7;
     text-align: right;
     padding: 10px 20px;
-    font-size: 2rem;
+    font-size: 3rem;        
     margin-bottom: 15px;
     border-radius: 4px;
 }
@@ -629,4 +633,203 @@ li button {
 .calculator-keys button:hover {
     background-color: #e2e6ea;
     border-color: #dae0e5;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+header.dark-mode {
+    background-color: #000000;
+}
+
+.section.dark-mode {
+    background-color: #2d2d2d;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+input.dark-mode {
+    background-color: #3d3d3d;
+    color: #ffffff;
+    border-color: #4d4d4d;
+}
+
+button.dark-mode {
+    background-color: #0056b3;
+    color: #ffffff;
+}
+
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    background-color: #007bff;
+    color: white;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.05);
+}
+
+/* Dark Theme Classes */
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+header.dark-mode {
+    background-color: #000000;
+}
+
+.section.dark-mode {
+    background-color: #2d2d2d;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+input.dark-mode, textarea.dark-mode {
+    background-color: #3d3d3d;
+    color: #ffffff;
+    border-color: #4d4d4d;
+}
+
+button.dark-mode {
+    background-color: #0056b3;
+    color: #ffffff;
+}
+
+.note-card.dark-mode {
+    background-color: #2d2d2d;
+    color: #ffffff;
+}
+
+.popup-content.dark-mode {
+    background-color: #2d2d2d;
+    color: #ffffff;
+}
+
+.calculator.dark-mode {
+    background-color: #2d2d2d;
+    border-color: #4d4d4d;
+}
+
+.calculator-screen.dark-mode {
+    background-color: #070707e1;
+    color: #ffffff;
+}
+
+.calculator-keys button.dark-mode {
+    background-color: #4d4d4d;
+    color: #ffffff;
+}
+
+/* Add these dark mode styles */
+.thought-container.dark-mode {
+    background-color: #2d2d2d;
+    color: #ffffff;
+}
+
+.thought-dropdown.dark-mode {
+    background-color: #3d3d3d;
+    border-color: #4d4d4d;
+}
+
+.thought-option.dark-mode:hover {
+    background-color: #4d4d4d;
+}
+
+#todo-section.dark-mode {
+    background-color: #2d2d2d;
+    color: #ffffff;
+}
+
+li.dark-mode {
+    background-color: #3d3d3d;
+    border-color: #4d4d4d;
+    color: #ffffff;
+}
+
+#notes-section.dark-mode {
+    background-color: #2d2d2d;
+    color: #ffffff;
+}
+
+/* Notes Dark Mode Fixes */
+.note-card.dark-mode h3 {
+    color: #ffffff;
+}
+
+/* Session Logs Dark Mode */
+.log-entry.dark-mode {
+    background-color: #3d3d3d;
+    color: #ffffff;
+    border-color: #4d4d4d;
+}
+
+/* Motivation Text Dark Mode */
+#current-thought.dark-mode {
+    color: #ffffff;
+}
+
+.thought-option.dark-mode {
+    color: #ffffff;
+}
+
+/* Timer Section Dark Mode */
+#timer-section.dark-mode {
+    background-color: #2d2d2d;
+    color: #ffffff;
+}
+
+#timer-logs.dark-mode {
+    background-color: #2d2d2d;
+    color: #ffffff;
+}
+
+.log-entry.dark-mode {
+    background-color: #3d3d3d;
+    border: 1px solid #4d4d4d;
+}
+
+/* Ensure text contrast */
+.dark-mode input,
+.dark-mode textarea {
+    color: #ffffff;
+    background-color: #3d3d3d;
+}
+
+#add-edit-popup .popup-content {
+    width: 70%;
+    max-width: 600px; 
+    padding: 50px;
+    margin: 1px auto;
+}
+
+#note-title-input,
+#note-content-input {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 15px 0;
+    padding: 12px;
+    font-size: 16px;
+}
+
+#note-content-input {
+    min-height: 250px; /* Increased height */
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 900px) {
+    #add-edit-popup .popup-content {
+        width: 98%;
+        padding: 20px;
+    }
 }
