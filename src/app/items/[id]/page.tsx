@@ -1,12 +1,6 @@
 import { IItem } from "@/models/item.model";
 import axios from "axios";
 
-type PageProps = {
-  params: {
-    id: string;
-  };
-};
-
 const getData = async (id: string) => {
   try {
     const { data } = await axios.get(
@@ -18,8 +12,8 @@ const getData = async (id: string) => {
   }
 };
 
-const ItemDetails = async ({ params }: PageProps) => {
-  const { id } = params;
+const ItemDetails = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params;
   const item: IItem = await getData(id);
   if (!item) {
     return (
