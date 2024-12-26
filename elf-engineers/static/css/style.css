@@ -1568,3 +1568,104 @@ html, body {
 		 opacity: 0;
 	}
 }
+/* Container for the tree */
+.tree-container {
+	position: absolute;
+	width: 70vw;
+	height: 80vh;
+	overflow: hidden;
+	left: 30px; 
+	top: -90px; /* Shifted slightly to the right */
+	transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow transition */
+}
+
+.tree-container:hover {
+	transform: translateY(-5px); /* Uplift the tree slightly on hover */
+}
+
+#tree {
+	z-index: 1;
+	width: 70vw; /* Reduced width to make the tree smaller */
+	height: 80vh; /* Reduced height to make the tree smaller */
+	display: block;
+	margin: 0 auto;
+	padding-top: 10px;
+	transition: filter 0.3s ease; /* Add transition for brightness effect */
+}
+
+.tree-container:hover #tree {
+	filter: brightness(1.9); /* Increased brightness on hover */
+}
+
+#canvas {
+	position: absolute;
+	z-index: 2;
+	height: 70vh;
+	width: 70vw;
+}
+
+.st0 { fill: #332C28; } /* Trunk */
+.st1 { fill: #00513E; } /* Left Leaves */
+.st2 { fill: #003828; } /* Right Leaves */
+
+.red {
+	fill: #aa1231;
+	animation: 0.6s red-flash ease-in-out infinite;
+}
+
+@keyframes red-flash {
+	40% { fill: #ea385c; }
+	80% { fill: #aa1231; }
+}
+
+.gold-lt {
+	fill: #c1881c;
+	animation: 0.6s gold-lt-flash ease-in-out infinite;
+}
+
+@keyframes gold-lt-flash {
+	40% { fill: #e7b75c; }
+	80% { fill: #c1881c; }
+}
+
+.blue-lt {
+	fill: #1f3e64;
+	animation: 0.6s blue-lt-flash ease-in-out infinite;
+}
+
+@keyframes blue-lt-flash {
+	40% { fill: #386fb1; }
+	80% { fill: #1f3e64; }
+}
+
+.blue-dk {
+	fill: #0f1f2f;
+	animation: 0.6s blue-dk-flash ease-in-out infinite;
+}
+
+@keyframes blue-dk-flash {
+	40% { fill: #28527c; }
+	80% { fill: #0f1f2f; }
+}
+
+.gold-dk {
+	fill: #69512a;
+	animation: 0.6s gold-dk-flash ease-in-out infinite;
+}
+
+@keyframes gold-dk-flash {
+	40% { fill: #b28947; }
+	80% { fill: #69512a; }
+}
+
+.g1 {
+	animation-delay: 0s;
+}
+
+.g2 {
+	animation-delay: 0.4s;
+}
+
+.g3 {
+	animation-delay: 0.8s;
+}
