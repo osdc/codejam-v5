@@ -17,6 +17,7 @@ export const POST = async (req: NextRequest) => {
   const formData = await req.formData();
   const image = formData.get("image") as File;
   const body = Object.fromEntries(formData.entries());
+  console.log(body);
   if (image) {
     const data: { url: string } = (await uploadImage(image)) as { url: string };
     body.image = data.url as string;

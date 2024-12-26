@@ -15,8 +15,8 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <Link href="/" className="text-white">
-                LostAndFound
+              <Link href="/" className="text-white text-3xl font-bold">
+                LostAnd<span className="text-red-500">Found</span>
               </Link>
             </div>
           </div>
@@ -36,7 +36,7 @@ const Navbar = () => {
               </Link>
               <Link
                 href="/items/new"
-                className="text-white hover:bg-white hover:text-black rounded-lg p-2"
+                className="bg-red-500 text-black hover:bg-red-900 rounded-lg p-2"
               >
                 Report Item
               </Link>

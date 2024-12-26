@@ -1,10 +1,8 @@
-import ItemForm from "@/components/ItemForm";
 import NewItemForm from "@/components/NewItemForm";
 
 const NewItemPage = () => {
   return (
-    <div>
-      <ItemForm />
+    <div className="h-fit w-full bg-black  flex flex-col items-center">
       <NewItemForm />
     </div>
   );
