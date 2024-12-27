@@ -32,7 +32,7 @@ const Items = async () => {
         </div>
       </div>
     );
-  } catch (e) {
+  } catch (error) {
     console.error("Error loading items:", error);
     return <div>Error loading items. Please try again later.</div>;
   }
