@@ -1,0 +1,3 @@
+[submodule "jingle-jamboree"]
+	path = jingle-jamboree
+	url = https://github.com/jingle-jamboree/webapp
