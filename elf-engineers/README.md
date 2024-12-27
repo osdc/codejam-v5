@@ -114,7 +114,8 @@ Tracks completed Pomodoro sessions or study hours over time.
 ## Cross-Device Synchronization
 Lets users access their settings and data across multiple devices.
 
-
+## User Accounts
+Enables users to log in, manage profiles, or access premium features, if applicable. Allows users to save their preferences (e.g., work/break durations, playlists).
 
 ## Future Enhancements
 - Custom Playlists for Music
@@ -136,8 +137,7 @@ Include curated focus playlists for different moods or tasks.
    - Provide a space for users to share feedback or request new features directly on the website.
 
 
-## User Accounts
-Enables users to log in, manage profiles, or access premium features, if applicable. Allows users to save their preferences (e.g., work/break durations, playlists).
+
 
 ## Team
 Members & Profiles:
