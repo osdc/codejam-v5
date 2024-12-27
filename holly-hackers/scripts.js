@@ -183,6 +183,8 @@ let noteToDelete = null;
 function deleteNote(index) {
     noteToDelete = index;
     const deletePopup = document.getElementById('delete-confirm-popup');
+    const deleteMessage = isChristmasMode ? "Ho Ho Ho! Should we delete this naughty list?" : "Are you sure you want to delete this note?";
+    deletePopup.querySelector('h3').textContent = deleteMessage;
     deletePopup.classList.add('show');
     overlay.classList.add('active');
 }
@@ -356,10 +358,11 @@ function stopTimer() {
 function showSessionPopup() {
     const popup = document.createElement("div");
     popup.classList.add("popup");
+    const sessionMessage = isChristmasMode ? "Ho Ho Ho! Which gift you packed now?" : "Which task does this session belong to?";
     popup.innerHTML = `
         <div class="popup-content">
             <h2>Session Log</h2>
-            <p>Which task does this session belong to?</p>
+            <p>${sessionMessage}</p>
             <input type="text" id="session-task-name" maxlength="30" placeholder="Enter task name">
             <button onclick="saveSessionLog()">Save</button>
             <button onclick="closePopup()">Close</button>
@@ -445,12 +448,12 @@ displayTimerLogs();
 function showCongratsPopup() {
     const congratsPopup = document.createElement("div");
     congratsPopup.classList.add("popup");
+    const congratsMessage = isChristmasMode ? "Ho Ho Ho! You deserve presents now!" : "Congratulations! , You completed a task successfully!";
     congratsPopup.innerHTML = `
         <div class="popup-content">
-            <h2>Congratulations!</h2>
-            <p>You completed a task successfully!</p>
+            <h2>${congratsMessage}</h2>
             <button onclick="closeCongratsPopup()">Close</button>
-        </div>
+        </div>  
     `;
     document.body.appendChild(congratsPopup);
 }
