@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spotify Background Playback</title>
+  <script src="https://sdk.scdn.co/spotify-player.js"></script>
+  <style>
+    .modal {
+        display: flex;
+        position: absolute;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 200px;  /* Adjusted to make the modal thinner */
+        height: 300px; /* Adjusted height as well */
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+        padding-top: 0px;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto;
+        padding: 0px;  /* Reduced padding for smaller modal content */
+        border: 1px solid #888;
+        width: 80%;  /* Keep the modal content to full width of the modal */
+    }
+
+    iframe {
+        width: 100%;  /* Keep iframe width to 100% of modal */
+        height: 100%; /* Keep iframe height to 100% of modal */
+        border: none;
+        cursor: pointer;
+    }
+    </style>
+</head>
+<body>
+  <button id="spotify-button" style="font-size: 24px;">🎵</button>
+  <div id="playlist-container" style="display: none;"></div> <!-- Placeholder for iframe -->
+  <ul id="liked-songs" class="song-list"></ul> <!-- List to display liked songs -->
+
+  <script>
+    document.getElementById('spotify-button').addEventListener('click', async () => {
+      // Fetch the token from the backend
+      const loginResponse = await fetch('http://127.0.0.1:5000/get_token_sp');
+      const loginData = await loginResponse.json();
+
+      if (!loginData.access_token) {
+        // Redirect to login if no token is found
+        window.location.href = 'http://127.0.0.1:5000/login_sp';
+        return;
+      }
+
+      const token = loginData.access_token;
+
+      // Fetch liked songs (saved tracks)
+      const likedSongsResponse = await fetch('https://api.spotify.com//v1/me/tracks?limit=50', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      const likedSongsData = await likedSongsResponse.json();
+
+      if (likedSongsData.items) {
+        const songsList = document.getElementById('liked-songs');
+        likedSongsData.items.forEach(song => {
+          const listItem = document.createElement('li');
+          listItem.classList.add('song-item');
+          const songLink = document.createElement('a');
+          songLink.href = song.external_urls.spotify;
+          songLink.textContent = song.name;
+          listItem.appendChild(songLink);
+          songsList.appendChild(listItem);
+        });
+      }
+
+      // Initialize Spotify Web Playback SDK
+      window.onSpotifyWebPlaybackSDKReady = () => {
+        const player = new Spotify.Player({
+          name: 'Background Player',
+          getOAuthToken: cb => { cb(token); },
+          volume: 0.5
+        });
+
+        // Connect the player
+        player.connect().then(success => {
+          if (success) {
+            console.log('The Web Playback SDK successfully connected to Spotify!');
+
+            // Transfer playback to this player
+            fetch('https://api.spotify.com/v1/me/player', {
+              method: 'PUT',
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                device_ids: [player._options.id],
+                play: true,
+              }),
+            }).then(() => {
+              console.log('Playback transferred to Web Playback SDK.');
+
+              // Start playback
+              player.togglePlay().catch(error => {
+                console.error('Error starting playback:', error);
+                alert('Unable to start playback. Please ensure your Spotify app is open.');
+              });
+            }).catch(error => {
+              console.error('Error transferring playback:', error);
+              alert('Unable to transfer playback to the Web Playback SDK.');
+            });
+          }
+        }).catch(error => {
+          console.error('Failed to connect to Spotify:', error);
+          alert('There was an error connecting to Spotify. Please try again.');
+        });
+
+        // Log errors from the player
+        player.addListener('initialization_error', ({ message }) => console.error('Initialization Error:', message));
+        player.addListener('authentication_error', ({ message }) => console.error('Authentication Error:', message));
+        player.addListener('account_error', ({ message }) => console.error('Account Error:', message));
+        player.addListener('playback_error', ({ message }) => console.error('Playback Error:', message));
+      };
+
+      // Check if iframe already exists
+      let iframe = document.getElementById('spotify-iframe');
+      if (!iframe) {
+        // Display the playlist in an iframe
+        const playlistId = '1mq724oukFIpytBYhPuSKu';
+        iframe = document.createElement('iframe');
+        iframe.id = 'spotify-iframe'; // Set an ID for the iframe
+        iframe.title = 'Spotify Embed: Recommendation Playlist';
+        iframe.src = `https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator&theme=0`;
+        iframe.setAttribute('frameBorder', '0');
+        iframe.setAttribute('allow', 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture');
+        iframe.setAttribute('loading', 'lazy');
+
+        // Append the iframe to the container
+        document.getElementById('playlist-container').appendChild(iframe);
+      }
+      
+      // Show the iframe container
+      document.getElementById('playlist-container').style.display = 'flex';
+    });
+
+    // Hide the iframe when clicking anywhere on the screen
+    document.addEventListener('click', (event) => {
+      const container = document.getElementById('playlist-container');
+      const button = document.getElementById('spotify-button');
+      if (!container.contains(event.target) && event.target !== button) {
+        container.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
+
