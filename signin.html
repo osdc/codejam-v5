@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
@@ -11,7 +12,8 @@
             height: 550px;
             margin: 2px 65px auto;
             padding: 20px;
-            background-color: #0e983aaf; /* Slight transparency */
+            background-color: #0e983aaf;
+            /* Slight transparency */
             border: 4px solid #1b0a0ad6;
             border-radius: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -31,6 +33,7 @@
             border: 1px solid #f8f6f6d6;
             border-radius: 6px;
         }
+
         .form-container input[type="email"]:hover {
             width: 90%;
             padding: 10px 20px 10px 20px;
@@ -38,6 +41,7 @@
             border: 2px solid #e52424f1;
             border-radius: 6px;
         }
+
         .form-container input[type="password"]:hover {
             width: 90%;
             padding: 10px 20px 10px 20px;
@@ -76,22 +80,30 @@
         }
     </style>
 </head>
+
 <body>
     <header>
         <!-- Header content -->
     </header>
     <div style="margin-top: 100px; margin-right: 250px;">
-    <img src="{{ url_for('static', filename='sleigh.png') }}" alt="Sleigh" width="350.85" height="210.2" align="right">
+        <img src="{{ url_for('static', filename='/sleigh.png') }}" alt="Sleigh" width="350.85" height="210.2"
+        align="right">
     </div>
     <div class="form-container">
-        <h2><p style="font-family:'Verdana';font-size:27px">Log in</p></h2>
+        <h2>
+            <p style="font-family:'Verdana';font-size:27px">Log in</p>
+        </h2>
         <form action="login_process.php" method="post">
-            <label for="email"><p style="font-family:'Verdana'">Email:</p></label>
+            <label for="email">
+                <p style="font-family:'Verdana'">Email:</p>
+            </label>
             <input type="email" id="email" name="email" required>
-            
-            <label for="password"><p style="font-family:'Verdana'">Password:</p></label>
+
+            <label for="password">
+                <p style="font-family:'Verdana'">Password:</p>
+            </label>
             <input type="password" id="password" name="password" required>
-            
+
             <input type="submit" value="Login">
         </form>
         <div class="signup-link">
@@ -99,7 +111,7 @@
         </div>
         <div style="padding: 3em 0;"></div>
         <div style="text-align:center;">
-          <a href="/" class="back-home-button" >Go back to Home</a>
+            <a href="/" class="back-home-button">Go back to Home</a>
         </div>
     </div>
 
@@ -107,4 +119,5 @@
         <!-- Footer content -->
     </footer>
 </body>
+
 </html>
