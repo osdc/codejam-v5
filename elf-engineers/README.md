@@ -1,4 +1,5 @@
-##                      SLEIGHT IT!
+## <div align="center">SLEIGHT IT!</div>
+
 
 
 ## Index
@@ -21,9 +22,13 @@
 ## What is Sleigh It!?
 Sleigh It! is a productivity-focused website designed to enhance studying and task management, integrating the character of christmas. It features a Pomodoro timer to help users break their work into focused intervals with regular breaks, customizable work and break times, and a Focus mode to minimize distractions while studying. The platform also allows users to play music from spotify to boost concentration, making it ideal for students, professionals, or anyone looking to optimize their productivity in an engaging and efficient way.
 
+
+
 ## Technologies Used
 - Languages: HTML, CSS, JSS, Python, SQL
 - Frameworks: Flask
+
+
 
 ## Features
 - Pomodoro timer
@@ -35,6 +40,7 @@ Sleigh It! is a productivity-focused website designed to enhance studying and ta
 - Progress Tracking
 - Cross-Device Synchronization
 - User Accounts
+
 
 
 ## Pomodoro Timer
@@ -106,6 +112,8 @@ Tracks completed Pomodoro sessions or study hours over time.
 
 ## Cross-Device Synchronization
 Lets users access their settings and data across multiple devices.
+
+
 
 ## User Accounts
 Enables users to log in, manage profiles, or access premium features, if applicable. Allows users to save their preferences (e.g., work/break durations, playlists).
