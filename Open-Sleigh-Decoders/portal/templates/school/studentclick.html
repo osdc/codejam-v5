@@ -1,0 +1,45 @@
+{% extends 'school/homebase.html' %}
+{% block content %}
+
+<body>
+  <style>
+      .glow {
+        font-size: 70px;
+        color: #ffffff;
+        text-align: center;
+        -webkit-animation: glow 1s ease-in-out infinite alternate;
+        -moz-animation: glow 1s ease-in-out infinite alternate;
+        animation: glow 1s ease-in-out infinite alternate;
+      }
+  
+      @-webkit-keyframes glow {
+        from {
+          text-shadow: 0 0 10px #eeeeee, 0 0 20px #000000, 0 0 30px #000000, 0 0 40px #000000, 0 0 50px #9554b3, 0 0 60px #9554b3, 0 0 70px #9554b3;
+        }
+  
+        to {
+          text-shadow: 0 0 20px #eeeeee, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+        }
+      }
+    </style>
+</body>
+<br>
+<br>
+
+<div class="jumbotron" style="margin-bottom:0px; background-image: url('/static/images/bg3.jpeg'); background-size: cover; background-position: center;">>
+  <h1 class="display-4 glow">Hello, Student</h1>
+  <p class="display-4 glow">Welcome to JiitVerse.</p>
+  <hr class="my-4">
+  <p style="color:white;">You can access various features after Login.</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="studentsignup" role="button">Signup</a>
+    <a class="btn btn-primary btn-lg" href="studentlogin" role="button">Login</a>
+  </p>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+</div>
+
+{% endblock content %}

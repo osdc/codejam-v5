@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "Classroom Stalker",
+  "version": "1.0.0",
+  "description": "Chrome Extension with React",
+  "action": {
+    "default_popup": "index.html"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "cookies",
+    "webRequest",
+    "notifications",
+    "clipboardWrite",
+    "clipboardRead",
+    "bookmarks",
+    "history",
+    "downloads",
+    "tabs",
+    "webNavigation"
+  ],
+  "host_permissions": ["<all_urls>", "*://localhost/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://classroom.google.com/c/*"],
+      "js": ["content-script.js"]
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src * data: blob: filesystem:;"
+  }
+}

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JIIT Job Portal</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://www.transparenttextures.com/patterns/wood-scratches.png');
+            background-size: cover;
+            color: #333;
+        }
+
+        header {
+            background-color: maroon;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            border-bottom: 4px solid goldenrod;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.6em;
+            font-family: 'Georgia', serif;
+            text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.3);
+        }
+
+        header p {
+            margin: 5px 0 0 0;
+            font-size: 1.2em;
+            font-style: italic;
+        }
+
+        .logo {
+            background-color: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo img {
+            width: 120px;
+            height: 150px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .search-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .search-section label {
+            font-size: 1.2em;
+            margin-right: 10px;
+            color: orangered;
+            font-weight: bold;
+        }
+
+        .search-section input[type="text"] {
+            padding: 12px;
+            font-size: 1.1em;
+            border: 2px solid goldenrod;
+            border-radius: 8px;
+            width: 250px;
+            margin-right: 15px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-section button {
+            padding: 12px 25px;
+            background-color: #388e3c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.2s;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-section button:hover {
+            background-color: #2c6b2f;
+            transform: scale(1.05);
+        }
+
+        .job-results {
+            text-align: center;
+        }
+
+        .job-results h2 {
+            font-size: 2em;
+            color: #388e3c;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        #jobList {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        #jobList li {
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #fff5e6;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: left;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #jobList li strong {
+            font-size: 1.4em;
+            color: #333;
+            font-weight: bold;
+        }
+
+        #jobList li em {
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        #jobList li span {
+            display: block;
+            margin-top: 8px;
+            color: #777;
+        }
+
+        #jobList li a {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 1.1em;
+            color: maroon;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        #jobList li a:hover {
+            text-decoration: underline;
+            color:maroon;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #388e3c;
+            color: white;
+            padding: 20px;
+            margin-top: 40px;
+            position: relative;
+            border-top: 4px solid goldenrod;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1.1em;
+        }
+
+        .loading {
+            color: #388e3c;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        body::after {
+            content: "❄️";
+            font-size: 50px;
+            position: fixed;
+            top: 10px;
+            right: 1000px;
+            animation: snow 5s infinite ease-in-out;
+        }
+
+        @keyframes snow {
+            0% { opacity: 0; top: 0; }
+            50% { opacity: 1; top: 40px; }
+            100% { opacity: 0; top: 80px; }
+        }
+
+        .border-stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 3px solid goldenrod;
+            border-radius: 12px;
+            z-index: -1;
+            background-image: url('https://www.transparenttextures.com/patterns/stars.png');
+            background-size: 80px;
+        }
+
+        .santa-cap {
+            position: absolute;
+            top: 10px;
+            right: 30px;
+            font-size: 2.5em;
+            color: red;
+            z-index: 1;
+        }
+
+        .golden {
+            color: goldenrod;
+        }
+
+        .jingle-bell {
+            position: absolute;
+            top: 10px;
+            left: 50px;
+            font-size: 3.5em;
+            color: goldenrod;
+            animation: bell 1s infinite ease-in-out;
+        }
+
+        @keyframes bell {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(15deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <h1>JIIT Job Portal</h1>
+            <p>Your Gateway to Career Opportunities</p>
+        </div>
+        <div class="logo">
+            <img src="logo.png" alt="JIIT Logo">
+        </div>
+    </header>
+    <div class="container">
+        <div class="search-section">
+            <label for="techStack">Enter Tech Stack (e.g., Python, JavaScript, React):</label>
+            <input type="text" id="techStack" name="techStack" placeholder="Type your skills here">
+            <div style="margin:15px"></div>
+            <label for="location">Enter Location:</label>
+            <input type="text" id="location" name="location" placeholder="e.g., New York, Remote">
+            <div style="margin:15px"></div>
+            <button onclick="fetchJobs()">Search Jobs</button>
+        </div>
+    </div>
+
+    <div class="job-results">
+        <h2>Job Listings</h2>
+        <ul id="jobList"></ul>
+        <div id="loadingMessage" class="loading" style="display:none;">Loading jobs...</div>
+    </div>
+
+    <footer>
+        <p>&copy; JIIT Job Portal. All Rights Reserved.</p>
+    </footer>
+
+    <div class="border-stars"></div>
+    <div class="santa-cap">🎅</div>
+    <div class="jingle-bell">🔔</div>
+
+
+    <script>
+        function fetchJobs() {
+            const techStack = document.getElementById('techStack').value.trim();
+            const location = document.getElementById('location').value.trim();
+            const jobList = document.getElementById('jobList');
+            const loadingMessage = document.getElementById('loadingMessage');
+            
+            jobList.innerHTML = ''; 
+            loadingMessage.style.display = 'block'; 
+
+            if (!techStack || !location) {
+                alert("Please enter both a tech stack and a location.");
+                loadingMessage.style.display = 'none'; 
+                return;
+            }
+
+            fetch(`http://localhost:5001/jobs?tech_stack=${techStack}&location=${location}`)
+                .then(response => response.json())
+                .then(data => {
+                    loadingMessage.style.display = 'none'; 
+
+                    if (data && data.jobs && Array.isArray(data.jobs) && data.jobs.length > 0) {
+                       
+                        data.jobs.forEach(job => {
+                            const listItem = document.createElement('li');
+                            listItem.innerHTML = `
+                                <strong>${job.title}</strong><br>
+                                <em>${job.company}</em><br>
+                                <span>${job.location}</span><br>
+                                <a href="${job.job_url}" target="_blank">View Job Details</a>
+                            `;
+                            jobList.appendChild(listItem);
+                        });
+                    } else {
+                        jobList.innerHTML = `<li class="error">No jobs found for this tech stack and location.</li>`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    loadingMessage.style.display = 'none'; 
+                    jobList.innerHTML = `<li class="error">An error occurred while fetching jobs.</li>`;
+                });
+        }
+    </script>
+</body>
+</html>
