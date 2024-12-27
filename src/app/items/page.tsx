@@ -17,17 +17,25 @@ const getData = async () => {
 };
 
 const Items = async () => {
-  const items: IItem[] = await getData();
+  try {
+    const items: IItem[] = await getData();
+    if (!items) {
+      return <div>No items found</div>;
+    }
 
-  return (
-    <div className="min-h-screen h-fit w-full bg-black flex justify-center">
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 justify-center">
-        {items.map((i: IItem) => (
-          <ItemCard item={i} key={i._id} />
-        ))}
+    return (
+      <div className="min-h-screen h-fit w-full bg-black flex justify-center">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 justify-center">
+          {items.map((i: IItem) => (
+            <ItemCard item={i} key={i._id} />
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    );
+  } catch (e) {
+    console.error("Error loading items:", error);
+    return <div>Error loading items. Please try again later.</div>;
+  }
 };
 
 export default Items;
