@@ -6,7 +6,7 @@
 - [Submitting your Project](#submitting-your-project)
 
 
-## what-is-sleigh-it?
+## What is Sleigh It!?
 Codejam is the ultimate test of courage, mental strength and physical durability (jk lol), It is a unique online hackathon where you are paired up with a group of random participants just like yourself with whom you collaborate and make a project on a given theme. You then have around a week's time to create the best project you can. See [Format](#format) for detailed information. This is a joint event organized every year by OSDC and JODC.
 
 ## Particulars
