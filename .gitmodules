@@ -1,3 +1,8 @@
+[submodule "jolly-joysticks"]
+	path = jolly-joysticks
+	url = https://github.com/me-is-mukul/jolly-joysticks
+
 [submodule "santas-git-workshop"]
 	path = santas-git-workshop
 	url = https://github.com/Lavanya24R/Pomodoro-Timer.git
+
