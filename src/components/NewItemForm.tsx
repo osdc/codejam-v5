@@ -14,12 +14,12 @@ import { Input } from "./ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { getBaseUrl } from "@/lib/getBaseUrl";
 
 const NewItemForm = () => {
   const [image, setImage] = useState<File | null>(null);
   const router = useRouter();
   const formRef = useRef<HTMLFormElement | null>(null);
-  console.log(process.env.NEXT_PUBLIC_BACKEND_URL);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -38,10 +38,12 @@ const NewItemForm = () => {
         formData.delete("image");
       }
 
-      const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/items`,
-        formData
-      );
+      const baseUrl = getBaseUrl();
+
+      const { data } = await axios.post(`${baseUrl}/api/items`, formData);
+      // const res = await fetch("/api/items", { method: "POST", body: formData });
+      // const data = await res.json();
+
       if (data.status === 200) {
         if (formRef.current) {
           formRef.current.reset(); // This will clear all form fields

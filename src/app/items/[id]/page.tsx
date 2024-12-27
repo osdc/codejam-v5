@@ -1,11 +1,20 @@
 import { IItem } from "@/models/item.model";
 import axios from "axios";
+import { headers } from "next/headers";
+import { getBaseUrl } from "@/lib/getBaseUrl";
 
 const getData = async (id: string) => {
   try {
-    const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/items/${id}`
-    );
+    // const { data } = await axios.get(`/api/items/${id}`);
+    // const res = await fetch(
+    //   `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/items/${id}`,
+    //   { method: "GET" }
+    // );
+    // const data = await res.json();
+    const baseUrl = getBaseUrl();
+
+    const { data } = await axios.get(`${baseUrl}/api/items/${id}`);
+
     return data;
   } catch (e) {
     console.log(e);

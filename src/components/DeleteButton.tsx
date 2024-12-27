@@ -1,12 +1,14 @@
 "use client";
 
 import axios from "axios";
+import { getBaseUrl } from "@/lib/getBaseUrl";
 
 const handleClick = async (id: string) => {
   try {
-    const { data } = await axios.delete(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/items/${id}`
-    );
+    const baseUrl = getBaseUrl();
+    const { data } = await axios.delete(`${baseUrl}/api/items/${id}`);
+    // const res = await fetch(`/api/items/${id}`);
+    // const data = await res.json();
     console.log(data);
   } catch (e) {
     console.log(e);

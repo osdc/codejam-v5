@@ -4,7 +4,7 @@ const Home = () => {
   return (
     <div className="bg-black h-screen w-full text-white md:flex">
       <div className="py-8 pt-16 md:h-full w-full flex justify-end items-center px-4">
-        <div className="bg-[url('/JIIT-Noida.png')] bg-no-repeat bg-cover h-[25rem] w-[35rem] rounded-md"></div>
+        <div className="bg-[url('/JIIT-Noida.png')] bg-no-repeat bg-cover h-[20rem] w-[35rem] rounded-md"></div>
       </div>
       <div className="py-8 md:h-full w-full flex items-center px-4">
         <div className="flex flex-col items-center">

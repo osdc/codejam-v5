@@ -1,12 +1,15 @@
 import axios from "axios";
 import ItemCard from "@/components/ItemCard";
 import { IItem } from "@/models/item.model";
+import { getBaseUrl } from "@/lib/getBaseUrl";
 
 const getData = async () => {
   try {
-    const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/items`
-    );
+    const baseUrl = getBaseUrl();
+    const { data } = await axios.get(`${baseUrl}/api/items`);
+    // const res = await fetch("/api/items");
+    // const data = await res.json();
+    // console.log(data);
     return data;
   } catch (e) {
     console.log(e);
