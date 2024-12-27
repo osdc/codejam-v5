@@ -1,6 +1,5 @@
 import { IItem } from "@/models/item.model";
 import axios from "axios";
-import { headers } from "next/headers";
 import { getBaseUrl } from "@/lib/getBaseUrl";
 
 const getData = async (id: string) => {
