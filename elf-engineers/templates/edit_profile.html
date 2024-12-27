@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>Edit Profile</h2>
+
+<form method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" value="{{ user.name }}" required><br><br>
+
+    <label for="class_sem">Class/Semester:</label>
+    <input type="text" id="class_sem" name="class_sem" value="{{ user.class_sem }}" required><br><br>
+
+    <label for="college">College:</label>
+    <input type="text" id="college" name="college" value="{{ user.college }}" required><br><br>
+
+    <label for="age">Age:</label>
+    <input type="text" id="age" name="age" value="{{ user.age }}" required><br><br>
+
+    <button type="submit">Save Changes</button>
+</form>
+
+{% endblock %}
