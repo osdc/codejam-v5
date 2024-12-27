@@ -315,6 +315,10 @@ def edit_profile():
         flash('Unable to load profile page. Please try again.', 'error')
         return redirect(url_for('home'))
 
+@app.route("/flashcards/focus")
+def render():
+    return render_template("pomodoro.html")
+
 @app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
     if request.method == 'POST':
