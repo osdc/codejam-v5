@@ -51,25 +51,18 @@ A timer that helps structure work sessions with intervals of focused work and sc
 
 **STEPS TO RUN:** 
 
-1. Make a folder by any name. Open that folder in VS Code as a project. within the folder: 
- make folder "static", and within it create "css", "images", "js" folders. 
- keep the things as needed inside these folders, respectively.
+1. Clone the Repository:
+First, clone the repository to your local machine
  
- Pomodoro Folder - static - css - style.css
-                           - js - script.js
-                           - images - ring.png and berry.png
-                 - templates - index.html
-                 - timer.py
-                 - env folder
+2. Install Dependencies:
+Navigate to the project folder where the requirements.txt file is located, then install the required Python libraries using:
+pip install -r requirements.txt
 
-2. Create a virtual environment (make sure the virtualenv library is installed within Python on your computer)
-To do this, write "virtualenv env" to create.
+3. Run the Flask Application:
+Start the Flask application by running the following command:
+python app.py
 
-3. write ".\env\Scripts\activate.ps1" to activate. then write pip install flask to install flask in this.
-
-4. keep timer.py code in this folder. 
- run it and click on the local host address shown in the terminal to access the webpage of timer.
-
+Once the server is running, open your browser and go to the address shown in the terminal
 
 ## Customizable Work and Break Durations
 Users can adjust the lengths of their work sessions and break times to fit their preferences or productivity needs.
