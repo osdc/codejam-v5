@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Subject Descriptions</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      line-height: 1.6;
+      color: #333;
+      background-color: #003366;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+  
+    h1 {
+      text-align: center;
+      color: #ffcc00;
+      font-size: 36px;
+      margin-top: 30px;
+      font-family: 'Georgia', serif;
+      text-shadow: 3px 3px 5px rgba(255, 255, 255, 0.7);
+    }
+  
+    select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 18px;
+      border: 1px solid #8b0000;
+      border-radius: 5px;
+      background-color: #fafafa;
+    }
+  
+    #container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 30px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+      flex-grow: 1;
+      background-image: url('https://www.transparenttextures.com/patterns/snowflakes.png');
+      background-size: cover;
+    }
+  
+    #subjectDescription {
+      padding: 20px;
+      background: #e6f7e6;
+      color: #333;
+      margin-top: 20px;
+      border-radius: 8px;
+      overflow-y: auto;
+      max-height: 400px;
+    }
+  
+    h2 {
+      color: #8b0000;
+      font-size: 24px;
+    }
+  
+    h3 {
+      color: #228b22;
+    }
+  
+    ul li {
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+  
+    p {
+      font-size: 16px;
+      line-height: 1.7;
+    }
+  
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 14px;
+      color: #ffcc00;
+      margin-bottom: 20px;
+    }
+  
+    .snowflakes {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  
+    .snowflake {
+      position: absolute;
+      font-size: 2em;
+      color: #fff;
+      animation: snow 10s linear infinite;
+    }
+  
+    .jingle-bell {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      font-size: 2em;
+      color: #ffcc00;
+      animation: jingle 2s infinite;
+    }
+  
+    @keyframes snow {
+      0% { top: -10px; opacity: 1; }
+      100% { top: 100vh; opacity: 0; }
+    }
+  
+    @keyframes jingle {
+      0% { transform: translateX(0); }
+      50% { transform: translateX(-10px); }
+      100% { transform: translateX(0); }
+    }
+  </style>
+  
+</head>
+<body>
+
+<div id="container">
+  <h1>Subject Descriptions</h1>
+  <label for="subjectDropdown" style="font-size: 18px; color: #ffcc00;">Select a Subject:</label>
+  <select id="subjectDropdown" onchange="showDescription()"></select>
+  <div id="subjectDescription">
+    <p>Select a subject from the dropdown to view its details.</p>
+  </div>
+</div>
+
+<div class="footer">
+  <p>Wishing you a Merry Christmas and Happy Learning!</p>
+</div>
+
+<div class="snowflakes">
+  <div class="snowflake" style="left: 10%; animation-duration: 12s;"></div>
+  <div class="snowflake" style="left: 20%; animation-duration: 15s;"></div>
+  <div class="snowflake" style="left: 30%; animation-duration: 10s;"></div>
+  <div class="snowflake" style="left: 40%; animation-duration: 13s;"></div>
+</div>
+
+<div class="jingle-bell">&#x1F381;</div>
+
+<script>
+
+  const subjects = [
+    {
+      name: "Data and Web Mining",
+      code: "16B1NCI635",
+      faculty: ["Neetu Sardana", "Anuja Arora"],
+      description: `Course Objectives:
+        - Apply pre-processing techniques to nominal, binary, categorical, and ordinal data.
+        - Design data warehouses using star, snowflake, and galaxy schema, and perform OLAP operations.
+        - Apply classification techniques like Naïve-bayes, decision tree, and KNN for various applications.
+        - Cluster objects using methods like partitioning, hierarchical, and density-based clustering.
+        - Analyze transactional data for frequent patterns using association rule mining techniques like Apriori and FPGrowth.
+        - Analyze web link structures using Page Rank and HITS algorithms.
+        
+        Topics:
+        - Introduction to Data Mining
+        - Data Warehouse and Preprocessing
+        - Classification Algorithms
+        - Clustering Algorithms
+        - Association Algorithms
+        - Web Algorithms
+        - Ranking Algorithms
+        - Web Caching Algorithms
+        - Recommendation Algorithms`
+    },
+    {
+      name: "Theatre and Performance (Value Added)",
+      code: "15B1NHS634",
+      faculty: ["Dr. Nilu Choudhary"],
+      description: `Course Objectives:
+        - Demonstrate problem-solving ability and effective life skills through theatre.
+        - Develop an understanding of the role of theatre arts in human life.
+        - Apply listening, articulation, awareness, and collaboration through performance creation.
+        - Design and present an original performance alone or with others.
+        
+        Topics:
+        - Introduction to Theatre
+        - Characterization Techniques
+        - Script Writing
+        - Schools of Drama: Natya-Shastra, Stanislavsky, Brecht
+        - Text Interpretation: Mother Courage, Galileo, Aadhe Adhure
+        - Back-stage Work Management
+        
+        Activities:
+        - Moving in Space
+        - Mirror Activity
+        - Characterization Exercises
+        - Script Writing Workshop
+        - Role Assignment and Performance
+
+        Additional Topics:
+        - Stage Blocking: Practice blocking, lines, and performances to define responsibilities. Focus on character clarity, vocal projection, and articulation. Use technical elements for Transformation of Objects.
+        - Script to Performance: Finalize and run the play from beginning to end without interruption to check rehearsal completeness.`
+    },
+    {
+      name: "Database Systems & Web Lab",
+      code: "15B17CI372",
+      faculty: ["Dhanalekshmi Gopinathan", "Vartika Puri", "Anubhuti Mohindra"],
+      description: `Course Objectives:
+        - Understand the fundamentals of database systems.
+        - Learn web development technologies.
+        - Develop web applications with database connectivity.
+
+        Course Content:
+        - Database Systems: ER modeling, relational algebra, SQL.
+        - Web Technologies: HTML, CSS, JavaScript, PHP.
+        - Lab Exercises: SQL queries, web page design, PHP scripts.`
+    },
+    {
+      name: "Computer Organization and Architecture Lab",
+      code: "15B17CI373",
+      faculty: ["Pawan Kumar Upadhyay", "Prakhar Mishra", "Amarjeet Kaur"],
+      description: `Course Objectives:
+        - Learn computer architecture concepts.
+        - Practical experience in digital logic design.
+        - Microprocessor programming.
+
+        Course Content:
+        - Digital Logic: Boolean algebra, logic gates, combinational circuits.
+        - Microprocessor: Assembly language, MIPS.
+        - Lab Exercises: Circuit design, 8085 programming.`
+    },
+    {
+      name: "Operating System and System Programming Lab",
+      code: "15B17CI472",
+      faculty: ["Alka Singhal", "Ashish Kumar", "Ankita Jaiswal"],
+      description: `Course Objectives:
+        - Understand the fundamental concepts of operating systems.
+        - Learn about process management, memory management, and file systems.
+
+        Course Content:
+        - Process Management: Process synchronization, IPC mechanisms.
+        - Memory Management: Allocation, virtual memory.
+        - Lab Exercises: Writing programs for process creation and synchronization.`
+    },{
+
+  name: "Operating System and System Programming Lab",
+  code: "15B17CI472",
+  faculty: ["Alka Singhal", "Ashish Kumar", "Ankita Jaiswal"],
+  description: `Course Objectives:
+    - Understand the fundamental concepts of operating systems.
+    - Learn about process management, memory management, and file systems.
+
+    Course Content:
+    - Process Management: Process synchronization, IPC mechanisms.
+    - Memory Management: Allocation, virtual memory.
+    - Lab Exercises: Writing programs for process creation and synchronization.`
+},{
+  
+  name: "Disaster Management",
+  code: "15B1NHS731",
+  faculty: ["Dr. Nilu Choudhary"],
+  description: `Course Outcomes:
+    C4O1-2.1: Understand basic concepts of disasters, types, disaster prevention, and risk reduction. (Understanding - C2)
+    C4O1-2.2: Apply different approaches of Disaster Risk Reduction (DRR). (Applying - C3)
+    C4O1-2.3: Analyze and enhance awareness of institutional processes in the country during disaster. (Analyzing - C4)
+    C4O1-2.4: Evaluate strategies and develop skills to respond to potential disasters with due sensitivity. (Evaluating - C5)
+
+    Modules:
+    1. Introduction to Disasters: Concepts and definitions of disaster (Hazard, Vulnerability, Resilience, Risks) - 4 lectures
+    2. Disasters: Classifications & Causes: Understanding Natural and manmade disasters. Social, Economic, Political, Environmental, Health, Psychological impacts - 4 lectures
+    3. Impact of Disaster on Caste, Class and Gender: Caste and disaster, Disaster discrimination, in terms of caste, class, gender, age, location, disability, Role of Women in Disaster - 5 lectures
+    4. Approaches to Disaster Risk Reduction: Disaster cycle, prevention, mitigation, preparedness, community-based DRR, structural and non-structural measures, roles of the community - 5 lectures
+    5. Disaster Management Act (2005): DM Act, Policy, plans, Programmes, and Legislation - 3 lectures
+    6. Inter-relationship between Disasters and Development: Factors affecting vulnerabilities, impact of development projects (dams, embankments, changes in land use), relevance of indigenous knowledge - 5 lectures
+    7. Disaster Risk Management in India: Hazard and Vulnerability profile of India, Components of Disaster Relief: Water, Food, Sanitation, Shelter, and Health - 5 lectures
+    8. Risk Society: Risk Society in 1992 by Ulrick Beck, Processes of Modernization, The new paradigm of risk society - 3 lectures
+    9. Global trends in Disasters: Urban disasters, Pandemics (COVID-19), Epidemics, Complex emergencies, Climate change, Agenda 21: For Local actions - 4 lectures
+    10. Disaster, Environment and Development: Environment Management, Waste Management, Types of Disaster Waste, Sources of Waste - 4 lectures
+
+    Total Number of Lectures: 42
+
+    Evaluation Criteria:
+    T1: 20, T2: 20, End Semester Examination: 35, TA (Project, Quiz, Class Participation): 25
+    Total: 100
+
+    Project-based Learning: Students in groups of 5-6 will study the menace of disaster through waste deposition in the environment. They will develop cost-effective and environmentally sound strategies for solid waste management, including the installation of high-tech-driven composters. Students will analyze the implications of waste through this live project and convert solid waste into organic manure for use in gardens and parks on the college premises.`
+}, {
+  name: "Information Retrieval and Semantic Web",
+  code: "16B1NCI648",
+  faculty: ["Prof. Neetu Sardana", "Dr. Mukta Goyal"],
+  description: `Course Outcomes:
+    C430.11.1: Understand standard Information Retrieval models, indexing mechanisms, and Web technologies used for designing an intelligent web. (Understanding - Level-2)
+    C430-11.2: Apply query processing techniques for content extraction in varied Information Retrieval systems. (Applying - Level-3)
+    C430-11.3: Analyze the searching algorithms for Information Retrieval. (Analyzing - Level-4)
+    C430-11.4: Evaluate the IR system results using different metrics for knowledge base modeling and parameter estimation. (Evaluating - Level-5)
+    C430-11.5: Design intelligent applications for solving real-world information retrieval problems. (Creating - Level-6)
+
+    Modules:
+    1. Introduction to Information Retrieval: Theory of information retrieval, Information retrieval on Data and the Web, Information retrieval tools and their architecture. - 3 lectures
+    2. Boolean Retrieval & Index Construction: Processing Boolean queries, extended Boolean model versus ranked retrieval, Blocked-Sort based Indexing, Single-pass-in-Memory Indexing, Distributed and Dynamic Indexing. - 6 lectures
+    3. Dictionary and Tolerant Retrieval: Wild card queries, Spelling correction, Phonetic correction. - 4 lectures
+    4. Scoring Term Weighting and the Vector Space Model: Term frequency and weighting, Vector space model, Variant TF-IDF Scoring, Probabilistic IR, Language Modeling, Distributed word representations (Word Co-occurrence, Word Embedding (GLOVE, Word2Vec)), Evaluation of IR System. - 6 lectures
+    5. Link Analysis: Web as a graph and Page ranking algorithms. - 4 lectures
+    6. Information Retrieval Tools: Web directory, Search engine, Meta search engines, Web searching and search engine architecture, Searching Algorithms (Fish, Shark etc.). - 4 lectures
+    7. Web Crawling: Web Crawler architecture and Web crawling (parallel, distributed and focused web crawling). - 5 lectures
+    8. Taxonomy and Ontology: Creating domain-specific ontology, Ontology life cycle. - 4 lectures
+
+    Total Number of Lectures: 42
+
+    Evaluation Criteria:
+    T1: 20, T2: 20, End Semester Examination: 35, TA (Project, Quiz, Class Participation): 25
+    Total: 100`
+},{
+  name: "Green Energy and Climate Modeling",
+  code: "16B1NPH732",
+  faculty: ["Dr. Prashant Chauhan"],
+  description: `Course Outcomes:
+    C401-6.1: Recall the basic information about different energy resources, reserves, and define the problem with fossil fuels. (Remember - Level 1)
+    C401-6.2: Explain the greenhouse effect, modeling of temperature measurement, and the physics behind global warming. (Understand - Level 2)
+    C401-6.3: Demonstrate the basic principles and designs of different solar collectors and concentrators, and identify the best design/material/location to absorb maximum solar energy. (Apply - Level 3)
+    C401-6.4: Analyze the potential and output of renewable energy sources using different designs under different conditions/locations. (Analyze - Level 4)
+
+    Modules:
+    1. Introduction: Man and energy, world and Indian production/reserve of conventional energy sources, alternative energy sources. - 2 lectures
+    2. The Greenhouse Effect: Physics behind greenhouse effect, Blackbody radiation, layer model depending on energy flux and temperature at the Earth's surface, radiation effect on greenhouse gases, temperature structure of the atmosphere, Heat, pressure, wind, feedback mechanism, Carbon Cycle and Climate, Fossil Fuels, Effect of conventional energy sources. - 10 lectures
+    3. Solar Energy: Nature and availability of radiation, estimation of solar energy radiation, effect of receiving surface, location and orientation, heat transfer consideration relevant to solar energy, characteristics of materials and surface used in solar energy absorption, devices for thermal collection and storage. - 6 lectures
+    4. Ocean Energy: Tidal energy, its characteristics, tidal energy estimation, important components of tidal energy plant, single basin plant, double basin plant, turbine, tidal power plant development in India, wave energy, design parameters of wave energy plant, introduction and working of ocean thermal energy conversion. - 6 lectures
+    5. Wind Energy and Biomass Energy: Introduction to wind energy, nature, power, forces, conversion and estimation, components of wind energy system types, safety and environment, introduction to biomass energy, conversion and utilization of biogas plants and gasifiers. - 10 lectures
+    6. Fusion Energy: Basics of DT fusion, Magnetic confinement fusion, laser inertial fusion, present status of fusion reactors and future scope at international and national levels. - 6 lectures
+
+    Total Number of Lectures: 40
+
+    Evaluation Criteria:
+    T1: 20, T2: 20, End Semester Examination: 35, TA (Quiz/Assignments: 6 marks, PBL: 10 marks)
+    Total: 100`
+},{
+  name: "Healthcare Marketplace",
+  code: "17B1NBT732",
+  faculty: ["Prof. Indira P. Sarethy", "Prof. Shweta Dang"],
+  description: `Modules:
+    1. Introduction to Healthcare Markets: About the various regulatory bodies for approval of new medical innovations. (Level 2 Understanding) - 2 lectures
+    2. Clinical Pharmacokinetics and Clinical Trials for New Drugs: Biologic sampling techniques, analytical methods for the measurement of drugs and metabolites, procedures facilitating data collection, and manipulation. Clinical trials: PhI, II, III, and IV. (Level 3 Applying) - 5 lectures
+    3. Regulatory Approval Pathways: Preclinical studies, US and EU filings, IND submissions, NDA and BLA Submissions, Non-patent exclusivities, data, and market exclusivities cost analysis. (Level 3 Applying) - 6 lectures
+    4. Patents of Drugs and Devices, Entry for Generics in Healthcare: Role of patents on new drugs and devices, ever-greening of patents, Product and Process patents. Hatch Waxman Act, Introduction of generics and resulting cost reduction, Orange book (FDA), and related markets case studies. (Level 3 Applying) - 8 lectures
+    5. Economics of Healthcare: Stakeholders in healthcare—doctors, hospitals, and insurers and their roles, technology, and human capital. (Level 2 Understanding) - 7 lectures
+    6. Medical Technology and Insurance: For medical devices, pharmaceuticals, genetic diagnostic tests, and their regulations. (Level 4 Analyzing) - 4 lectures
+    7. Indian Hospital Sector: Various players – government, private, PPP models, strategic perspectives, case studies. (Level 4 Analyzing) - 4 lectures
+    8. Innovations in the Marketplace: Health to market innovations. (Level 4 Analyzing) - 4 lectures
+    9. Healthcare Informatics: e-health, collection of health data, data processing, evaluation, health information systems, case studies. (Level 4 Analyzing) - 2 lectures
+
+    Total Number of Lectures: 42
+
+    Project Based Learning:
+    Students analyze the site https://pmjay.gov.in/about/pmjay and represent the following sections in one comprehensive diagram:
+    • Coverage under PM-JAY
+    • Implementation Model
+    • Financing of the Scheme
+    This helps students understand recent innovations in the healthcare market and the integration of healthcare informatics.
+
+    Evaluation Criteria:
+    T1: 20, T2: 20, End Semester Examination: 35, TA (PBL, Assignments 1, 2, 3, Attendance): 25
+    Total: 100`
+},{
+  name: "Stress: Biology, Behaviour and Management",
+  code: "17B1NBT733",
+  faculty: ["Vibha Gupta"],
+  description: `Modules:
+    1. Introduction: The concept of Stress, Major stressors vs. routine hassles, Major types of stressors, Occupational Stressors, Organization Stress, Environmental Stressors, Happy Interactive Class (HIC). (Level 2 Understanding) - 3 lectures
+    2. Scientific Foundations of Stress: The Nature of Stress, Human Physiology, Stress and Relaxation Responses, Stress and Disease. (Level 2 Understanding) - 5 lectures
+    3. Body Systems Activated by Stressors: Nervous System, Endocrine System, Immune System, Cardiovascular System, Gastrointestinal System, Muscles. (Level 2 Understanding) - 9 lectures
+    4. Cognitive Psychology: Theoretical models: Psychodynamic, Behavioral, and Cognitive, Thoughts, Beliefs and Emotions, Behavioral Patterns, Self-concept and Self-esteem, Stress emotions (Anger and Fear), Personality Traits (Stress-prone and Stress-resistant). (Level 3 Applying) - 11 lectures
+    5. Social Psychology: Family and Culture, Demands and Responsibilities, Relationships, Verbal and Non-verbal Communication, Human Spirituality. (Level 3 Applying) - 3 lectures
+    6. Stress and the Human Environmental Interactions: Time, Body Rhythms, Weather and Climate, Nutrition, Exercise, Drugs and Addictions, Violence, and Post-Traumatic Stress. (Level 3 Applying) - 3 lectures
+    7. Happy Interactive Class (HIC) Related: DIY Strategies - Exercise and Health, Journal Writing/Music and Art Therapy, Humor and Comic Relief, Meditation/Mindfulness/Belly Breathing/Visual Imagery/Progressive Muscle Relaxation. Psychological interventions, Developing Cognitive Coping Skills, Creative Problem Solving (case studies). (Level 4 Analyzing) - 4 lectures
+    8. The Adaptive Brain: Neuroplasticity – Positive adaptation to stress. (Level 4 Analyzing) - 2 lectures
+
+    Total Number of Lectures: 40
+
+    Evaluation Criteria:
+    T1: 20, T2: 20, End Semester Examination: 35, TA (Project, Quiz, and class discussions): 25
+    Total: 100`
+},{
+  name: "Machine Learning and Natural Language Processing",
+  code: "17B1NCI731",
+  faculty: ["Dr. Arti Jain", "Dr. Parul Agarwal"],
+  description: `Modules:
+    1. Introduction and Basics of Text Processing: Introduction to Machine Learning & NLP, Challenges, Tokenization, Lemmatization, Data Representation. (Level 2 Understanding) - 4 lectures
+    2. Basics of Mathematics for Language Model: Linear Algebra, Probability Theory, N Gram Model. (Level 2 Understanding) - 4 lectures
+    3. Parts of Speech Tagging: Various Models: Hidden Markov Model, SVM, CRF, RNN, LSTM. (Level 3 Applying) - 10 lectures
+    4. Parsing: Linguistic Essentials, Markov Models, Applications of Tagging, Probabilistic Parsing - CFG, CSG, PCFG. (Level 3 Applying) - 8 lectures
+    5. Text Classification: Supervised: Bayesian, Naive Bayes, Sentiment Analysis, Text Classification, Unsupervised: K-means, Expectation-Maximization (EM) Algorithm, MaxEnt Classifier. (Level 4 Analyzing) - 6 lectures
+    6. Topic Modelling: Latent Dirichlet Allocation (LDA) and its Variants. (Level 4 Analyzing) - 3 lectures
+    7. Applications: Document Summarization, Co-referencing, Noun Phrase Chunking, Named Entity Recognition, Co-reference Resolution, Parsing, Information Extraction, Machine Translation, Spell Correction, News Article Title Generation, Code Categorization, Question Answering (Eliza), Generative AI, Large Language Models. (Level 5 Evaluating) - 7 lectures
+
+    Total Number of Lectures: 42
+
+    Evaluation Criteria:
+    T1: 20, T2: 20, End Semester Examination: 35, TA (Attendance, Assignment/Quiz, PBL): 25
+    Total: 100`
+},{
+  name: "Applied Numerical Methods",
+  code: "17B1NMA732",
+  faculty: ["Dr. Ram Surat Chauhan"],
+  description: `Modules:
+    1. Roots of Nonlinear Equations: Concept of round-off and truncation errors. Iterative methods to find roots for one or more nonlinear equations with their convergence. (Level 2 Understanding) - 6 lectures
+    2. Interpolation and Approximation: Interpolating polynomial, Lagrange formula with error, Formulae for equi-spaced points, Divided differences, Spline Interpolation, Least square approximation. (Level 3 Applying) - 7 lectures
+    3. Numerical Differentiation and Integration: Approximation of derivatives, Newton-Cote’s formulae, Gauss-Legendre quadrature formulae, Double integration. (Level 3 Applying) - 7 lectures
+    4. Numerical Linear Algebra: Gauss-elimination and LU-Decomposition Methods, Iterative methods: Jacobi and Gauss Seidel Methods and their convergence, Power’s method for the largest eigenvalue, Jacobi and Householder’s methods for eigen-values of real symmetric matrices. (Level 4 Analyzing) - 10 lectures
+    5. Numerical Solutions of ODE and PDE: Runge-Kutta and predictor-corrector methods for IVPs, Finite difference methods for BVPs, Shooting methods, Numerical solutions of parabolic and elliptic partial differential equations by Finite Difference Methods. (Level 5 Evaluating) - 12 lectures
+
+    Total Number of Lectures: 42
+
+    Evaluation Criteria:
+    T1: 20, T2: 20, End Semester Examination: 35, TA (Quiz, Assignments, PBL): 25
+    Total: 100`
+
+}
+    
+  ];
+  
+
+  function showDescription() {
+  const dropdown = document.getElementById('subjectDropdown');
+  const subjectDescription = document.getElementById('subjectDescription');
+  const selectedSubject = subjects[dropdown.selectedIndex - 1];
+
+  if (selectedSubject) {
+    subjectDescription.innerHTML = `
+      <h2>${selectedSubject.name}</h2>
+      <p><strong>Code:</strong> ${selectedSubject.code}</p>
+      <p><strong>Faculty:</strong> ${selectedSubject.faculty.join(', ')}</p>
+      <p><strong>Description:</strong></p>
+      <pre>${selectedSubject.description}</pre> <!-- Added <pre> tag here -->
+    `;
+  }
+}
+
+  const dropdown = document.getElementById('subjectDropdown');
+  subjects.forEach(subject => {
+    const option = document.createElement('option');
+    option.textContent = subject.name;
+    dropdown.appendChild(option);
+  });
+</script>
+
+</body>
+</html>
