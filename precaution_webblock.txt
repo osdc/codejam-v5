@@ -1,0 +1,17 @@
+Precaution:
+ALWAYS SAVE THE ORIGINAL HOST FILE BEFOREHAND BEFORE RUNNING THE CODE FOR WEB BLOCKER (aka focusmode.py).
+
+The hosts file on Windows is a text file that maps IP addresses to domain names or host names. It's located in the following folder: 
+
+Windows: C:\Windows\System32\drivers\etc\hosts
+
+To edit the hosts file, you'll need administrative privileges. You can do this by: 
+
+1. Clicking Start and selecting Notepad
+2. Clicking Run as administrator
+3. Selecting File > Open
+4. Navigating to C:\Windows\System32\Drivers\etc
+5. Choosing All Files
+6. Adding a custom IP address followed by a space and domain name to the hosts file
+
+The hosts file is a common part of an operating system's IP implementation. It contains lines of text with an IP address in the first text field, followed by one or more host names.
