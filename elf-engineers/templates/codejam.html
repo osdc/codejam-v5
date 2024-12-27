@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSDCodeJam-v5</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="codejam-body">
+    <img src="{{ url_for('static', filename='/codejam_logo.png') }}" alt="CodeJam Logo" class="header-image">
+    <div class="container">
+        <div class="header-section">
+            <h1 align="center">Welcome to OSDCodeJam-v5!</h1>
+        </div>
+
+        <div class="content-section">
+            <h2>Index</h2>
+            <ul>
+                <li><a href="#what-is-code-jam">What is Code Jam?</a></li>
+                <li><a href="#particulars">Particulars</a></li>
+                <li><a href="#timeline">Timeline</a></li>
+                <li><a href="#format">Format</a></li>
+                <li><a href="#submitting-your-project">Submitting your Project</a></li>
+                <li><a href="#rules">Rules</a></li>
+                <li><a href="#judging">Judging</a></li>
+            </ul>
+
+            <h2 id="what-is-code-jam">What is Code Jam?</h2>
+            <p>Codejam is the ultimate test of courage, mental strength and physical durability (jk lol). It is a unique online hackathon where you are paired up with a group of random participants just like yourself with whom you collaborate and make a project on a given theme. You then have around a week's time to create the best project you can. See <a href="#format">Format</a> for detailed information. This is a joint event organized every year by OSDC and JODC.</p>
+
+            <h2 id="particulars">Particulars</h2>
+            <ul>
+                <li>Main Communication Channel: <a href="https://discord.com/invite/GDVytHUZXC">OSDC Discord</a></li>
+                <li>Theme: Tools 🛠️</li>
+            </ul>
+            <p><strong>NOTE:</strong> This is an online only event. Team members will have to work and collaborate online using discord and other means of communication.</p>
+
+            <h2 id="timeline">Timeline</h2>
+            <ul>
+                <li>Registration: 17th or 18th December,2024 onwards. <a href="https://forms.gle/sjbWqa3h6tXDamYV8">Register here</a></li>
+                <li>Hackathon start: 23rd December</li>
+                <li>Mid evaluation: 25th December</li>
+                <li>Final Evaluation: 27th December</li>
+                <li>Results Announcement: 29th December</li>
+            </ul>
+
+            <h2 id="format">Format</h2>
+            <ul>
+                <li>Participants register individually for the Jam, mentioning their technical skills.</li>
+                <li>The organizers group the participants in teams of 4 (or 5, depending on the number of registrations) based on their skills and experience to have teams with equal skill levels.</li>
+                <li>The organizers announce the teams and theme for the Jam.</li>
+                <li>Team members communicate and collaborate to make a project within the 5 days of the - Jam that fits their interpretation of the theme.</li>
+                <li>All communications will be through the <a href="https://discord.com/invite/GDVytHUZXC">OSDC Discord Server</a>.</li>
+                <li>Teams showcase their ideas during the mid evaluation.</li>
+                <li>The guest judges (alumnis) choose the winners based on the judging criteria.</li>
+                <li>Prize Money: TBD</li>
+            </ul>
+
+            <h2 id="submitting-your-project">Submitting your Project</h2>
+            <p>The submissions for this Jam will be through Pull Requests. Follow these steps to create a PR:</p>
+            <h3>1. Fork this repository</h3>
+            <p>Start by <a href="https://github.com/osdc/codejam-v5/fork">forking this repository.</a> Only one team member needs to do this, the other members can fork that person's fork and work on it.</p>
+            <h3>2. Find your team folder in the repository</h3>
+            <p>The repository should already contain a subdirectory named after your team. All your project files must be contained within your team's subdirectory only. If you make any changes to files other than those in your team folder, we will not be able to merge your PR.</p>
+            <p>If you're using a CI/CD workflow, and require configuration files/folders in the root of the repository, either try to use a unique name (e.g. prefix the configuration files with your team name) or remove the files/directories just before the final submission.</p>
+            <h3>3. Create a Pull Request</h3>
+            <p>Only one team member has to do this (The same one who forked this repo directly). Open a pull request from your fork's main to the main branch of this repository in order to submit your project. You should use the name of your team as the title of the Pull Request. Please open your Pull Request at the start of the Jam (see the next step for clarification). Avoid opening spam PRs to the repo, and there should be only one PR from each team.</p>
+            <h3>4. Keep pushing to your main branch</h3>
+            <p>The Pull Request you created will keep getting updated automatically whenever you push code to main branch on your fork, so you can create the PR whenever you want, and you only have to do it once. You do not need to wait until the very end of the Jam to make the PR and risk missing the deadline. Just keep pushing code to your main branch as you keep progressing, and do your best to finish before the Jam ends!</p>
+            <p>When working as a team, you should consider learning about feature branches so that you don't all work directly on the main branch and cause each other a bunch of conflicts. For a short explanation of how this works, <a href="https://www.youtube.com/watch?v=f1t8Z0Ym_24">see this video.</a></p>
+
+
+            <h2 id="rules">Rules</h2>
+            <ol>
+                <li>This Jam is only open for JIIT Noida students.</li>
+                <li>The team size requirement is limited to 4-5 members made by OSDC CT members after registration..</li>
+                <li>Any language, library, framework, and open-source code can be used by teams in their work.</li>
+                <li>You must document exactly how to install, configure, and operate your project. This should be as simple as feasible. You can consider using dependency management.</li>
+                <li>All code must be written and committed within the Jam's timeframe. Late commits may be reverted; therefore allow extra time to thoroughly test your programme.</li>
+                <li>You can reuse code from other open source projects as long as you offer proper attribution and obey their LICENSE agreements.</li>
+                <li>Each member of your team needs to contribute, therefore please get in touch with an admin team member if you have a problem with someone on your team. Code is not a prerequisite for these contributions; administration, documentation, graphics, and music are all perfectly acceptable examples. Non-contributing team members will be kicked out of the Code Jam.</li>
+                <li>Teams can gain advice and support from organizers, volunteers, and others.</li>
+                <li>You must use Git as a version control system.</li>
+                <li>Code reviews will be conducted on all projects that the judges have chosen as finalists in order to verify that the code is unique work and that all materials and components adhere to the restrictions permitted by these guidelines.</li>
+                <li>Teams can work on ideas that have already been done. If somebody wants to work on a common idea, they will be allowed to do so and will be judged on the quality of their hack.</li>
+                <li>It is not permitted to work on projects that break the code of conduct.</li>
+                <li>All code and materials must comply with an Open-Source license. This is because your entry will be merged into this repository at the end of the jam.</li>
+
+            </ol>
+            <h2 id="judging">Judging</h2>
+            <p>Because programming is full of subtleties and judging is not an exact science, this section will inevitably fall short of being an exact guide for how to win, but it should at least give you an idea of what you should be mindful of as a participant.</p>
+
+            <ul>
+                <li><strong>Code Style:</strong> How easy to read, pleasant to work with, well commented, and self-documenting your code is.</li>
+                <li><strong>README:</strong> How well your README file explains your project, its setup instructions and its features.</li>
+                <li><strong>Uniqueness and Creativity:</strong> In order to level the playing field a bit, we've decided that this is the most important factor. If your idea is an exceptionally good one and you are a beginner, we will cut you some slack on style and execution. It is therefore crucial that you consider what to do more carefully than exactly how to do it.</li>
+                <li><strong>Adherence to Theme:</strong> How uniquely you interpreted the theme and justified it with your idea.</li>
+                <li><strong>Execution:</strong> An important factor is whether your solution is the best solution to the problem you are solving. If your solution is overly convoluted, this will count against you in our evaluation. While the code jam is ongoing, organizers will be available to you for any help or suggestions.</li>
+                <li><strong>Teamwork:</strong> During the Jam, you will be assigned teammates. It is crucial that you find a way to work with your teammates, as we will be evaluating your ability to work as a team. Team members who constantly bicker, complain about each other, or fail to divide up tasks so that everyone can contribute will be penalized when we evaluate the code jam. This does not, however, mean that a team that has a "bad egg" will automatically be unable to win the code-jam. If a team member refuses to play well with the rest of the team or does not participate in the jam, we will usually remove that person from the team and attempt to find a new teammate for the team to replace them.</li>
+            </ul>
+
+            <h2>Contact</h2>
+            <ul>
+                <li>Social Links: <a href="https://osdc-links.netlify.app/">https://osdc-links.netlify.app/</a></li>
+            </ul>
+        </div>
+        <div style="padding: 5em 0;"></div>
+        <div style="text-align:center;">
+          <a href="/" class="back-home-button" >Go back to Home</a>
+      </div>
+    </div>
+
+</body>
+</html>
