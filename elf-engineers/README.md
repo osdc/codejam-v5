@@ -1,5 +1,9 @@
+##                      SLEIGHT IT!
+
+
 ## Index
 - [What is Sleigh It!?](#what-is-sleigh-it)
+- [Technologies Used](#Technologies-Used)
 - [Features](#features)
 - [Pomodoro timer](#Pomodoro-timer)
 - [Customizable Work and Break Durations](#CustomizableWorkandBreakDurations)
@@ -10,10 +14,16 @@
 - [Progress Tracking](#tracking)
 - [Cross-Device Synchronization](#Synchronization)
 - [User Accounts](#personalisation)
+- [Team](#team)
+
 
 
 ## What is Sleigh It!?
-Sleigh It! is a productivity-focused website designed to enhance studying and task management. It features a Pomodoro timer to help users break their work into focused intervals with regular breaks, customizable work and break times, and a Focus mode to minimize distractions while studying. The platform also allows users to play music from spotify to boost concentration, making it ideal for students, professionals, or anyone looking to optimize their productivity in an engaging and efficient way.
+Sleigh It! is a productivity-focused website designed to enhance studying and task management, integrating the character of christmas. It features a Pomodoro timer to help users break their work into focused intervals with regular breaks, customizable work and break times, and a Focus mode to minimize distractions while studying. The platform also allows users to play music from spotify to boost concentration, making it ideal for students, professionals, or anyone looking to optimize their productivity in an engaging and efficient way.
+
+## Technologies Used
+- Languages: HTML, CSS, JSS, Python
+- Frameworks: Flask
 
 ## Features
 - Pomodoro timer
@@ -100,5 +110,9 @@ Lets users access their settings and data across multiple devices.
 ## User Accounts
 Enables users to log in, manage profiles, or access premium features, if applicable. Allows users to save their preferences (e.g., work/break durations, playlists).
 
-## Contact
-- Social Links: [https://osdc-links.netlify.app/](https://osdc-links.netlify.app/)
+## Team
+Members & Profiles:
+-Aayush Goyal: https://github.com/aayushgzip
+-Shreyash Naha : https://github.com/Shrezzio
+-Sansriti Mishra: https://github.com/Cyberpunk-San
+-Samaira Shariq : https://github.com/sam-shariq
