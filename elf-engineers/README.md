@@ -112,6 +112,7 @@ Enables users to log in, manage profiles, or access premium features, if applica
 
 ## Team
 Members & Profiles:
+
 -Aayush Goyal: https://github.com/aayushgzip
 -Shreyash Naha : https://github.com/Shrezzio
 -Sansriti Mishra: https://github.com/Cyberpunk-San
