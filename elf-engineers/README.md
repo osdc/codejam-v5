@@ -77,7 +77,7 @@ Users can adjust the lengths of their work sessions and break times to fit their
 
 ## Focus Mode/ Web Block
 
-A mode designed to minimize distractions, likely by hiding or limiting notifications or irrelevant elements.
+A mode designed to minimize distractions, by hiding or limiting notifications or irrelevant elements and by using a timer set up by the user.
 
 
 **PRECAUTIONS:**
