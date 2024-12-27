@@ -1,0 +1,146 @@
+.container2 {
+    background-image: url("../../src/assets/bg.png");
+    min-height: 120vh;
+    /* margin-bottom: 20px; */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding-bottom: 20px;
+}
+
+h1 {
+    color: rgb(61, 150, 61);
+    font-family: "Hanalei", serif;
+    font-size: 50px;
+    font-weight: 900;
+    letter-spacing: 8px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+#name1 {
+    font-family: "Rye", serif;
+    color: rgb(226, 43, 49);
+    font-size: 40px;
+    text-align: center;
+}
+
+.bg3 {
+    background-color: rgba(255, 255, 255, 0.85);
+    box-shadow: 2px 2px 40px white;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 1200px;
+    height: auto;
+    padding: 20px;
+    position: absolute;
+    top: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.profile-details p {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.expense-summary h2 {
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+.expense-summary ul {
+    list-style: none;
+    padding: 0;
+}
+
+.expense-summary li {
+    font-size: 18px;
+    margin: 8px 0;
+}
+
+.sf {
+    width: 30px;
+    animation: spinAnimate2 4s ease-out 0s infinite normal;
+}
+
+.sf1 {
+    width: 50px;
+    position: absolute;
+    top: 10%;
+    left: 5%;
+    animation: spinAnimate 4s ease-out 0s infinite normal;
+}
+
+.sf2 {
+    position: absolute;
+    top: 5%;
+    left: 85%;
+    animation: spinAnimate 5s ease-out 0s infinite normal;
+}
+
+.sf3 {
+    position: absolute;
+    top: 70%;
+    left: 80%;
+    animation: spinAnimate 6s ease-out 0s infinite normal;
+}
+
+.sf4 {
+    position: absolute;
+    top: 90%;
+    left: 15%;
+    animation: spinAnimate 7s ease-out 0s infinite normal;
+}
+
+@keyframes spinAnimate {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2) rotate(180deg);
+    }
+    100% {
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+@keyframes spinAnimate2 {
+    0% {
+        transform: scale(0.8);
+    }
+    50% {
+        transform: scale(1) rotate(180deg);
+    }
+    100% {
+        transform: scale(0.8) rotate(360deg);
+    }
+}
+
+/* Media Queries for Responsiveness */
+@media only screen and (max-width: 600px) {
+    h1 {
+        font-size: 30px;
+    }
+
+    #name {
+        font-size: 20px;
+    }
+
+    .profile-details p {
+        font-size: 16px;
+    }
+
+    .expense-summary h2 {
+        font-size: 20px;
+    }
+
+    .expense-summary li {
+        font-size: 14px;
+    }
+
+    .sf, .sf1, .sf2, .sf3, .sf4 {
+        width: 20px;
+    }
+}

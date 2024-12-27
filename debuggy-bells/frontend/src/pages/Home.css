@@ -1,0 +1,270 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanalei&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Puddles&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rye&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Eater&family=Kablammo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kranky&display=swap');
+
+.container1 {
+    background-image: url("../../src/assets/bg.png");
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+p {
+    color: rgb(0, 0, 0);
+    font-family: 'Rubik Puddles', Courier, monospace;
+    font-size: 50px;
+    font-weight: bolder;
+    letter-spacing: 10px;
+    margin-left: 90px;
+    margin-top: 80px;
+}
+
+h1 {
+    color: rgb(61, 150, 61);
+    font-family: "Hanalei", serif;
+    font-size: 50px;
+    font-weight: 900;
+    letter-spacing: 8px;
+    margin-left: 90px;
+}
+
+#name {
+    font-family: "Rye", serif;
+    color: rgb(226, 43, 49);
+    font-size: 70px;
+}
+
+.bg2 {
+    background-color: rgba(255, 255, 255, 0.738);
+    box-shadow: 2px 2px 40px white;
+    border-radius: 20px;
+    width: 90%;
+    /* Make it responsive */
+    max-width: 1200px;
+    /* Limit max width */
+    height: 600px;
+    position: absolute;
+    top: 110px;
+    left: 50%;
+    /* Center horizontally */
+    transform: translateX(-50%);
+}
+
+.display {
+    text-align: center;
+    padding: 200px;
+    position: absolute;
+    top: -70px;
+    left: 50%;
+    transform: translateX(-50%);
+    /* Center horizontally */
+}
+
+.btn {
+    font-family: "Kranky", serif;
+    font-size: 20px;
+    color: white;
+    width: 120px;
+    background-color: green;
+    border-radius: 20px;
+    box-shadow: 2px 2px 20px green;
+    display: block;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 10px;
+}
+
+.btn1{
+    margin-top: 220px;
+}
+
+h2 {
+    color: rgb(97, 94, 98);
+    font-family: 'Times New Roman', Times, serif;
+    margin-left: -35%;
+    margin-top: 10%;
+}
+
+.sf {
+    width: 30px;
+    animation: spinAnimate2 4s ease-out 0s infinite normal;
+}
+
+.sf1 {
+    width: 50px;
+    position: absolute;
+    top: 27%;
+    left: 10%;
+    margin: 10px;
+    animation: spinAnimate 4s ease-out 0s infinite normal;
+}
+
+.sf2 {
+    position: absolute;
+    top: 4%;
+    left: 80%;
+    margin: 20px;
+}
+
+.sf3 {
+    position: absolute;
+    top: 65%;
+    left: 70%;
+    margin: 20px;
+}
+
+.sf4 {
+    position: absolute;
+    top: 88%;
+    left: 25%;
+    margin: 20px;
+}
+
+@keyframes spinAnimate {
+    0% {
+        width: 50px;
+    }
+
+    50% {
+        width: 100px;
+    }
+
+    100% {
+        transform: rotateZ(360deg);
+        width: 50px;
+    }
+}
+
+@keyframes spinAnimate2 {
+    0% {
+        width: 30px;
+    }
+
+    50% {
+        width: 60px;
+    }
+
+    100% {
+        transform: rotateZ(360deg);
+        width: 30px;
+    }
+}
+
+/* Media Queries for Responsiveness */
+
+/* Small devices (phones, 600px and below) */
+@media only screen and (max-width: 600px) {
+    p {
+        font-size: 30px;
+        margin: 30px;
+    }
+
+    h1 {
+        font-size: 20px;
+        margin: 20px;
+    }
+
+    #name {
+        font-size:20px;
+    }
+
+    .bg2 {
+        width: 90%;
+        /* Adjust width for smaller screens */
+        height: 70%;
+        /* Allow the height to be flexible */
+        top: 90px;
+    }
+
+    h2{
+        font-size: 10px;
+        margin-left: -35%;
+        margin-top: 10%;
+    }
+
+    .display {
+        padding: 50px;
+        top: 5%;
+    }
+
+    .btn1{
+        margin-top: 20;
+    }
+
+    .btn {
+        width: 80px;
+        font-size: 15px;
+        padding: 4px;
+    }
+
+    .sf,
+    .sf1,
+    .sf2,
+    .sf3,
+    .sf4 {
+        width: 20px;
+        margin: 10px;
+    }
+}
+
+/* Medium devices (tablets, 600px to 1024px) */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+    p {
+        font-size: 40px;
+        margin: 40px;
+    }
+
+    h1 {
+        font-size: 30px;
+        margin: 30px;
+    }
+
+    #name {
+        font-size: 30px;
+    }
+
+    .bg2 {
+        width: 80%;
+        height: 75%;
+        top: 12%;
+    }
+
+    .display {
+        padding: 150px;
+        top: -35%
+    }
+
+    .btn1{
+        margin-top: 400px;
+        margin-bottom: 20px;
+    }
+
+    .btn {
+        width: 110px;
+        font-size: 19px;
+        padding: 9px;
+    }
+
+    .tree {
+        width: 60%;
+        left: 20%;
+        top: 40%;
+    }
+
+    .sf,
+    .sf1,
+    .sf2,
+    .sf3,
+    .sf4 {
+        width: 40px;
+        margin: 15px;
+    }
+}
+
+/* Large devices (desktops, 1024px and above) */
+@media only screen and (min-width: 1025px) {
+    /* No changes required as the base styles are already suited for large screens */
+}
