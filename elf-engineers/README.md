@@ -22,7 +22,7 @@
 Sleigh It! is a productivity-focused website designed to enhance studying and task management, integrating the character of christmas. It features a Pomodoro timer to help users break their work into focused intervals with regular breaks, customizable work and break times, and a Focus mode to minimize distractions while studying. The platform also allows users to play music from spotify to boost concentration, making it ideal for students, professionals, or anyone looking to optimize their productivity in an engaging and efficient way.
 
 ## Technologies Used
-- Languages: HTML, CSS, JSS, Python
+- Languages: HTML, CSS, JSS, Python, SQL
 - Frameworks: Flask
 
 ## Features
@@ -112,8 +112,7 @@ Enables users to log in, manage profiles, or access premium features, if applica
 
 ## Team
 Members & Profiles:
-
--Aayush Goyal: https://github.com/aayushgzip
--Shreyash Naha : https://github.com/Shrezzio
--Sansriti Mishra: https://github.com/Cyberpunk-San
--Samaira Shariq : https://github.com/sam-shariq
+- Aayush Goyal: https://github.com/aayushgzip
+- Shreyash Naha : https://github.com/Shrezzio
+- Sansriti Mishra: https://github.com/Cyberpunk-San
+- Samaira Shariq : https://github.com/sam-shariq
