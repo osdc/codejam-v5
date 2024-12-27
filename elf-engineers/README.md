@@ -34,6 +34,7 @@ Sleigh It! is a productivity-focused website designed to enhance studying and ta
 ## Features
 - Pomodoro timer
 - Customizable Work and Break Durations
+- Add Tasks
 - Focus Mode/ Web Block
 - Music Integration
 - User-Friendly Interface
@@ -74,6 +75,8 @@ To do this, write "virtualenv env" to create.
 ## Customizable Work and Break Durations
 Users can adjust the lengths of their work sessions and break times to fit their preferences or productivity needs.
 
+## Add tasks
+Users can add tasks to be finished while working in Pomodoro or Focus mode.
 
 ## Focus Mode/ Web Block
 
