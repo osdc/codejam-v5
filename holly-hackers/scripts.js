@@ -568,7 +568,9 @@ function calculateResult() {
 
 // Theme Toggle Functionality
 const themeToggle = document.getElementById('theme-toggle');
+const christmasThemeToggle = document.getElementById('christmas-theme-toggle');
 let isDarkMode = localStorage.getItem('darkMode') === 'true';
+let isChristmasMode = localStorage.getItem('christmasMode') === 'true';
 
 // Initialize theme
 function updateTheme() {
@@ -583,7 +585,6 @@ function updateTheme() {
         calculator: document.querySelector('.calculator'),
         calculatorScreen: document.querySelector('.calculator-screen'),
         calculatorButtons: document.querySelectorAll('.calculator-keys button'),
-        // Add these new selectors
         thoughtContainer: document.querySelector('.thought-container'),
         todoSection: document.getElementById('todo-section'),
         todoList: document.querySelectorAll('li'),
@@ -597,17 +598,9 @@ function updateTheme() {
         thoughtOptions: document.querySelectorAll('.thought-option')
     };
 
-    if (isDarkMode) {
-        themeToggle.textContent = '☀️ Light Mode';
-        Object.values(elements).forEach(elementOrNodeList => {
-            if (elementOrNodeList instanceof NodeList) {
-                elementOrNodeList.forEach(el => el && el.classList.add('dark-mode'));
-            } else if (elementOrNodeList) {
-                elementOrNodeList.classList.add('dark-mode');
-            }
-        });
-    } else {
+    if (isChristmasMode) {
         themeToggle.textContent = '🌙 Dark Mode';
+        christmasThemeToggle.textContent = '🎄 Christmas Mode On';
         Object.values(elements).forEach(elementOrNodeList => {
             if (elementOrNodeList instanceof NodeList) {
                 elementOrNodeList.forEach(el => el && el.classList.remove('dark-mode'));
@@ -615,13 +608,51 @@ function updateTheme() {
                 elementOrNodeList.classList.remove('dark-mode');
             }
         });
+        document.querySelector('link[href="christmas-styles.css"]').disabled = false;
+    } else {
+        document.querySelector('link[href="christmas-styles.css"]').disabled = true;
+        christmasThemeToggle.textContent = '🎄 Christmas Mode Off';
+        if (isDarkMode) {
+            themeToggle.textContent = '☀️ Light Mode';
+            Object.values(elements).forEach(elementOrNodeList => {
+                if (elementOrNodeList instanceof NodeList) {
+                    elementOrNodeList.forEach(el => el && el.classList.add('dark-mode'));
+                } else if (elementOrNodeList) {
+                    elementOrNodeList.classList.add('dark-mode');
+                }
+            });
+        } else {
+            themeToggle.textContent = '🌙 Dark Mode';
+            Object.values(elements).forEach(elementOrNodeList => {
+                if (elementOrNodeList instanceof NodeList) {
+                    elementOrNodeList.forEach(el => el && el.classList.remove('dark-mode'));
+                } else if (elementOrNodeList) {
+                    elementOrNodeList.classList.remove('dark-mode');
+                }
+            });
+        }
     }
 }
 
 // Toggle theme
 themeToggle.addEventListener('click', () => {
+    if (isChristmasMode) {
+        isChristmasMode = false;
+        localStorage.setItem('christmasMode', isChristmasMode);
+    }
     isDarkMode = !isDarkMode;
     localStorage.setItem('darkMode', isDarkMode);
+    updateTheme();
+});
+
+// Toggle Christmas theme
+christmasThemeToggle.addEventListener('click', () => {
+    if (isDarkMode) {
+        isDarkMode = false;
+        localStorage.setItem('darkMode', isDarkMode);
+    }
+    isChristmasMode = !isChristmasMode;
+    localStorage.setItem('christmasMode', isChristmasMode);
     updateTheme();
 });
 
