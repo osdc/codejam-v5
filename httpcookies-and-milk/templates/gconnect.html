@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}Sync Timetable{% endblock %}
+
+{% block content %}
+<div class="container my-5" style="background-color: #f7f3e9; border-radius: 15px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);">
+    <h1 class="text-center my-4" style="color: #3a3a8e; font-family: 'Comic Sans MS', sans-serif;">📅 Sync Your Timetable</h1>
+    <p class="text-center" style="font-size: 1.2rem; color: #555;">
+        Simplify your schedule management by syncing your college timetable directly with Google Calendar.
+    </p>
+
+    <form action="/initiate-oauth/" method="POST" class="my-4">
+        {% csrf_token %}
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label for="batchCode" class="form-label" style="color: #3a3a8e;">Select Batch Code:</label>
+                <select id="batchCode" name="batchCode" class="form-select" required>
+                    <option value="" disabled selected>Select your batch</option>
+                    {% for course_id, semesters in batches.items %}
+                        <optgroup label="{{ course_id }}">
+                            {% for semester_id, batch_list in semesters.items %}
+                                <optgroup label="{{ semester_id }}">
+                                    {% for batch in batch_list %}
+                                        <option value="{{ batch.id }}">{{ batch.name }}</option>
+                                    {% endfor %}
+                                </optgroup>
+                            {% endfor %}
+                        </optgroup>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label for="semester" class="form-label" style="color: #3a3a8e;">Select Semester:</label>
+                <select id="semester" name="semester" class="form-select" required>
+                    <option value="" disabled selected>Select your semester</option>
+                    {% for semester_id, semester_list in semesters.items %}
+                        <optgroup label="{{ semester_id }}">
+                            {% for semester in semester_list %}
+                                <option value="{{ semester.id }}">{{ semester.name }}</option>
+                            {% endfor %}
+                        </optgroup>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label for="course" class="form-label" style="color: #3a3a8e;">Select Course:</label>
+                <select id="course" name="course" class="form-select" required>
+                    <option value="" disabled selected>Select your course</option>
+                    {% for course in courses %}
+                        <option value="{{ course.id }}">{{ course.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary" style="background-color: #3a3a8e; border: none;">Sync to Google Calendar</button>
+        </div>
+    </form>
+
+    <div class="text-center mt-5" style="color: #3a3a8e;">
+        <h3>Why Sync Your Timetable?</h3>
+        <ul style="list-style: none; padding: 0; font-size: 1rem;">
+            <li>📅 Never miss a class or event.</li>
+            <li>📲 Access your schedule from any device.</li>
+            <li>🔔 Get reminders for upcoming lectures and activities.</li>
+            <li>🎯 Stay organized and focused on your academic goals.</li>
+        </ul>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #eef3f7;
+        font-family: 'Arial', sans-serif;
+    }
+    h1, h3, ul {
+        font-family: 'Comic Sans MS', sans-serif;
+    }
+    ul li {
+        padding: 5px 0;
+    }
+    .container {
+        animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+{% endblock %}

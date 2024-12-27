@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Grade Predictor{% endblock %}
+
+{% block content %}
+<div class="container my-5" style="background-color: #f7f3e9; border-radius: 15px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);">
+    <h1 class="text-center my-4" style="color: #3a3a8e; font-family: 'Comic Sans MS', sans-serif;">🎓 Grade Predictor</h1>
+    <p class="text-center" style="font-size: 1.2rem; color: #555;">
+        Input your details below to predict your grade based on previous trends and performance data.
+    </p>
+    
+    <form action="/predict-grade/" method="POST" style="padding: 20px;">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="subject" style="font-size: 1rem; color: #3a3a8e;">Select Subject:</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="subject" id="OSSLAB" value="OSSLAB" required>
+                <label class="form-check-label" for="OSSLAB">OSS LAB</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="subject" id="DBWLAB" value="DBWLAB" required>
+                <label class="form-check-label" for="DBWLAB">DBW LAB</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="subject" id="OSSPLAB" value="OSSPLAB" required>
+                <label class="form-check-label" for="OSSPLAB">OSSP LAB</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="lab1" style="font-size: 1rem; color: #3a3a8e;">Lab Test 1 Marks:</label>
+            <input type="number" class="form-control" id="lab1" name="lab1" min="0" max="100" placeholder="Enter marks" required>
+        </div>
+
+        <div class="form-group">
+            <label for="lab2" style="font-size: 1rem; color: #3a3a8e;">Lab Test 2 Marks:</label>
+            <input type="number" class="form-control" id="lab2" name="lab2" min="0" max="100" placeholder="Enter marks" required>
+        </div>
+
+        <div class="form-group">
+            <label for="internals" style="font-size: 1rem; color: #3a3a8e;">Internal Marks:</label>
+            <input type="number" class="form-control" id="internals" name="internals" min="0" max="100" placeholder="Enter marks" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3" style="background-color: #3a3a8e; border: none;">Predict Grade</button>
+    </form>
+</div>
+
+<style>
+    body {
+        background-color: #eef3f7;
+        font-family: 'Arial', sans-serif;
+    }
+    h1, h2 {
+        font-family: 'Comic Sans MS', sans-serif;
+    }
+    .container {
+        animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+{% endblock %}
