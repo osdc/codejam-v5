@@ -7,6 +7,7 @@ const getData = async () => {
   try {
     const baseUrl = getBaseUrl();
     const { data } = await axios.get(`${baseUrl}/api/items`);
+    console.log(data);
     // const res = await fetch("/api/items");
     // const data = await res.json();
     // console.log(data);

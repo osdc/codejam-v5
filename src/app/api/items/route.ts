@@ -6,6 +6,7 @@ import { uploadImage } from "@/lib/cloudinary";
 export const GET = async () => {
   try {
     await connectToDb();
+    console.log("inside get request");
     const allItems = await Item.find({});
     console.log("Successfully fetched items:", allItems.length);
     return NextResponse.json(allItems);
