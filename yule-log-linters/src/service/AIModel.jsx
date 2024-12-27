@@ -1,0 +1,34 @@
+import { GoogleGenerativeAI } from "@google/generative-ai";
+  
+  const apiKey = import.meta.env.VITE_GOOGLE_GEMINI_AI_API_KEY;
+  const genAI = new GoogleGenerativeAI(apiKey);
+  
+  const model = genAI.getGenerativeModel({
+    model: "gemini-1.5-flash",
+  });
+  
+  const generationConfig = {
+    temperature: 1,
+    topP: 0.95,
+    topK: 40,
+    maxOutputTokens: 8192,
+    responseMimeType: "application/json",
+  };
+  
+    export const chatSession = model.startChat({
+      generationConfig,
+      history: [
+        {
+          role: "user",
+          parts: [
+            {text: "generate a travel plan for Location: Las Vegas, for 3 days for a couple with cheap budget, give me a hotel option list with HotelName, Hotel Address, price, hotel image url, geo locarion, rating, desc, and suggestions itineary with placeName, place details, place image url,, geo coordinate, tickets pricing, rating, tie travel each of the location for 3 days with each day plan with best time to visit in JSON format"},
+          ],
+        },
+        {
+          role: "model",
+          parts: [
+            {text: "I cannot directly access and display real-time information, including hotel prices, availability, images, and real-time ratings.  Also, I cannot provide geo-location data directly in JSON.  However, I can give you a JSON template with the *structure* you requested,  populated with placeholder data. You will need to use this template and fill in the actual details using online travel agencies (like Booking.com, Expedia, Kayak) and Google Maps.\n\n\n```json\n{\n  \"trip\": {\n    \"location\": \"Las Vegas, NV\",\n    \"duration\": \"3 days\",\n    \"budget\": \"cheap\",\n    \"travelers\": \"Couple\"\n  },\n  \"hotels\": [\n    {\n      \"hotelName\": \"Budget Inn Las Vegas\",\n      \"hotelAddress\": \"Placeholder Address\",\n      \"price\": \"Placeholder Price (e.g., $50-$80/night)\",\n      \"hotelImageUrl\": \"Placeholder Image URL\",\n      \"geoLocation\": {\n        \"latitude\": \"Placeholder Latitude\",\n        \"longitude\": \"Placeholder Longitude\"\n      },\n      \"rating\": \"Placeholder Rating (e.g., 3.5)\",\n      \"description\": \"Placeholder Description (e.g., Basic but clean hotel, good location)\"\n    },\n    {\n      \"hotelName\": \"Circus Circus Hotel & Casino\",\n      \"hotelAddress\": \"Placeholder Address\",\n      \"price\": \"Placeholder Price (Check online)\",\n      \"hotelImageUrl\": \"Placeholder Image URL\",\n      \"geoLocation\": {\n        \"latitude\": \"Placeholder Latitude\",\n        \"longitude\": \"Placeholder Longitude\"\n      },\n      \"rating\": \"Placeholder Rating\",\n      \"description\": \"Placeholder Description (Often offers lower rates, but more of a casino focus)\"\n\n    },\n     {\n      \"hotelName\": \"Motel 6 Las Vegas\",\n      \"hotelAddress\": \"Placeholder Address\",\n      \"price\": \"Placeholder Price (Check online)\",\n      \"hotelImageUrl\": \"Placeholder Image URL\",\n      \"geoLocation\": {\n        \"latitude\": \"Placeholder Latitude\",\n        \"longitude\": \"Placeholder Longitude\"\n      },\n      \"rating\": \"Placeholder Rating\",\n      \"description\": \"Placeholder Description (Budget-friendly chain motel)\"\n    }\n  ],\n  \"itinerary\": {\n    \"day1\": [\n      {\n        \"placeName\": \"Fremont Street Experience\",\n        \"placeDetails\": \"Free walking street with light shows and street performers\",\n        \"placeImageUrl\": \"Placeholder Image URL\",\n        \"geoCoordinate\": {\n          \"latitude\": \"Placeholder Latitude\",\n          \"longitude\": \"Placeholder Longitude\"\n        },\n        \"ticketsPricing\": \"Free\",\n        \"rating\": \"Placeholder Rating\",\n        \"time\": \"Evening\"\n      },\n      {\n        \"placeName\": \"Downtown Container Park\",\n        \"placeDetails\": \"Unique shopping and dining area made from shipping containers.\",\n        \"placeImageUrl\": \"Placeholder Image URL\",\n        \"geoCoordinate\": {\n          \"latitude\": \"Placeholder Latitude\",\n          \"longitude\": \"Placeholder Longitude\"\n        },\n        \"ticketsPricing\": \"Free entry\",\n        \"rating\": \"Placeholder Rating\",\n        \"time\": \"Afternoon\"\n      }\n    ],\n    \"day2\": [\n      {\n        \"placeName\": \"Strip Walk (self-guided)\",\n        \"placeDetails\": \"Walk the Las Vegas Strip, admiring the hotels and shows.\",\n        \"placeImageUrl\": \"Placeholder Image URL\",\n        \"geoCoordinate\": {\n          \"latitude\": \"Placeholder Latitude\",\n          \"longitude\": \"Placeholder Longitude\"\n        },\n        \"ticketsPricing\": \"Free (unless you go into shows or attractions)\",\n        \"rating\": \"Placeholder Rating\",\n        \"time\": \"Daytime\"\n      },\n      {\n        \"placeName\": \"Bellagio Conservatory & Botanical Gardens\",\n        \"placeDetails\": \"Free to enter, stunning seasonal displays\",\n        \"placeImageUrl\": \"Placeholder Image URL\",\n        \"geoCoordinate\": {\n          \"latitude\": \"Placeholder Latitude\",\n          \"longitude\": \"Placeholder Longitude\"\n        },\n        \"ticketsPricing\": \"Free\",\n        \"rating\": \"Placeholder Rating\",\n        \"time\": \"Afternoon\"\n      }\n    ],\n    \"day3\": [\n      {\n        \"placeName\": \"Seven Magic Mountains\",\n        \"placeDetails\": \"Colorful art installation south of the Strip (requires transportation)\",\n        \"placeImageUrl\": \"Placeholder Image URL\",\n        \"geoCoordinate\": {\n          \"latitude\": \"Placeholder Latitude\",\n          \"longitude\": \"Placeholder Longitude\"\n        },\n        \"ticketsPricing\": \"Free\",\n        \"rating\": \"Placeholder Rating\",\n        \"time\": \"Afternoon\"\n      },\n       {\n        \"placeName\": \"Neon Museum\",\n        \"placeDetails\": \"Collection of vintage Las Vegas signs\",\n        \"placeImageUrl\": \"Placeholder Image URL\",\n        \"geoCoordinate\": {\n          \"latitude\": \"Placeholder Latitude\",\n          \"longitude\": \"Placeholder Longitude\"\n        },\n        \"ticketsPricing\": \"Check online for prices\",\n        \"rating\": \"Placeholder Rating\",\n        \"time\": \"Late Afternoon/Evening\"\n      }\n    ]\n  }\n}\n```\n\nRemember to replace all the \"Placeholder\" values with actual data from your research!  Consider using public transportation (buses) to save money on transportation within Las Vegas.  Look for happy hour deals on food and drinks to stretch your budget further.  Have a great trip!\n"},
+          ],
+        },
+      ],
+    });
