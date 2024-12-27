@@ -2,6 +2,7 @@ import axios from "axios";
 import ItemCard from "@/components/ItemCard";
 import { IItem } from "@/models/item.model";
 import { getBaseUrl } from "@/lib/getBaseUrl";
+export const revalidate = 0;
 
 const getData = async () => {
   try {
