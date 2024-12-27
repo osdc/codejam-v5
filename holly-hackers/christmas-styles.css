@@ -61,8 +61,13 @@ button:hover {
 
 /* Keep functional animations */
 @keyframes snowfall {
-    0% { transform: translateY(-100%) rotate(0deg); }
-    100% { transform: translateY(100vh) rotate(360deg); }
+    0% {
+        transform: translateY(-100%) rotate(0deg);
+    }
+
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+    }
 }
 
 .snowflake {
@@ -83,10 +88,10 @@ button:hover {
     left: 0;
     right: 0;
     height: 10px;
-    background: repeating-linear-gradient(90deg, 
-        #c4000f 0px 10px,
-        #2a4830 10px 20px,
-        #ffd700 20px 30px);
+    background: repeating-linear-gradient(90deg,
+            #c4000f 0px 10px,
+            #2a4830 10px 20px,
+            #ffd700 20px 30px);
     border-radius: 5px;
 }
 
@@ -119,11 +124,13 @@ body.christmas-mode {
 }
 
 .thought-dropdown .thought-option {
-    color: #c4000f !important; /* Change text color to red */
+    color: #c4000f !important;
+    /* Change text color to red */
 }
 
 .thought-dropdown .thought-option:hover {
-    background-color: #2a4830 !important; /* Change background color to green on hover */
+    background-color: #2a4830 !important;
+    /* Change background color to green on hover */
 }
 
 /* Add Christmas emojis to headings */

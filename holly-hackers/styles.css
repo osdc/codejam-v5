@@ -361,7 +361,7 @@ li button {
 }
 
 #note-title-input,
-#note-content-input,        
+#note-content-input,
 #view-popup-content {
     width: 95%;
     padding: 10px;
@@ -577,7 +577,7 @@ li button {
     max-width: 300px;
     margin: 20px auto;
     background: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .calculator-screen {
@@ -588,7 +588,7 @@ li button {
     color: #a7a7a7;
     text-align: right;
     padding: 10px 20px;
-    font-size: 3rem;        
+    font-size: 3rem;
     margin-bottom: 15px;
     border-radius: 4px;
 }
@@ -611,7 +611,7 @@ li button {
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: center;    
+    justify-content: center;
 }
 
 .operator {
@@ -681,22 +681,23 @@ button.dark-mode {
 }
 
 #christmas-theme-toggle {
-  position: fixed;
-  top: 80px; /* Adjust this value to position the button below the Light/Dark Mode button */
-  right: 20px;
-  padding: 10px 20px;
-  border-radius: 20px;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  z-index: 1000;
-  background-color: #007bff;
-  color: white;
+    position: fixed;
+    top: 80px;
+    /* Adjust this value to position the button below the Light/Dark Mode button */
+    right: 20px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    background-color: #007bff;
+    color: white;
 }
 
 #christmas-theme-toggle:hover {
-  transform: scale(1.05);
+    transform: scale(1.05);
 }
 
 /* Dark Theme Classes */
@@ -714,7 +715,8 @@ header.dark-mode {
     box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
 }
 
-input.dark-mode, textarea.dark-mode {
+input.dark-mode,
+textarea.dark-mode {
     background-color: #3d3d3d;
     color: #ffffff;
     border-color: #4d4d4d;
@@ -827,7 +829,7 @@ li.dark-mode {
 
 #add-edit-popup .popup-content {
     width: 70%;
-    max-width: 600px; 
+    max-width: 600px;
     padding: 50px;
     margin: 1px auto;
 }
@@ -842,7 +844,8 @@ li.dark-mode {
 }
 
 #note-content-input {
-    min-height: 250px; /* Increased height */
+    min-height: 250px;
+    /* Increased height */
 }
 
 /* Responsive adjustments */

@@ -20,7 +20,9 @@ STARK addresses the common challenges students face in managing their academic r
 - **Flexible Note Organization**: Create, edit, and organize notes with timestamps
 - **Motivational Quote System**: Customizable motivation quotes to keep you inspired
 - **Scientific Calculator**: Built-in calculator for quick computations
-- **Adaptive Theme**: Seamless switching between dark and light modes for optimal viewing
+- **Adaptive Themes**: 
+  - Dark/Light mode switching for comfortable viewing
+  - Special Christmas theme with festive colors and fonts
 
 ## 🚀 Installation
 
@@ -77,13 +79,22 @@ cd stark-student-helper
 ### Theme Toggle
 - Click the theme toggle button (🌙/☀️) in the top-right corner to switch between dark and light modes
 
+### Theme Settings
+1. Dark/Light Mode:
+   - Click the moon/sun icon (🌙/☀️) in the top-right corner to switch between dark and light modes
+2. Christmas Theme:
+   - Click the Christmas tree icon (🎄) to toggle the festive theme
+   - Features holiday colors, fonts, and decorative elements
+   - Automatically saves your theme preference
+
 ## 🛠️ Technical Details
 
 - Built with vanilla JavaScript for lightweight performance
 - Local storage implementation for data persistence
 - Responsive design for all screen sizes
 - Modular code structure for easy maintenance
-- No external dependencies required
+- Custom theme system with holiday variations
+- No external dependencies required (except Google Fonts for Christmas theme)
 
 ## 🤝 Contributing
 
