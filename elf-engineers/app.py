@@ -346,7 +346,7 @@ def edit_profile():
 
 @app.route("/flashcards/focus")
 def render():
-    return render_template("pomodoro.html")
+    return render_template("focus.html")
 
 @app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
