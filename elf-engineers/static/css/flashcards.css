@@ -1,0 +1,179 @@
+.flashcards-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+.view-tasks-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s;
+    margin-right: 1rem;
+}
+
+.view-tasks-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header-section {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header-section h1 {
+    font-size: 2.5rem;
+    color: #2d3748;
+    font-weight: 700;
+}
+
+.focus-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.create-card-section {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #667eea;
+    outline: none;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.flashcards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.flashcard {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+}
+
+.flashcard.completed {
+    background: #f7fafc;
+    border: 2px solid #4299e1;
+}
+
+.category-tag {
+    background: #ebf4ff;
+    color: #4a5568;
+    padding: 0.25rem 0.75rem;
+    border-radius: 16px;
+    font-size: 0.875rem;
+}
+
+.task-description {
+    margin: 1rem 0;
+    color: #2d3748;
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
+.time-required {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #718096;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.created-at {
+    font-size: 0.75rem;
+    color: #718096;
+}
+
+.card-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #718096;
+    transition: color 0.2s;
+}
+
+.toggle-complete {
+    color: #48bb78;
+}
+
+@media (max-width: 768px) {
+    .header-section {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .flashcards-grid {
+        grid-template-columns: 1fr;
+    }
+}

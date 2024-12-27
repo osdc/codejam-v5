@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="flashcards-container">
+    <div class="header-section">
+        <h1>Task Management</h1>
+        <!-- View Tasks Button -->
+        <button id="view-tasks-btn" class="focus-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            View Tasks
+        </button>
+        <button id="focus-mode" class="focus-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="focus-icon">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="currentColor"/>
+            </svg>
+            Enter Focus Mode
+        </button>
+    </div>
+
+    <!-- Task Creation Form -->
+    <div class="create-card-section">
+        <h2>Create New Task</h2>
+        <form id="flashcard-form">
+            <div class="form-group">
+                <label for="category">Category</label>
+                <input type="text" id="category" placeholder="Enter task category (e.g., Study, Work, Personal)" required>
+            </div>
+            <div class="form-group">
+                <label for="task_description">Task Description</label>
+                <textarea id="task_description" placeholder="Describe the task to be completed" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="time_required">Time Required (hours)</label>
+                <input type="number" id="time_required" step="0.5" min="0" placeholder="e.g., 1.5" required>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="submit-btn">Create Task</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Tasks Grid -->
+    <div class="flashcards-grid" id="flashcards-container">
+        {% for flashcard in flashcards %}
+        <div class="flashcard {% if flashcard.completed %}completed{% endif %}" data-id="{{ flashcard.id }}">
+            <div class="flashcard-header">
+                <span class="category-tag">{{ flashcard.category }}</span>
+                <div class="card-actions">
+                    <button class="toggle-complete action-btn" title="Toggle completion">
+                        <i class="fas {% if flashcard.completed %}fa-check-circle{% else %}fa-circle{% endif %}"></i>
+                    </button>
+                    <button class="edit-flashcard action-btn" title="Edit task">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="delete-flashcard action-btn" title="Delete task">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="flashcard-content">
+                <div class="task-description">{{ flashcard.task_description }}</div>
+                <div class="time-required">
+                    <i class="fas fa-clock"></i>
+                    {{ flashcard.time_required }} hours
+                </div>
+            </div>
+            <div class="flashcard-footer">
+                <div class="created-at">Created: {{ flashcard.created_at.strftime('%Y-%m-%d') }}</div>
+                <div class="mastery-stars" data-level="{{ flashcard.mastery_level }}">
+                    {% for i in range(5) %}
+                        <span class="star {% if i < flashcard.mastery_level %}active{% endif %}">★</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

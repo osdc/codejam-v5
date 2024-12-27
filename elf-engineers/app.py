@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from flask_login import logout_user
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -9,9 +9,7 @@ from flask_mail import Mail, Message
 import os
 import random
 import string
-from dotenv import load_dotenv
 
-load_dotenv()
 
 app = Flask(__name__, template_folder='templates')
 app.secret_key = "your_secret_key"
@@ -44,6 +42,16 @@ class User(db.Model):
     most_productive_day = db.Column(db.String(50), nullable=True)
     total_focus_time = db.Column(db.Integer, default=0)
     reset_token = db.Column(db.String(100), nullable=True)  # Add this column
+
+class Flashcard(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    category = db.Column(db.String(50), nullable=False)
+    task_description = db.Column(db.Text, nullable=False)
+    time_required = db.Column(db.Float, nullable=False)  
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    completed = db.Column(db.Boolean, default=False)
+    mastery_level = db.Column(db.Integer, default=0)  
 
 @app.route('/')
 def home():
@@ -95,6 +103,116 @@ def register():
 
     return render_template('register.html')
 
+@app.route('/flashcards')
+def flashcards():
+    if 'user_id' not in session:
+        return redirect(url_for('home'))
+    
+    user_id = session['user_id']
+    flashcards = Flashcard.query.filter_by(user_id=user_id).order_by(Flashcard.created_at.desc()).all()
+    return render_template('flashcards.html', flashcards=flashcards)
+
+@app.route('/flashcard/create', methods=['POST'])
+def create_flashcard():
+    if 'user_id' not in session:
+        return jsonify({'error': 'Not authenticated'}), 401
+    
+    data = request.get_json()
+    task = Flashcard(
+        user_id=session['user_id'],
+        category=data.get('category'),
+        task_description=data.get('task_description'),
+        time_required=data.get('time_required')
+    )
+    
+    db.session.add(task)
+    db.session.commit()
+    
+    return jsonify({
+        'id': task.id,
+        'category': task.category,
+        'task_description': task.task_description,
+        'time_required': task.time_required,
+        'completed': task.completed
+    })
+
+@app.route('/flashcards/view', methods=['GET'])
+def view_flashcards():
+    if 'user_id' not in session:
+        return jsonify({'error': 'Not authenticated'}), 401
+    
+    flashcards = Flashcard.query.filter_by(user_id=session['user_id']).order_by(Flashcard.created_at.desc()).all()
+    
+    return jsonify([{
+        'id': card.id,
+        'category': card.category,
+        'task_description': card.task_description,
+        'time_required': card.time_required,
+        'completed': card.completed,
+        'mastery_level': card.mastery_level,
+        'created_at': card.created_at.strftime('%Y-%m-%d')
+    } for card in flashcards])
+
+@app.route('/flashcards/<int:id>', methods=['PUT'])
+def update_flashcard(id):
+    if 'user_id' not in session:
+        return jsonify({'error': 'Not authenticated'}), 401
+    
+    flashcard = Flashcard.query.get_or_404(id)
+    if flashcard.user_id != session['user_id']:
+        return jsonify({'error': 'Unauthorized'}), 403
+    
+    data = request.get_json()
+    flashcard.category = data.get('category', flashcard.category)
+    flashcard.task_description = data.get('task_description', flashcard.task_description)
+    flashcard.time_required = data.get('time_required', flashcard.time_required)
+    
+    db.session.commit()
+    return jsonify({
+        'id': flashcard.id,
+        'category': flashcard.category,
+        'task_description': flashcard.task_description,
+        'time_required': flashcard.time_required,
+        'completed': flashcard.completed
+    })
+
+@app.route('/flashcards/<int:id>', methods=['DELETE'])
+def delete_flashcard(id):
+    if 'user_id' not in session:
+        return jsonify({'error': 'Not authenticated'}), 401
+    
+    flashcard = Flashcard.query.get_or_404(id)
+    if flashcard.user_id != session['user_id']:
+        return jsonify({'error': 'Unauthorized'}), 403
+    
+    db.session.delete(flashcard)
+    db.session.commit()
+    return jsonify({'message': 'Flashcard deleted successfully'})
+
+@app.route('/flashcards/review/<int:id>', methods=['POST'])
+def review_flashcard(id):
+    if 'user_id' not in session:
+        return jsonify({'error': 'Not authenticated'}), 401
+    
+    flashcard = Flashcard.query.get_or_404(id)
+    if flashcard.user_id != session['user_id']:
+        return jsonify({'error': 'Unauthorized'}), 403
+    
+    data = request.get_json()
+    correct = data.get('correct', False)
+    
+    flashcard.last_reviewed = datetime.utcnow()
+    if correct:
+        flashcard.mastery_level = min(5, flashcard.mastery_level + 1)
+    else:
+        flashcard.mastery_level = max(0, flashcard.mastery_level - 1)
+    
+    db.session.commit()
+    return jsonify({
+        'mastery_level': flashcard.mastery_level,
+        'last_reviewed': flashcard.last_reviewed.isoformat()
+    })
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -136,7 +254,7 @@ def dashboard():
         session.pop('user_id', None)
         flash('User not found. Please login again.', 'error')
         return redirect(url_for('home'))
-
+"""
 @app.route('/focus', methods=['POST'])
 def focus():
     if 'user_id' not in session:
@@ -162,7 +280,8 @@ def focus():
     db.session.commit()
 
     flash("Focus mode activated successfully!", 'success')
-    return redirect(url_for('dashboard'))
+    return redirect(url_for('dashboard'))  
+    """
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
 def edit_profile():

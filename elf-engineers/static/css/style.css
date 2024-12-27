@@ -22,7 +22,7 @@ html, body {
   padding: 0;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow: auto;
   animation: gradient 15s ease infinite;
   position: relative;
 }
