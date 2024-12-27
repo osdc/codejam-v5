@@ -1,0 +1,142 @@
+/* General styles */
+.input-box {
+    margin: 10px;
+    width: 80%;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    font-family: "Kranky", serif;
+    border-radius: 15px;
+    box-shadow: 2px 2px 10px red;
+    outline: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: red;
+    padding: 9px;
+    margin-left: 10%;
+}
+
+/* Background and form container */
+.form-bg {
+    background-color: rgba(255, 255, 255, 0.738);
+    box-shadow: 2px 2px 40px white;
+    border-radius: 20px;
+    width: 40%;
+    /* Make it responsive */
+    max-width: 1200px;
+    /* Limit max width */
+    height: 400px;
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    /* Center horizontally */
+    transform: translateX(-50%);
+}
+
+/* Heading styles */
+.h2-login {
+    margin-left: 37%;
+    font-family: "Kablammo", serif;
+    font-size: 50px !important;
+    font-weight: 900;
+    color: green;
+}
+
+/* Button styles */
+.btn2 {
+    margin-top: 60px;
+    margin-left: 40%;
+}
+
+/* Media Queries for responsiveness */
+
+/* For screens smaller than 1200px */
+@media (max-width: 1200px) {
+    .form-bg {
+        width: 50%;
+        /* Increase width to 60% */
+        height: 400px;
+        /* Slightly reduce height */
+    }
+
+    .input-box {
+        width: 80%;
+        /* Increase width to fill the container */
+        margin-left: 50px;
+        /* Adjust margin */
+    }
+
+    .h2-login {
+        font-size: 40px;
+        /* Adjust font size */
+    }
+
+    .btn2 {
+        margin-left: 40%;
+        /* Adjust button position */
+    }
+}
+
+/* For screens smaller than 768px (tablets and small screens) */
+@media (max-width: 768px) {
+    .form-bg {
+        width: 80%;
+        /* Increase width to 80% on smaller screens */
+        height: 400px;
+        /* Reduce height */
+        top: 25%;
+        /* Adjust vertical position */
+    }
+
+    .input-box {
+        width: 80%;
+        /* Full width for input */
+        margin-left: 10%;
+        /* Remove left margin */
+    }
+
+    .h2-login {
+        font-size: 30px;
+        /* Adjust font size for smaller screens */
+    }
+
+    .btn2 {
+        margin-top: 40px;
+        margin-left: 40%;
+        /* Adjust button position */
+    }
+}
+
+/* For screens smaller than 480px (mobile devices) */
+@media (max-width: 480px) {
+    .form-bg {
+        width: 90%;
+        /* Increase width to 90% on very small screens */
+        height: 400px;
+        /* Further reduce height */
+        top: 30%;
+        /* Adjust vertical position */
+    }
+
+    .input-box {
+        width: 80%;
+        /* Full width for input */
+        margin-left: 10%;
+        /* Remove left margin */
+        font-size: 16px;
+        /* Adjust font size */
+        padding: 8px;
+        /* Adjust padding */
+    }
+
+    .h2-login {
+        font-size: 24px;
+        /* Smaller font size */
+    }
+
+    .btn2 {
+        margin-left: 40%;
+        /* Adjust button position */
+        margin-top: 2%;
+    }
+}
+

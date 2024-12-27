@@ -1,0 +1,59 @@
+/* Base styles for the .register and .btn3 classes */
+.register {
+    height: 450px;
+}
+
+/* Adjust button position */
+.btn3 {
+    margin-top: 2%;
+}
+
+/* Media Queries for responsiveness */
+
+/* For screens smaller than 1200px */
+@media (max-width: 1200px) {
+    .register {
+        height: 450px;
+        /* Reduce the height on medium-sized screens */
+    }
+
+    .btn3 {
+        margin-top: 3%;
+        /* Increase margin-top slightly on medium screens */
+    }
+}
+
+/* For screens smaller than 768px (tablets) */
+@media (max-width: 768px) {
+    .register {
+        height: 450px;
+        /* Reduce the height more on smaller screens */
+    }
+
+    .btn3 {
+        margin-top: 5%;
+        /* Increase margin-top further */
+    }
+}
+
+/* For screens smaller than 480px (mobile devices) */
+@media (max-width: 480px) {
+    .register {
+        height: 450px;
+        /* Further reduce the height for small mobile screens */
+    }
+
+    .btn3 {
+        margin-top: 6%;
+        /* Increase margin-top for better spacing on mobile */
+    }
+}
+
+
+/* .register{
+    height: 450px;
+}
+
+.btn3{
+    margin-top: 2%;
+} */
