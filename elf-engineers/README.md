@@ -15,6 +15,7 @@
 - [Progress Tracking](#tracking)
 - [Cross-Device Synchronization](#Synchronization)
 - [User Accounts](#personalisation)
+- [Future Enhancements](#Future-Enhancements)
 - [Team](#team)
 
 
@@ -113,6 +114,26 @@ Tracks completed Pomodoro sessions or study hours over time.
 ## Cross-Device Synchronization
 Lets users access their settings and data across multiple devices.
 
+
+
+## Future Enhancements
+- Custom Playlists for Music
+Include curated focus playlists for different moods or tasks.
+- Collaboration Features
+   - Enable shared Pomodoro sessions for group study or team projects.
+   - Add chat or video integration for collaborative focus sessions.
+- Dark Mode and Themes
+   - Introduce dark mode for better usability in low-light conditions.
+   - Allow users to customize the website theme for a personalized experience.
+- Mobile App Integration
+   - Develop a mobile-friendly version or dedicated app for Android and iOS.
+   - Sync data across devices.
+- Customizable Focus Mode
+   - Allow users to tailor the Focus mode by selecting specific distractions to block or enabling certain notifications.
+- Multilingual Support
+   - Add language options to cater to a global audience.
+- Feedback and Suggestions Section
+   - Provide a space for users to share feedback or request new features directly on the website.
 
 
 ## User Accounts
