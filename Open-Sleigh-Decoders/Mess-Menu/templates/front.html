@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mess Scheduler</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Cookie');
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F24236;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100vh;
+        }
+
+        h1 {
+            font-family: 'Cookie', cursive;
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .meal-info {
+            margin: 20px auto;
+            width: 60%;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            color: #333;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .info {
+            font-size: 0.9em;
+            margin-top: 10px;
+            color: #555;
+        }
+
+        .error {
+            color: #ff4d4d;
+            margin-top: 10px;
+        }
+
+        .loader {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .drop {
+            position: absolute;
+            top: 0;
+            z-index: -1;
+            opacity: 0;
+        }
+
+        .snow {
+            height: 8px;
+            width: 8px;
+            border-radius: 100%;
+            background-color: #FFF;
+            box-shadow: 0 0 10px #FFF;
+        }
+
+        .animate {
+            animation: falling 8.5s infinite ease-in;
+        }
+
+        @keyframes falling {
+            0% { top: 0; opacity: 1; }
+            100% { top: 1500px; opacity: 0; }
+        }
+
+        .current-meal, .current-meal-details {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 1em;
+            color: #fff;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        footer a:visited {
+            color: #000000;
+        }
+
+        footer a:active {
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Today's Meal Schedule</h1>
+        <div id="meal-info" class="meal-info">
+            <div class="loader"></div>
+            <p>Loading meal information...</p>
+        </div>
+        <div id="cache-info" class="info"></div>
+        <div id="error" class="error"></div>
+    </div>
+    <footer>
+        <p>Made with 🍱 by <a href="https://github.com/life2harsh" target="_blank">life2harsh <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/1200px-Octicons-mark-github.svg.png" alt="GitHub Logo" style="width: 20px; height: 20px; margin-right: 8px;"> </a></p>
+    </footer>
+
+    <script>
+        async function fetchMealInfo() {
+            const mealInfoDiv = document.getElementById('meal-info');
+            const cacheInfoDiv = document.getElementById('cache-info');
+            const errorDiv = document.getElementById('error');
+
+            mealInfoDiv.innerHTML = '<div class="loader"></div><p>Loading meal information...</p>';
+            cacheInfoDiv.innerText = '';
+            errorDiv.innerText = '';
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/get_menu');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch meal information');
+                }
+
+                const data = await response.json();
+
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                mealInfoDiv.innerHTML = `
+                    <p><strong>Day:</strong> ${data.Day}</p>
+                    <p class="current-meal"><strong>Current Meal:</strong> ${data['Current Meal']}</p>
+                    <p class="current-meal-details"><strong>Meal Details:</strong> ${data['Meal Details']}</p>
+                    <p><strong>Next Meal:</strong> ${data['Next Meal']}</p>
+                    <p><strong>Next Meal Details:</strong> ${data['Next Meal Details']}</p>
+                `;
+
+                // Display cache info if available
+                cacheInfoDiv.innerText = data.cached ? 'Data served from cache ✅' : '';
+            } catch (error) {
+                console.error('Error fetching meal information:', error);
+                errorDiv.innerText = `Error: ${error.message}`;
+                mealInfoDiv.innerText = '';
+            }
+        }
+
+        fetchMealInfo();
+        snowDrop(200, randomInt(0, window.innerWidth));
+        snow(200, 100);
+
+        function snow(num, speed) {
+            if (num > 0) {
+                setTimeout(function () {
+                    document.getElementById('drop_' + randomInt(1, 200)).classList.add('animate');
+                    num--;
+                    snow(num, speed);
+                }, speed);
+            }
+        }
+
+        function snowDrop(num, position) {
+            if (num > 0) {
+                const drop = document.createElement('div');
+                drop.className = 'drop snow';
+                drop.id = 'drop_' + num;
+                document.body.appendChild(drop);
+                drop.style.left = position + 'px';
+                num--;
+                snowDrop(num, randomInt(0, window.innerWidth));
+            }
+        }
+
+        function randomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+    </script>
+</body>
+</html>

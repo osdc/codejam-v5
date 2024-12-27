@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Comments</title>
+    <link rel="stylesheet" href="style2.css" />
+  </head>
+
+  <body>
+    <h1>Elective Flex</h1>
+    <aside id="sidebar">
+      <div class="course-list">
+        <select onchange="showCourse(this.value)">
+          <option value="">Select a course</option>
+          <option value="course1">16B1NHS433 - Financial Management</option>
+          <option value="course2">16B1NHS433 - Operating System</option>
+          <option value="course3">
+            15B11CI313 - Computer Organization and Architecture
+          </option>
+          <option value="course4">
+            15B11CI411 - Algorithms and Problem Solving
+          </option>
+          <option value="course2">16B11CI432 - Operating System lab</option>
+          <option value="course3">
+            15B11CI313 - Computer Organization and Architecture Lab
+          </option>
+          <option value="course4">
+            15B11CI311 - Algorithms and Problem Solving Lab
+          </option>
+        </select>
+      </div>
+    </aside>
+
+    <main id="main-content">
+      <section id="courseContent"></section>
+      <section class="comment-section">
+        <div class="comments-wrp"></div>
+        <div class="reply-input">
+          <textarea
+            class="cmnt-input"
+            placeholder="Add a comment..."
+          ></textarea>
+          <button class="bu-primary">Post Comment</button>
+        </div>
+      </section>
+    </main>
+
+    <div class="modal-wrp invisible">
+      <div class="modal">
+        <p>Are you sure you want to delete this comment?</p>
+        <button class="yes">Yes</button>
+        <button class="no">No</button>
+      </div>
+    </div>
+
+    <template class="comment-template">
+      <div class="comment">
+        <div class="comment-header">
+          <img class="usr-img" src="" alt="User Image" />
+          <span class="usr-name"></span>
+          <span class="cmnt-at"></span>
+        </div>
+        <div class="c-body"></div>
+        <div class="comment-footer">
+          <button class="score-minus">-</button>
+          <span class="score-number">0</span>
+          <button class="score-plus">+</button>
+          <button class="reply">Reply</button>
+          <button class="delete">Delete</button>
+        </div>
+        <div class="replies"></div>
+      </div>
+    </template>
+
+    <template class="reply-input-template">
+      <div class="reply-input">
+        <textarea class="cmnt-input" placeholder="Reply..."></textarea>
+        <button class="bu-primary">Post Reply</button>
+      </div>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
