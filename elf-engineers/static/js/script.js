@@ -1,117 +1,156 @@
-// variables
-let workTittle = document.getElementById('work');
-let breakTittle = document.getElementById('break');
-
-let workTime = 30; // Default to 30 minutes
-let breakTime = 5; // Default break time
-let seconds = "00";
-let timerInterval;
-let breakCount = 0;
-let isWorkMode = true; // Flag to track current mode
-
-// display
-window.onload = () => {
-    document.getElementById('minutes').innerHTML = workTime;
-    document.getElementById('seconds').innerHTML = seconds;
-}
-
-// Toggle work/break buttons and timer settings
-const workButton = document.getElementById('workButton');
-const breakButton = document.getElementById('breakButton');
-const workButtons = document.getElementById('workButtons');
-const breakButtons = document.getElementById('breakButtons');
-
-workButton.addEventListener('click', () => {
-    workButtons.style.display = 'block';
-    breakButtons.style.display = 'none';
-    isWorkMode = true;
-    workTime = workTime || 30; // Reset to default if not set
-    document.getElementById('minutes').innerHTML = workTime; // Update display
-});
-
-breakButton.addEventListener('click', () => {
-    workButtons.style.display = 'none';
-    breakButtons.style.display = 'block';
-    isWorkMode = false;
-    breakTime = breakTime || 5; // Reset to default if not set
-    document.getElementById('minutes').innerHTML = breakTime; // Update display
-});
-
-// Set work time
-function setWorkTime(minutes) {
-    workTime = minutes;
-    if (isWorkMode) {
-        document.getElementById('minutes').innerHTML = workTime;
-    }
-}
-
-// Set Break time
-function setBreakTime(minutes) {
-    breakTime = minutes;
-    if (!isWorkMode) { // Only update if in break mode
-        document.getElementById('minutes').innerHTML = breakTime;
-    }
-}
-
-// start timer
-function start() {
-    // change button visibility
-    document.getElementById('start').style.display = "none";
-    document.getElementById('reset').style.display = "block";
-
-    // change the time
-    seconds = 59;
-
-    let currentMinutes = isWorkMode ? workTime - 1 : breakTime - 1;
-
-    // countdown
-    let timerFunction = () => {
-        // update the display
-        document.getElementById('minutes').innerHTML = currentMinutes;
-        document.getElementById('seconds').innerHTML = seconds < 10 ? "0" + seconds : seconds;
-
-        // start countdown
-        seconds = seconds - 1;
-
-        if (seconds === -1) {
-            currentMinutes = currentMinutes - 1;
-            if (currentMinutes === -1) {
-                if (isWorkMode) {
-                    // start break
-                    currentMinutes = breakTime - 1;
-                    isWorkMode = false;
-                    breakCount++;
-                    // Add visual cues or sounds here for break start
-                } else {
-                    // continue work
-                    currentMinutes = workTime - 1;
-                    isWorkMode = true;
-                    breakCount++;
-                    // Add visual cues or sounds here for work start
-                }
+document.addEventListener("DOMContentLoaded", function() {
+    let workTittle = document.getElementById("work");
+    let breakTittle = document.getElementById("break");
+  
+    let workTime = 30; // Default to 30 minutes
+    let breakTime = 5; // Default break time
+    let seconds = "00";
+    let timerInterval;
+    let breakCount = 0;
+    let isWorkMode = true; // Flag to track current mode
+  
+    // Display initial timer
+    window.onload = () => {
+      // Set the default timer display
+      document.getElementById("minutes").innerHTML = workTime;
+      document.getElementById("seconds").innerHTML = seconds;
+  
+      // Ensure buttons visibility is correct
+      document.getElementById("start").style.display = "block"; // Make the start button visible
+      document.getElementById("reset").style.display = "none"; // Hide reset button initially
+      document.getElementById("workButtons").style.display = "block"; // Show work buttons
+      document.getElementById("breakButtons").style.display = "none"; // Hide break buttons
+    };
+  
+    // Buttons
+    const workButton = document.getElementById("workButton");
+    const breakButton = document.getElementById("breakButton");
+    const workButtons = document.getElementById("workButtons");
+    const breakButtons = document.getElementById("breakButtons");
+    const startButton = document.getElementById("start");
+    const resetButton = document.getElementById("reset");
+  
+    // Toggle work/break buttons and timer settings
+    workButton.addEventListener("click", () => {
+      workButtons.style.display = "block";
+      breakButtons.style.display = "none";
+      isWorkMode = true;
+      document.getElementById("minutes").innerHTML = workTime;
+      document.getElementById("seconds").innerHTML = "00";
+    });
+  
+    breakButton.addEventListener("click", () => {
+      workButtons.style.display = "none";
+      breakButtons.style.display = "block";
+      isWorkMode = false;
+      document.getElementById("minutes").innerHTML = breakTime;
+      document.getElementById("seconds").innerHTML = "00";
+    });
+  
+    // Start the timer
+    startButton.addEventListener("click", () => {
+      // Ensure the start button is hidden, and reset is visible
+      startButton.style.display = "none";
+      resetButton.style.display = "block";
+  
+      // Initialize seconds and minutes
+      seconds = 59;
+      let currentMinutes = isWorkMode ? workTime : breakTime;
+  
+      // Timer countdown function
+      const timerFunction = () => {
+        // Update timer display
+        document.getElementById("minutes").innerHTML = currentMinutes;
+        document.getElementById("seconds").innerHTML =
+          seconds < 10 ? "0" + seconds : seconds;
+  
+        // Decrease seconds
+        seconds--;
+  
+        // Handle minute transitions
+        if (seconds < 0) {
+          seconds = 59;
+          currentMinutes--;
+  
+          // Handle work/break transitions
+          if (currentMinutes < 0) {
+            if (isWorkMode) {
+              // Switch to break mode
+              currentMinutes = breakTime - 1;
+              isWorkMode = false;
+              breakCount++;
+            } else {
+              // Switch to work mode
+              currentMinutes = workTime - 1;
+              isWorkMode = true;
+              breakCount++;
             }
-            seconds = 59;
+          }
         }
-    }
-    if (timerInterval) {
+      };
+  
+      // Clear any existing timer to prevent overlapping
+      if (timerInterval) {
         clearInterval(timerInterval);
+      }
+  
+      // Start the timer
+      timerInterval = setInterval(timerFunction, 1000);
+    });
+  
+    // Reset the timer
+    resetButton.addEventListener("click", () => {
+      // Clear the timer interval
+      clearInterval(timerInterval);
+  
+      // Reset button visibility
+      startButton.style.display = "block";
+      resetButton.style.display = "none";
+  
+      // Reset timer display
+      if (isWorkMode) {
+        document.getElementById("minutes").innerHTML = workTime;
+      } else {
+        document.getElementById("minutes").innerHTML = breakTime;
+      }
+      document.getElementById("seconds").innerHTML = "00";
+  
+      // Reset break count
+      breakCount = 0;
+    });
+  
+    // Set work time dynamically
+    const workTimeButtons = document.querySelectorAll(".work-time-btn");
+    workTimeButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        const newWorkTime = parseInt(button.getAttribute("data-time"));
+        setWorkTime(newWorkTime);
+      });
+    });
+  
+    // Set break time dynamically
+    const breakTimeButtons = document.querySelectorAll(".break-time-btn");
+    breakTimeButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        const newBreakTime = parseInt(button.getAttribute("data-time"));
+        setBreakTime(newBreakTime);
+      });
+    });
+  
+    // Set work time function
+    function setWorkTime(minutes) {
+      workTime = minutes;
+      if (isWorkMode) {
+        document.getElementById("minutes").innerHTML = workTime;
+      }
     }
-    // start countdown
-    timerInterval = setInterval(timerFunction, 1000); // 1000 = 1s
-}
-
-// reset timer
-function reset() {
-    clearInterval(timerInterval);
-    document.getElementById('start').style.display = "block";
-    document.getElementById('reset').style.display = "none";
-    if (isWorkMode) {
-        document.getElementById('minutes').innerHTML = workTime;
-    } else {
-        document.getElementById('minutes').innerHTML = breakTime;
+  
+    // Set break time function
+    function setBreakTime(minutes) {
+      breakTime = minutes;
+      if (!isWorkMode) {
+        document.getElementById("minutes").innerHTML = breakTime;
+      }
     }
-
-    seconds = "00";
-    document.getElementById('seconds').innerHTML = seconds; // Update seconds on reset
-    breakCount = 0;
-}
+  });
+  
