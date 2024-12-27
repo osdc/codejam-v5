@@ -92,6 +92,30 @@ def codejam():
 def team():
     return render_template("team.html")
 
+@app.route("/focus")
+def focus():
+    user = User.query.get(session.get('user_id'))
+    if user:
+        # Increase streak
+        user.streak += 1
+        
+        # Check if streak is 7 days
+        if user.streak % 7 == 0:  # Use modulo to check for every 7 days
+            user.gems += 50  # Add 50 gems for every 7-day streak
+        else:
+            user.gems += 10  # Add 10 gems for each day
+        
+        # Count the most productive day using the current time
+        current_time = datetime.now(pytz.UTC)
+        current_day_name = current_time.strftime("%A")  # Get the day name (e.g., 'Monday')
+        
+        # Update most productive day if current day is more productive
+        if user.most_productive_day is None or user.most_productive_day < current_day_name:
+            user.most_productive_day = current_day_name
+        
+        db.session.commit()  # Commit changes to the database
+    return render_template("focus.html")
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -287,35 +311,7 @@ def dashboard():
         session.pop('user_id', None)
         flash('User not found. Please login again.', 'error')
         return redirect(url_for('home'))
-"""
-@app.route('/focus', methods=['POST'])
-def focus():
-    if 'user_id' not in session:
-        return redirect(url_for('home'))
-
-    user = User.query.get(session['user_id'])
-    today = datetime.now(pytz.UTC).date()
-
-    
-    if user.last_focus_date == today:
-        flash("You have already activated focus mode today!", 'warning')
-        return redirect(url_for('dashboard'))
-
-    user.last_focus_date = today
-    user.streak += 1
-
-    
-    if user.streak % 7 == 0:
-        user.gems += 50 if user.streak == 7 else 100
-
-    
-    user.most_productive_day = today.strftime('%A')
-    db.session.commit()
-
-    flash("Focus mode activated successfully!", 'success')
-    return redirect(url_for('dashboard'))  
-    """
-
+        
 @app.route('/edit_profile', methods=['GET', 'POST'])
 def edit_profile():
     if 'user_id' not in session:
