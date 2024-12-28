@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flashcards.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pomodoro.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+    <header>
+        <nav style="display: flex; justify-content: flex-start; gap: 1rem; margin: 1rem 0; padding-left: 2rem;">
+            <a href="{{ url_for('About') }}" style="text-decoration: none; color: var(--colour-black); font-size: 1rem; padding: 0.3rem 0.8rem; border-radius: 20px; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px);">About</a>
+            <a href="{{ url_for('dashboard') }}" style="text-decoration: none; color: var(--colour-black); font-size: 1rem; padding: 0.3rem 0.8rem; border-radius: 20px; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px);">Dashboard</a>
+            {% if session.get('user_id') %}
+                <a href="{{ url_for('logout') }}" style="text-decoration: none; color: var(--colour-black); font-size: 1rem; padding: 0.3rem 0.8rem; border-radius: 20px; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px);">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" style="text-decoration: none; color: var(--colour-black); font-size: 1rem; padding: 0.3rem 0.8rem; border-radius: 20px; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px);">Login</a>
+            {% endif %}
+            <button id="playButton" style="text-decoration: none; color: var(--colour-black); font-size: 1rem; padding: 0.3rem 0.8rem; border-radius: 20px; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px);">🎧</button>
+        </nav>
+        <script>
+            const playButton = document.getElementById('playButton');
+            const audio = new Audio('https://www.bensound.com/bensound-music/bensound-acousticbreeze.mp3'); // Replace with a direct URL to an audio file
+            audio.loop = true; // Set audio to loop
+
+            // Play audio by default when the page loads
+            window.onload = () => {
+                audio.play().catch(error => {
+                    console.error('Error playing audio on load:', error);
+                });
+            };
+        
+            // Error handling
+            audio.addEventListener('error', () => {
+              console.error('Audio failed to load. Check the file URL and network connection.');
+              alert('Unable to play audio. Please check the file link.');
+            });
+        
+            let isPlaying = true; // Track the playing state, default to true since audio plays on load
+        
+            playButton.addEventListener('click', () => {
+              if (isPlaying) {
+                audio.pause(); // Stop the audio
+                playButton.textContent = '🎧'; // Change button text
+              } else {
+                audio.play().catch(error => {
+                  console.error('Error playing audio:', error);
+                  alert('Playback error. Please try again.');
+                });
+                playButton.textContent = '☠️'; // Change button text
+              }
+              isPlaying = !isPlaying; // Toggle the playing state
+            });
+        </script>
+        <h1 class="site-title" style="font-family: 'Showcard Gothic', cursive; font-size: 3.5rem; text-align: left; color: #FF5733; text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); margin: 1rem 0; padding-left: 2rem; text-decoration: underline;">Sleigh it!</h1>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Focus App</p>
+    </footer>
+</body>
+</html>
+

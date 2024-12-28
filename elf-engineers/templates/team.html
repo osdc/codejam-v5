@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="team-body">
+    <div class="container">
+        <div class="header-section">
+          <h1 style="color: rgb(247, 245, 245); font-weight: bold; font-size: 3em;">OUR TEAM</h1>
+          <h1 style="color: rgb(38, 168, 12); font-weight: bold; font-size: 3em;">ELF ENGINEERS</h1>
+
+        </div>
+        <div class="team-members">
+            <div class="member">
+                <img src="{{ url_for('static', filename='images/aayush.jpg') }}" alt="Member 1" class="member-image">
+                <a href="https://www.instagram.com/aayushgoyal_26/" class="member-button">Ayush</a>
+            </div>
+            <div class="member">
+                <img src="{{ url_for('static', filename='images/shreyash.jpg') }}" alt="Member 2" class="member-image">
+                <a href="https://www.instagram.com/shreyash._007_/" class="member-button">Shreyash</a>
+            </div>
+            <div class="member">
+                <img src="{{ url_for('static', filename='images/sansriti.jpg') }}" alt="Member 3" class="member-image">
+                <a href="https://www.instagram.com/defiant_knight/" class="member-button">Sansriti</a>
+            </div>
+             <div class="member">
+                <img src="{{ url_for('static', filename='images/samaira.jpg') }}" alt="Member 4" class="member-image">
+                <a href="https://www.instagram.com/shariqsamaira/" class="member-button">Samaira</a>
+            </div>
+        </div>
+        <div style="padding: 5em 0;"></div>
+        <div style="text-align:center;">
+          <a href="/" class="back-home-button" >Go back to Home</a>
+      </div>
+    </div>
+</body>
+</html>

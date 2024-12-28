@@ -1,0 +1,677 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<header>
+    <div class="links">
+        <ul class="links__list" style="--item-total: 5">
+            <li class="links__item" style="--item-count: 1">
+                <a class="links__link" href="{{ url_for('focus') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48">
+                        <path d="M12 2C10.34 2 9 3.34 9 5c0 1.74-1.12 3.24-2.74 3.74C5.26 9.1 4 10.5 4 12c0 2.21 1.79 4 4 4h8c2.21 0 4-1.79 4-4 0-1.5-1.26-2.9-2.26-3.26C15.12 8.24 14 6.74 14 5c0-1.66-1.34-3-3-3zm0 16c-2.21 0-4 1.79-4 4h8c0-2.21-1.79-4-4-4z" fill="yellow"/>
+                    </svg>                      
+                    <span class="links__text">Focus</span>
+                </a>
+            </li>
+            <li class="links__item" style="--item-count: 2">
+                <a class="links__link" href="{{ url_for('flashcards') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48">
+                        <g fill="none" stroke="gold" stroke-width="2">
+                            <path d="M12 3c-2.2 0-4 1.8-4 4 0 1.6.9 2.9 2.2 3.6L9 15H7l-1 3h12l-1-3h-2l-1.2-4.4C15.1 9.9 16 8.6 16 7c0-2.2-1.8-4-4-4z"/>
+                            <circle cx="12" cy="7" r="2"/>
+                            <path d="M6 18h12M8 21h8"/>
+                        </g>
+                    </svg>
+                    <span class="links__text">Flashcards</span>
+                </a>
+            </li>
+            <li class="links__item" style="--item-count: 3">
+                <a class="links__link" href="{{ url_for('edit_profile') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48">
+                        <!-- Tree trunk -->
+                        <rect x="11" y="20" width="2" height="4" fill="#8B4513"/>
+                        <!-- Tree layers -->
+                        <polygon points="12,2 4,8 20,8" fill="#228B22"/>
+                        <polygon points="12,6 3,13 21,13" fill="#228B22"/>
+                        <polygon points="12,10 2,18 22,18" fill="#228B22"/>
+                        <!-- Ornaments -->
+                        <circle cx="8" cy="7" r="0.5" fill="red"/>
+                        <circle cx="16" cy="7" r="0.5" fill="gold"/>
+                        <circle cx="7" cy="12" r="0.5" fill="gold"/>
+                        <circle cx="17" cy="12" r="0.5" fill="red"/>
+                        <circle cx="12" cy="10" r="0.5" fill="gold"/>
+                        <circle cx="6" cy="16" r="0.5" fill="red"/>
+                        <circle cx="18" cy="16" r="0.5" fill="gold"/>
+                        <!-- Star -->
+                        <polygon points="12,1 11.3,2.5 9.7,2.5 10.5,4 9.7,5.5 11.3,5.5 12,7 12.7,5.5 14.3,5.5 13.5,4 14.3,2.5 12.7,2.5" fill="gold"/>
+                    </svg>                                      
+                    <span class="links__text">Edit Profile</span>
+                </a>
+            </li>
+            <li class="links__item" style="--item-count: 4">
+                <a class="links__link" href="{{ url_for('dashboard') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48">
+                        <!-- Main chocolate bar shape -->
+                        <rect x="2" y="2" width="20" height="20" rx="2" fill="#3E1C0C"/>
+                        <!-- Inner chocolate segments -->
+                        <rect x="4" y="4" width="8" height="8" rx="1" fill="#5C2C14"/>
+                        <rect x="12" y="4" width="8" height="8" rx="1" fill="#4A2410"/>
+                        <rect x="4" y="12" width="8" height="8" rx="1" fill="#4A2410"/>
+                        <rect x="12" y="12" width="8" height="8" rx="1" fill="#5C2C14"/>
+                        <!-- Chocolate shine/highlights -->
+                        <path d="M4 4 L10 10" stroke="#8B4513" stroke-width="0.5" opacity="0.6"/>
+                        <path d="M14 4 L20 10" stroke="#8B4513" stroke-width="0.5" opacity="0.6"/>
+                        <path d="M4 12 L10 20" stroke="#8B4513" stroke-width="0.5" opacity="0.6"/>
+                        <path d="M14 12 L20 20" stroke="#8B4513" stroke-width="0.5" opacity="0.6"/>
+                        <!-- Chocolate drips -->
+                        <path d="M6 2 C6 0 8 0 8 2" fill="#3E1C0C"/>
+                        <path d="M16 2 C16 0 18 0 18 2" fill="#3E1C0C"/>
+                    </svg>
+                    <span class="links__text">Dashboard</span>
+                </a>
+            </li>
+            <li class="links__item" style="--item-count: 5">
+                {% if session.get('user_id') %}
+                    <a class="links__link" href="{{ url_for('logout') }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                            <path d="M12 2v20m-7-7h14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="rotate(180 12 12)"/>
+                          </svg>                                                                                                                                               
+                        <span class="links__text">Logout</span>
+                    </a>
+                {% else %}
+                    <a class="links__link" href="{{ url_for('login') }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                            <path d="M12 2v20m-7-7h14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="rotate(180 12 12)"/>
+                          </svg>  
+                        <span class="links__text">Login</span>
+                    </a>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+  </header>
+  <div class="wrapper">
+    <!-- User's name display -->
+    <div style="position: fixed; right: 400px; top: 50px; font-family: 'Showcard Gothic', cursive; font-size: 52px; color: #4A2410; text-shadow: 2px 2px 4px rgba(255,255,255,0.7); letter-spacing: 1px; font-weight: bold; text-decoration: underline;">
+      {{ user.name }}
+    </div>
+    <div class="tree-container">
+      <canvas id="canvas"></canvas>
+      <svg id="tree" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 125.8 180">
+          <g>
+              <g>
+                  <rect x="55.9" y="135" class="st0" width="13.7" height="45" />
+                  <polygon class="st1" points="24,84.3 37.5,81.3 14.9,121.7 28.8,118.6 0,170.3 62.6,156.1 62.6,15.3" />
+                  <polygon class="st2" points="125.8,170.3 96.9,118.6 110.9,121.7 88.2,81.3 101.7,84.3 62.8,14.9 62.6,15.3 62.6,156.1 62.8,156" />
+              </g>
+              <g id="lights">
+                  <g id="blue-lt">
+                      <circle class="blue-lt g1" cx="70.2" cy="134.7" r="3.7" />
+                      <circle class="blue-lt g3" cx="23.1" cy="147.5" r="4.2" />
+                      <circle class="blue-lt g1" cx="59.3" cy="116.9" r="5.8" />
+                  </g>
+                  <g id="blue-dk">
+                      <circle class="blue-dk g3" cx="77.1" cy="55.3" r="4.8" />
+                      <circle class="blue-dk g1" cx="98.6" cy="148.6" r="4.5" />
+                      <circle class="blue-dk g2" cx="62.7" cy="80.2" r="4.4" />
+                  </g>
+                  <g id="red">
+                      <circle class="red g1" cx="37" cy="125.3" r="5.9" />
+                      <circle class="red g1" cx="78.2" cy="95.2" r="5.7" />
+                      <circle class="red g2" cx="54.8" cy="144.2" r="3.4" />
+                      <circle class="red g2" cx="59.8" cy="44.2" r="5.2" />
+                  </g>
+                  <g id="gold-lt">
+                      <circle class="gold-lt g1" cx="51.7" cy="64.8" r="5.7" />
+                      <circle class="gold-lt g2" cx="39.5" cy="140.4" r="4.4" />
+                  </g>
+                  <g id="gold-dk">
+                      <circle class="gold-dk g2" cx="76.9" cy="76.7" r="4.4" />
+                      <circle class="gold-dk g3" cx="83.9" cy="125.3" r="4.8" />
+                      <circle class="gold-dk g3" cx="46" cy="99.6" r="4.0" />
+                  </g>
+              </g>
+          </g>
+      </svg>
+    </div>
+        <!-- Snowman -->
+    <div class="snowman" onclick="toggleChatbot()" style="position: fixed; right: -390px; top: 200px; cursor: pointer; z-index: 1000;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150" width="200" height="300">
+        <!-- Bottom snowball -->
+        <circle cx="50" cy="110" r="35" fill="white" stroke="#ddd" stroke-width="2"/>
+        <!-- Middle snowball -->
+        <circle cx="50" cy="60" r="28" fill="white" stroke="#ddd" stroke-width="2"/>
+        <!-- Scarf -->
+        <path d="M30,75 Q50,80 70,75 L73,85 Q50,90 27,85 Z" fill="#ff6b6b"/>
+        <path d="M65,82 L75,95" stroke="#ff6b6b" stroke-width="4"/>
+        <!-- Eyes -->
+        <circle cx="43" cy="55" r="4" fill="black"/>
+        <!-- Winking eye -->
+        <path d="M54,55 Q57,55 60,55" stroke="black" stroke-width="2" stroke-linecap="round"/>
+        <!-- Eye shine -->
+        <circle cx="44" cy="53" r="1.5" fill="white"/>
+        <!-- Carrot nose -->
+        <path d="M50,60 L48,65 L52,65 Z" fill="#ff9f43"/>
+        <!-- Smile -->
+        <path d="M42,68 Q50,75 58,68" stroke="black" fill="none" stroke-width="2" stroke-linecap="round"/>
+        <!-- Coal buttons -->
+        <circle cx="50" cy="95" r="4" fill="#2d3436"/>
+        <circle cx="50" cy="110" r="4" fill="#2d3436"/>
+        <!-- Stick arms -->
+        <line x1="15" y1="70" x2="0" y2="50" stroke="#8b4513" stroke-width="3" stroke-linecap="round"/>
+        <line x1="85" y1="70" x2="100" y2="50" stroke="#8b4513" stroke-width="3" stroke-linecap="round"/>
+        <!-- Hat -->
+        <rect x="35" y="25" width="30" height="5" fill="#2d3436"/>
+        <rect x="40" y="5" width="20" height="25" fill="#2d3436"/>
+      </svg>
+    </div>
+
+    <!-- Chatbot Popup -->
+    <div id="chatbotPopup" style="display: none; position: fixed; left: -600px; top: -100px; width: 800px; height: 500px; background: rgba(255, 235, 235, 0.7); backdrop-filter: blur(10px); border-radius: 15px; box-shadow: 0 8px 32px rgba(74, 36, 16, 0.2); border: 1px solid rgba(255, 255, 255, 0.3); z-index: 1001; padding: 20px; font-family: 'Playfair Display', serif; overflow: hidden;">
+      <!-- Snowfall effect -->
+      <div class="snowfall" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1;">
+        <!-- Left side snowflakes -->
+        <div class="snowflake" style="position: absolute; top: 0; left: 20%; color: white; animation: snowfall 10s linear infinite;"></div>
+        <div class="snowflake" style="position: absolute; top: 0; left: 10%; color: white; animation: snowfall 8s linear infinite 1s;"></div>
+        <div class="snowflake" style="position: absolute; top: 0; left: 30%; color: white; animation: snowfall 12s linear infinite 2s;"></div>
+        
+        <!-- Middle snowflakes -->
+        <div class="snowflake" style="position: absolute; top: 0; left: 50%; color: white; animation: snowfall 9s linear infinite 0.5s;"></div>
+        <div class="snowflake" style="position: absolute; top: 0; left: 45%; color: white; animation: snowfall 11s linear infinite 1.5s;"></div>
+        <div class="snowflake" style="position: absolute; top: 0; left: 55%; color: white; animation: snowfall 13s linear infinite 2.5s;"></div>
+        
+        <!-- Right side snowflakes -->
+        <div class="snowflake" style="position: absolute; top: 0; left: 70%; color: white; animation: snowfall 10s linear infinite 0.7s;"></div>
+        <div class="snowflake" style="position: absolute; top: 0; left: 80%; color: white; animation: snowfall 8s linear infinite 1.7s;"></div>
+        <div class="snowflake" style="position: absolute; top: 0; left: 90%; color: white; animation: snowfall 12s linear infinite 2.7s;"></div>
+      </div>
+      
+      <div style="display: flex; flex-direction: column; height: 100%;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+          <h3 style="margin: 0; color: #4A2410; text-shadow: 1px 1px 2px rgba(255,255,255,0.5);">Study Buddy</h3>
+          <span onclick="toggleChatbot()" style="cursor: pointer; font-size: 20px; color: #4A2410;">&times;</span>
+        </div>
+        <div id="chatMessages" style="flex-grow: 1; overflow-y: auto; background: rgba(255, 255, 255, 0.4); border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 10px; padding: 10px; margin-bottom: 10px; font-family: 'Roboto Mono', monospace;">
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <input type="text" id="userInput" placeholder="Type your message..." style="flex-grow: 1; padding: 8px; background: rgba(255, 255, 255, 0.6); border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 5px;">
+          <button onclick="sendMessage()" style="padding: 8px 15px; background: rgba(74, 36, 16, 0.8); color: white; border: none; border-radius: 5px; cursor: pointer; backdrop-filter: blur(5px);">Send</button>
+        </div>
+      </div>
+    </div>
+    <style>
+      @keyframes snowfall {
+        0% {
+          transform: translateY(0) translateX(0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(500px) translateX(100px) rotate(360deg);
+          opacity: 0.8;
+        }
+      }
+      .snowflake:after {
+        content: '❅';
+        font-size: 24px;
+        text-shadow: 0 0 8px white, 0 0 12px white;
+        color: rgba(255, 255, 255, 0.9);
+      }
+    </style>   
+    <script>
+      function toggleChatbot() {
+        const popup = document.getElementById('chatbotPopup');
+        popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
+      }
+
+      function sendMessage() {
+        const inputElement = document.getElementById('userInput');
+        const input = inputElement.value.toLowerCase();
+        const messagesDiv = document.getElementById('chatMessages');
+        
+        if (input.trim() === '') return;
+
+        // Add user message
+        messagesDiv.innerHTML += `<p style="color: #4A2410;"><strong>You:</strong> ${inputElement.value}</p>`;
+        
+        // Generate response
+        let response = "Oh look who decided to waste more time instead of studying! How shocking! 🙄";
+        if (input.includes('hi') || input.includes('hello')) {
+          response = "Oh great, another student trying to procrastinate by chatting with a bot. Your parents must be so proud! 👏";
+        } else if (input.includes('how are you')) {
+          response = "I'm watching you waste precious study time with small talk. Is this what you're paying tuition for? 💸";
+        } else if (input.includes('bye')) {
+          response = "Finally! I was wondering how long you'd avoid your responsibilities. Try opening a book for once! 📚";
+        } else if (input.includes('tired') || input.includes('exhausted')) {
+          response = "Tired? From what? Scrolling social media all day? The only thing exhausted is my patience with your excuses! 🛋️";
+        } else if (input.includes('help') || input.includes('stuck')) {
+          response = "Have you tried, oh I don't know, actually reading the material? Or is that too revolutionary of an idea? 🤔";
+        } else if (input.includes('motivation') || input.includes('unmotivated')) {
+          response = "Ah yes, waiting for motivation - the eternal excuse of the perpetually mediocre. Your future self is already disappointed! 🎭";
+        } else if (input.includes('distracted')) {
+          response = "Distracted? You don't say! Maybe if you spent as much time studying as you do making excuses, you'd be a genius by now! 🎮";
+        } else if (input.includes('break')) {
+          response = "A break? From what exactly? The intense workout your thumbs get from scrolling Instagram? Get back to work, you couch potato! 🥔";
+        } else if (input.includes('procrastinate') || input.includes('procrastinating')) {
+          response = "Congratulations! You're officially a master at avoiding responsibility. Would you like your degree in Professional Time-Wasting now? 🏆";
+        } else if (input.includes('stress') || input.includes('stressed')) {
+          response = "Oh, you're stressed? Try being your teacher watching you do absolutely nothing until the night before deadlines! 😤";
+        }
+        // Add bot response
+        messagesDiv.innerHTML += `<p style="color: #8B4513;"><strong>Study Buddy:</strong> ${response}</p>`;
+        
+        // Clear input and scroll to bottom
+        inputElement.value = '';
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      }
+
+      document.getElementById('userInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          sendMessage();
+        }
+      });
+    </script>
+    <!-- Calendar and Clock in upper right corner -->
+    <div style="position: fixed; right: 120px; top: -80px; display: flex; flex-direction: column; gap: 30px; z-index: 900;">
+      <!-- Clock -->
+      <div class="clock" onclick="toggleClockInfo()" style="cursor: pointer;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96">
+          <!-- Clock face with enhanced design -->
+          <circle cx="12" cy="12" r="10" fill="#fff" stroke="#4A2410" stroke-width="2"/>
+          <!-- Hour markers -->
+          <line x1="12" y1="3" x2="12" y2="4" stroke="#4A2410" stroke-width="1"/>
+          <line x1="12" y1="20" x2="12" y2="21" stroke="#4A2410" stroke-width="1"/>
+          <line x1="3" y1="12" x2="4" y2="12" stroke="#4A2410" stroke-width="1"/>
+          <line x1="20" y1="12" x2="21" y2="12" stroke="#4A2410" stroke-width="1"/>
+          <!-- Clock center dot -->
+          <circle cx="12" cy="12" r="0.5" fill="#4A2410"/>
+          <!-- Clock hands -->
+          <line x1="12" y1="12" x2="16" y2="12" stroke="#4A2410" stroke-width="1" id="hourHand" stroke-linecap="round"/>
+          <line x1="12" y1="12" x2="12" y2="7" stroke="#4A2410" stroke-width="0.75" id="minuteHand" stroke-linecap="round"/>
+          <line x1="12" y1="12" x2="12" y2="6" stroke="#FF0000" stroke-width="0.5" id="secondHand" stroke-linecap="round"/>
+          <!-- Decorative outer ring -->
+          <circle cx="12" cy="12" r="11" fill="none" stroke="#4A2410" stroke-width="0.5" stroke-dasharray="2,2"/>
+        </svg>
+      </div>
+
+      <!-- Calendar -->
+      <div class="calendar" onclick="toggleCalendarInfo()" style="cursor: pointer;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64">
+          <!-- Calendar background -->
+          <rect x="2" y="4" width="20" height="18" fill="#fff" stroke="#B8860B" stroke-width="1.5" rx="3"/>
+          
+          <!-- Month header background -->
+          <rect x="2" y="4" width="20" height="6" fill="#B8860B" rx="3 3 0 0"/>
+          
+          <!-- Calendar hangers -->
+          <line x1="7" y1="2" x2="7" y2="6" stroke="#B8860B" stroke-width="1.5"/>
+          <line x1="17" y1="2" x2="17" y2="6" stroke="#B8860B" stroke-width="1.5"/>
+          
+          <!-- Month text -->
+          <text x="12" y="8.5" text-anchor="middle" fill="#fff" font-family="monospace" font-size="4" id="calendarMonth" style="letter-spacing: 1px;">
+            D_E_C
+          </text>
+          
+          <!-- Date text -->
+          <text x="12" y="16" text-anchor="middle" fill="#B8860B" font-family="monospace" font-size="8" font-weight="bold" id="calendarDate" style="letter-spacing: 2px;">
+            [25]
+          </text>
+          <!-- Decorative elements -->
+          <circle cx="7" cy="2" r="0.75" fill="#B8860B"/>
+          <circle cx="17" cy="2" r="0.75" fill="#B8860B"/>
+          
+          <!-- Grid lines suggestion -->
+          <line x1="8" y1="13" x2="16" y2="13" stroke="#B8860B" stroke-width="0.5" opacity="0.3"/>
+          <line x1="8" y1="18" x2="16" y2="18" stroke="#B8860B" stroke-width="0.5" opacity="0.3"/>
+        </svg>
+      </div>
+    </div>
+    <div class="calendar-info-popup" id="calendarInfoPopup" style="display: none; position: fixed; right: 30px; top: 110px; background: rgba(255,255,255,0.95); color: #B8860B; padding: 20px; border-radius: 15px; z-index: 1001; font-family: 'Playfair Display', serif; box-shadow: 0 8px 32px rgba(0,0,0,0.1); border: 1px solid rgba(184,134,11,0.3); min-width: 300px;">
+      <div class="calendar-info-content">
+        <span class="close-calendar-info" onclick="toggleCalendarInfo()" style="position: absolute; right: 15px; top: 10px; cursor: pointer; color: #B8860B; font-size: 20px;">&times;</span>
+        <h3 style="color: #4b3705; text-align: center; font-size: 22px; text-transform: uppercase; letter-spacing: 2px;">Today's Date</h3>
+        <p id="todayDate" style="color: #493708; font-size: 18px; text-align: center;"></p>
+        <div id="currentMonth" style="text-align: center; margin: 10px 0; font-size: 20px; color: #4b3705;"></div>
+        <div style="text-align: center; margin: 10px 0;">
+          <button onclick="previousMonth()" style="margin-right: 10px; padding: 5px 10px;">Previous</button>
+          <button onclick="nextMonth()" style="padding: 5px 10px;">Next</button>
+        </div>
+        <div id="miniCalendar" style="margin-top: 20px; color: #473505;">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th>
+              </tr>
+            </thead>
+            <tbody id="calendarBody">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clock Info Popup -->
+    <div class="clock-info-popup" id="clockInfoPopup" style="position: fixed; left: 30px; top: 110px; background: rgba(255,255,255,0.15); backdrop-filter: blur(15px); color: #4A2410; padding: 20px; border-radius: 15px; display: none; z-index: 1001; font-family: 'Playfair Display', serif; box-shadow: 0 8px 32px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.3); min-width: 250px;">
+      <div class="clock-info-content">
+        <span class="close-clock-info" onclick="toggleClockInfo()" style="position: absolute; right: 15px; top: 10px; cursor: pointer; color: #4A2410; font-size: 20px;">&times;</span>
+        <h3 style="color: #4A2410; text-align: center; font-size: 22px; text-transform: uppercase; letter-spacing: 2px;">Focus Time Stats</h3>
+        <p style="color: #4A2410; font-size: 16px;"><strong>Total Focus Time:</strong> {{ user.total_focus_time }} minutes</p>
+        <p style="color: #4A2410; font-size: 16px;"><strong>Most Productive Day:</strong> {{ user.most_productive_day }}</p>
+        <p id="currentTime" style="color: #4A2410; font-size: 18px; text-align: center; margin-top: 15px;"></p>
+      </div>
+    </div>
+    <ul class="wall">
+      {% for i in range(15) %}
+        <li></li>
+      {% endfor %}
+    </ul>
+    <div class="crown" onclick="toggleCrownInfo()" data-tooltip="Class/Semester: {{ user.class_sem }}&#10;College: {{ user.college }}&#10;Age: {{ user.age }}" style="font-family: 'Playfair Display', serif; font-size: 18px;">
+      <ul class="round">
+        {% for i in range(17) %}
+          <li></li>
+        {% endfor %}
+      </ul>
+      <ul class="ball">
+        {% for i in range(12) %}
+          <li></li>
+        {% endfor %}
+      </ul>
+      <div class="crown-info-popup" id="crownInfoPopup" style="position: fixed; left: 20px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: #B8860B; padding: 20px; border-radius: 15px; display: none; z-index: 1000; font-family: 'Cinzel', serif; box-shadow: 0 4px 30px rgba(0,0,0,0.2); border: 2px solid rgba(184,134,11,0.3);">
+        <div class="crown-info-content">
+          <span class="close-crown-info" onclick="toggleCrownInfo()" style="position: absolute; right: 10px; top: 5px; cursor: pointer; color: #8B4513;">&times;</span>
+          <h3 style="color: #8B4513; text-align: center; font-family: 'Cormorant Garamond', serif; font-size: 24px; text-transform: uppercase; letter-spacing: 2px;">User Information</h3>
+          <div style="position: absolute; left: -30px; top: 50%; transform: translateY(-50%); width: 30px; border-top: 3px solid rgba(139,69,19,0.6);"></div>
+          <p style="color: #8B4513; font-family: 'Crimson Text', serif;"><strong>Class/Semester:</strong> {{ user.class_sem }}</p>
+          <p style="color: #8B4513; font-family: 'Crimson Text', serif;"><strong>College:</strong> {{ user.college }}</p>
+          <p style="color: #8B4513; font-family: 'Crimson Text', serif;"><strong>Age:</strong> {{ user.age }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="fireplace">
+      <div class="bottom">
+        <ul class="ground">
+          {% for i in range(10) %}
+            <li></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <ul class="top">
+        {% for i in range(10) %}
+          <li></li>
+        {% endfor %}
+      </ul>
+      <ul class="bricks">
+        {% for i in range(15) %}
+          <li></li>
+        {% endfor %}
+      </ul>
+      <div class="chimney"></div>
+      <div class="chimney-shadow"></div>
+      <div class="chimney-fire-wrapper">
+        <ul class="wood">
+          {% for i in range(9) %}
+            <li></li>
+          {% endfor %}
+        </ul>
+        <div class="fire"></div>
+        <div class="streak-info" style="font-family: 'Crimson Text', serif; color: #8B4513; font-size: 18px; text-align: right; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">
+          <strong>Streak:</strong> {{ user.streak }}
+        </div>
+        <ul class="embers">
+          {% for i in range(7) %}
+            <li></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Socks -->
+      <div class="sock" onclick="toggleGemsInfo()">
+        <div class="second"></div>
+      </div>
+      <div class="sock" id="sock-2" onclick="toggleGemsInfo()">
+        <div class="second"></div>
+      </div>
+      <div class="sock" id="sock-3" onclick="toggleGemsInfo()">
+        <div class="second"></div>
+      </div>
+
+      <!-- Candles -->
+      <div class="candle">
+        <div class="fire" onclick="toggleStreakInfo()"></div>
+      </div>
+      <div class="candle" id="candle-2">
+        <div class="fire" onclick="toggleStreakInfo()"></div>
+      </div>
+      <div class="candle" id="candle-3">
+        <div class="fire" onclick="toggleStreakInfo()"></div>
+      </div>
+
+      <!-- Streak Info Popup -->
+      <div class="streak-info-popup" id="streakInfoPopup" style="position: fixed; left: 20px; top: 20px; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: #B8860B; padding: 20px; border-radius: 15px; display: none; z-index: 1000; font-family: 'Playfair Display', serif; box-shadow: 0 4px 30px rgba(0,0,0,0.2); border: 2px solid rgba(184,134,11,0.3);">
+        <div class="streak-info-content">
+          <span class="close-streak-info" onclick="toggleStreakInfo()" style="position: absolute; right: 10px; top: 5px; cursor: pointer; color: #8B4513;">&times;</span>
+          <h3 style="color: #422008; text-align: center; font-family: 'Playfair Display', serif; font-size: 24px; text-transform: uppercase; letter-spacing: 2px;">Streak Information</h3>
+          <div style="position: absolute; right: -30px; top: 50%; transform: translateY(-50%); width: 30px; border-top: 3px solid rgba(139,69,19,0.6);"></div>
+          <p style="color: #311806; font-family: 'Playfair Display', serif; font-size: 20px;"><strong>Current Streak:</strong> {{ user.streak }}</p>
+          <div style="text-align: center; margin-top: 15px;">
+            <svg width="100" height="100" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45" fill="none" stroke="#E0E0E0" stroke-width="10"/>
+              <circle cx="50" cy="50" r="45" fill="none" stroke="#B8860B" stroke-width="10"
+                      stroke-dasharray="282.7" stroke-dashoffset="{{ 282.7 - (user.streak / 365 * 282.7) }}"
+                      transform="rotate(-90 50 50)"/>
+              <text x="50" y="50" text-anchor="middle" dy="7" font-size="20" fill="#8B4513">
+                {{ "%.1f"|format(user.streak / 365 * 100) }}%
+              </text>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gems Info Popup -->
+      <div class="gems-info-popup" id="gemsInfoPopup" style="position: fixed; left: 20px; bottom: 20px; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: #B8860B; padding: 20px; border-radius: 15px; display: none; z-index: 1000; font-family: 'Playfair Display', serif; box-shadow: 0 4px 30px rgba(0,0,0,0.2); border: 2px solid rgba(184,134,11,0.3);">
+        <div class="gems-info-content">
+          <span class="close-gems-info" onclick="toggleGemsInfo()" style="position: absolute; right: 10px; top: 5px; cursor: pointer; color: #8B4513;">&times;</span>
+          <h3 style="color: #8B4513; text-align: center; font-family: 'Playfair Display', serif; font-size: 24px; text-transform: uppercase; letter-spacing: 2px;">Gems Information</h3>
+          <div style="position: absolute; right: -30px; top: 50%; transform: translateY(-50%); width: 30px; border-top: 3px solid rgba(139,69,19,0.6);"></div>
+          <p style="color: #8B4513; font-family: 'Playfair Display', serif; font-size: 20px;"><strong>Gems:</strong> {{ user.gems }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Update calendar date
+    function updateCalendarDate() {
+      const date = new Date().getDate();
+      document.getElementById('calendarDate').textContent = date;
+    }
+    updateCalendarDate();
+
+    // Generate calendar
+    function generateCalendar(selectedMonth = new Date().getMonth(), selectedYear = new Date().getFullYear()) {
+      const today = new Date();
+      const firstDay = new Date(selectedYear, selectedMonth, 1);
+      const lastDay = new Date(selectedYear, selectedMonth + 1, 0);
+      
+      const startingDay = firstDay.getDay();
+      const totalDays = lastDay.getDate();
+      
+      // Update month/year display
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      document.getElementById('currentMonth').textContent = `${monthNames[selectedMonth]} ${selectedYear}`;
+      
+      const calendarBody = document.getElementById('calendarBody');
+      calendarBody.innerHTML = '';
+      
+      let date = 1;
+      for (let i = 0; i < 6; i++) {
+        const row = document.createElement('tr');
+        for (let j = 0; j < 7; j++) {
+          const cell = document.createElement('td');
+          cell.style.padding = '5px';
+          cell.style.textAlign = 'center';
+          cell.style.cursor = 'pointer';
+          
+          if (i === 0 && j < startingDay) {
+            cell.textContent = '';
+          } else if (date > totalDays) {
+            break;
+          } else {
+            cell.textContent = date;
+            cell.setAttribute('data-date', `${selectedYear}-${(selectedMonth + 1).toString().padStart(2, '0')}-${date.toString().padStart(2, '0')}`);
+            
+            if (date === today.getDate() && selectedMonth === today.getMonth() && selectedYear === today.getFullYear()) {
+              cell.style.backgroundColor = 'rgba(184,134,11,0.2)';
+              cell.style.borderRadius = '50%';
+            }
+            
+            // Add click handler for notes
+            cell.addEventListener('click', function(e) {
+              const dateStr = e.target.getAttribute('data-date');
+              const existingNote = localStorage.getItem(`note_${dateStr}`) || '';
+              const note = prompt('Enter note for ' + dateStr, existingNote);
+              
+              if (note !== null) {
+                localStorage.setItem(`note_${dateStr}`, note);
+                // Visual indicator for dates with notes
+                if (note) {
+                  e.target.style.border = '2px solid rgba(184,134,11,0.5)';
+                } else {
+                  e.target.style.border = 'none';
+                }
+              }
+            });
+            
+            // Show visual indicator for existing notes
+            const existingNote = localStorage.getItem(`note_${cell.getAttribute('data-date')}`);
+            if (existingNote) {
+              cell.style.border = '2px solid rgba(184,134,11,0.5)';
+            }
+            
+            date++;
+          }
+          row.appendChild(cell);
+        }
+        calendarBody.appendChild(row);
+      }
+    }
+
+    // Add navigation functions
+    function previousMonth() {
+      const currentMonth = document.getElementById('currentMonth').textContent;
+      const [month, year] = currentMonth.split(' ');
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      let newMonth = monthNames.indexOf(month) - 1;
+      let newYear = parseInt(year);
+      
+      if (newMonth < 0) {
+        newMonth = 11;
+        newYear--;
+      }
+      
+      generateCalendar(newMonth, newYear);
+    }
+
+    function nextMonth() {
+      const currentMonth = document.getElementById('currentMonth').textContent;
+      const [month, year] = currentMonth.split(' ');
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      let newMonth = monthNames.indexOf(month) + 1;
+      let newYear = parseInt(year);
+      
+      if (newMonth > 11) {
+        newMonth = 0;
+        newYear++;
+      }
+      
+      generateCalendar(newMonth, newYear);
+    }
+
+    // Update clock hands
+    function updateClock() {
+      const now = new Date();
+      const hours = (now.getHours() - 3) % 12; // Subtract 3 hours to fix time
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+      
+      const hourHand = document.getElementById('hourHand');
+      const minuteHand = document.getElementById('minuteHand');
+      const secondHand = document.getElementById('secondHand');
+      
+      const hourAngle = (hours + minutes/60) * 30;
+      const minuteAngle = minutes * 6;
+      const secondAngle = seconds * 6;
+      
+      hourHand.setAttribute('transform', `rotate(${hourAngle} 12 12)`);
+      minuteHand.setAttribute('transform', `rotate(${minuteAngle} 12 12)`);
+      secondHand.setAttribute('transform', `rotate(${secondAngle} 12 12)`);
+      
+      document.getElementById('currentTime').textContent = now.toLocaleTimeString();
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    function toggleCrownInfo() {
+      const popup = document.getElementById('crownInfoPopup');
+      popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function toggleStreakInfo() {
+      const popup = document.getElementById('streakInfoPopup');
+      popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function toggleGemsInfo() {
+      const popup = document.getElementById('gemsInfoPopup');
+      popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function toggleClockInfo() {
+      const popup = document.getElementById('clockInfoPopup');
+      popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function toggleCalendarInfo() {
+      const popup = document.getElementById('calendarInfoPopup');
+      if (popup.style.display === 'none') {
+        const today = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('todayDate').textContent = today.toLocaleDateString('en-US', options);
+        generateCalendar();
+      }
+      popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // Initialize popups as hidden
+    document.addEventListener('DOMContentLoaded', function() {
+      const popups = [
+        'crownInfoPopup',
+        'streakInfoPopup', 
+        'gemsInfoPopup',
+        'clockInfoPopup',
+        'calendarInfoPopup'
+      ];
+      
+      popups.forEach(id => {
+        document.getElementById(id).style.display = 'none';
+      });
+    });
+
+    // Close popups when clicking outside
+    window.addEventListener('click', function(event) {
+      const popups = {
+        'crownInfoPopup': {elem: document.getElementById('crownInfoPopup'), trigger: '.crown'},
+        'streakInfoPopup': {elem: document.getElementById('streakInfoPopup'), trigger: '.fire'}, 
+        'gemsInfoPopup': {elem: document.getElementById('gemsInfoPopup'), trigger: '.sock'},
+        'clockInfoPopup': {elem: document.getElementById('clockInfoPopup'), trigger: '.clock'},
+        'calendarInfoPopup': {elem: document.getElementById('calendarInfoPopup'), trigger: '.calendar'}
+      };
+      
+      Object.entries(popups).forEach(([id, {elem, trigger}]) => {
+        if (event.target !== elem && 
+            !elem.contains(event.target) && 
+            !event.target.closest(trigger)) {
+          elem.style.display = 'none';
+        }
+      });
+    });
+  </script>
+{% endblock %}

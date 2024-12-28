@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        /* CSS */
+        :root {
+            --base-grid: 8px;
+            --colour-white: #fff;
+            --colour-black: #1a1a1a;
+            --colour-bg-1: #ffd5cc;
+            --colour-bg-2: #ffb3b3;
+            --colour-bg-3: #ffc9c9;
+        }
+
+        *,
+        :after,
+        :before {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            font-family: 'Lato', sans-serif;
+            color: #333333;
+            background: linear-gradient(-45deg, var(--colour-bg-1), var(--colour-bg-2), var(--colour-bg-3));
+            background-size: 400% 400%;
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: auto;
+            animation: gradient 15s ease infinite;
+            position: relative;
+        }
+
+        .main-title {
+            font-size: 4.5rem;
+            /* Increased size */
+            font-weight: 900;
+            /* Make text thicker and bolder */
+            text-shadow: -2px -2px 0 var(--outline-color),
+                2px -2px 0 var(--outline-color), -2px 2px 0 var(--outline-color),
+                2px 2px 0 var(--outline-color);
+        }
+
+        section {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .container {
+            width: min(42.5rem, 100%);
+            margin-inline: auto;
+            padding-inline: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .flashcards-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            box-sizing: border-box;
+        }
+
+        .view-tasks-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-right: 1rem;
+        }
+
+        .view-tasks-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-section {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-section h1 {
+            font-size: 2.5rem;
+            color: #2d3748;
+            font-weight: 700;
+        }
+
+        .focus-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .create-card-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .flashcards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .flashcard {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+        }
+
+        .flashcard.completed {
+            background: #f7fafc;
+            border: 2px solid #4299e1;
+        }
+
+        .category-tag {
+            background: #ebf4ff;
+            color: #4a5568;
+            padding: 0.25rem 0.75rem;
+            border-radius: 16px;
+            font-size: 0.875rem;
+        }
+
+        .task-description {
+            margin: 1rem 0;
+            color: #2d3748;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .time-required {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #718096;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .created-at {
+            font-size: 0.75rem;
+            color: #718096;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #718096;
+            transition: color 0.2s;
+        }
+
+        .toggle-complete {
+            color: #48bb78;
+        }
+
+        @media (max-width: 768px) {
+            .header-section {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .flashcards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav style="
+            display: flex;
+            justify-content: flex-start;
+            gap: 1rem;
+            margin: 1rem 0;
+            padding-left: 2rem;
+          ">
+            <a href="{{ url_for('About') }}" style="
+              text-decoration: none;
+              color: var(--colour-black);
+              font-size: 1rem;
+              padding: 0.3rem 0.8rem;
+              border-radius: 20px;
+              transition: all 0.3s ease;
+              background: rgba(255, 255, 255, 0.2);
+              backdrop-filter: blur(5px);
+            ">About</a>
+            <a href="{{ url_for('dashboard') }}" style="
+              text-decoration: none;
+              color: var(--colour-black);
+              font-size: 1rem;
+              padding: 0.3rem 0.8rem;
+              border-radius: 20px;
+              transition: all 0.3s ease;
+              background: rgba(255, 255, 255, 0.2);
+              backdrop-filter: blur(5px);
+            ">Dashboard</a>
+            {% if session.get('user_id') %}
+            <a href="{{ url_for('logout') }}" style="
+              text-decoration: none;
+              color: var(--colour-black);
+              font-size: 1rem;
+              padding: 0.3rem 0.8rem;
+              border-radius: 20px;
+              transition: all 0.3s ease;
+              background: rgba(255, 255, 255, 0.2);
+              backdrop-filter: blur(5px);
+            ">Logout</a>
+            {% else %}
+            <a href="{{ url_for('login') }}" style="
+              text-decoration: none;
+              color: var(--colour-black);
+              font-size: 1rem;
+              padding: 0.3rem 0.8rem;
+              border-radius: 20px;
+              transition: all 0.3s ease;
+              background: rgba(255, 255, 255, 0.2);
+              backdrop-filter: blur(5px);
+            ">Login</a>
+            {% endif %}
+            <button id="playButton" style="
+              text-decoration: none;
+              color: var(--colour-black);
+              font-size: 1rem;
+              padding: 0.3rem 0.8rem;
+              border-radius: 20px;
+              transition: all 0.3s ease;
+              background: rgba(255, 255, 255, 0.2);
+              backdrop-filter: blur(5px);
+            ">
+                🎧
+            </button>
+        </nav>
+        <script>
+            const playButton = document.getElementById("playButton");
+            const audio = new Audio(
+                "https://www.bensound.com/bensound-music/bensound-acousticbreeze.mp3"
+            ); // Replace with a direct URL to an audio file
+            audio.loop = true; // Set audio to loop
+
+            // Play audio by default when the page loads
+            window.onload = () => {
+                audio.play().catch((error) => {
+                    console.error("Error playing audio on load:", error);
+                });
+            };
+
+            // Error handling
+            audio.addEventListener("error", () => {
+                console.error(
+                    "Audio failed to load. Check the file URL and network connection."
+                );
+                alert("Unable to play audio. Please check the file link.");
+            });
+
+            let isPlaying = true; // Track the playing state, default to true since audio plays on load
+
+            playButton.addEventListener("click", () => {
+                if (isPlaying) {
+                    audio.pause(); // Stop the audio
+                    playButton.textContent = "🎧"; // Change button text
+                } else {
+                    audio.play().catch((error) => {
+                        console.error("Error playing audio:", error);
+                        alert("Playback error. Please try again.");
+                    });
+                    playButton.textContent = "☠️"; // Change button text
+                }
+                isPlaying = !isPlaying; // Toggle the playing state
+            });
+        </script>
+        <h1 class="site-title" style="
+            font-family: 'Showcard Gothic', cursive;
+            font-size: 3.5rem;
+            text-align: left;
+            color: #ff5733;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            margin: 1rem 0;
+            padding-left: 2rem;
+            text-decoration: underline;
+          ">
+            Sleigh it!
+        </h1>
+    </header>
+    <div class="flashcards-container">
+        <div class="header-section">
+            <h1>Task Management</h1>
+            <button id="view-tasks-btn" class="focus-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                View Tasks
+            </button>
+            <button id="focus-mode" class="focus-btn" onclick="window.location.href='/flashcards/focus'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="focus-icon">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
+                        fill="currentColor" />
+                </svg>
+                Enter Focus Mode
+            </button>
+        </div>
+
+        <div class="create-card-section">
+            <h2>Create New Task</h2>
+            <form id="flashcard-form">
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <input type="text" id="category" placeholder="Enter task category (e.g., Study, Work, Personal)"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="task_description">Task Description</label>
+                    <textarea id="task_description" placeholder="Describe the task to be completed" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="time_required">Time Required (hours)</label>
+                    <input type="number" id="time_required" step="0.5" min="0" placeholder="e.g., 1.5" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">Create Task</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="flashcards-grid" id="flashcards-container"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const flashcardForm = document.getElementById('flashcard-form');
+            const flashcardsContainer = document.getElementById('flashcards-container');
+            const focusModeButton = document.getElementById('focus-mode');
+            const viewTasksBtn = document.getElementById('view-tasks-btn'); // View Tasks button
+
+            async function loadFlashcards() {
+                try {
+                    const response = await fetch('/flashcards/view');
+                    if (response.ok) {
+                        const flashcards = await response.json();
+                        flashcardsContainer.innerHTML = '';
+
+                        flashcards.forEach(card => {
+                            const taskElement = document.createElement('div');
+                            taskElement.className = `flashcard ${card.completed ? 'completed' : ''}`;
+                            taskElement.dataset.id = card.id;
+
+                            taskElement.innerHTML = `
+                                <div class="flashcard-header">
+                                    <span class="category-tag">${card.category}</span>
+                                    <div class="card-actions">
+                                        <button class="toggle-complete action-btn" title="Toggle completion">
+                                            <i class="fas ${card.completed ? 'fa-check-circle' : 'fa-circle'}"></i>
+                                        </button>
+                                        <button class="edit-flashcard action-btn" title="Edit task">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="delete-flashcard action-btn" title="Delete task">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="flashcard-content">
+                                    <div class="task-description">${card.task_description}</div>
+                                    <div class="time-required">
+                                        <i class="fas fa-clock"></i>
+                                        ${card.time_required} hours
+                                    </div>
+                                </div>
+                                <div class="flashcard-footer">
+                                    <div class="created-at">Created: ${card.created_at}</div>
+                                    <div class="mastery-stars" data-level="${card.mastery_level}">
+                                        ${Array(5).fill('<span class="star">★</span>').map((star, i) =>
+                                i < card.mastery_level ? star.replace('star">', 'star active">') : star
+                            ).join('')}
+                                    </div>
+                                </div>
+                            `;
+
+                            flashcardsContainer.appendChild(taskElement);
+                        });
+                    } else {
+                        const error = await response.json();
+                        alert(error.error);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred while loading tasks');
+                }
+            }
+
+            viewTasksBtn.addEventListener('click', loadFlashcards);
+            loadFlashcards();
+
+            flashcardForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const formData = {
+                    category: document.getElementById('category').value,
+                    task_description: document.getElementById('task_description').value,
+                    time_required: parseFloat(document.getElementById('time_required').value)
+                };
+
+                try {
+                    const response = await fetch('/flashcard/create', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    if (response.ok) {
+                        const flashcard = await response.json();
+                        addFlashcardToDOM(flashcard);
+                        flashcardForm.reset();
+                    } else {
+                        const error = await response.json();
+                        alert(error.error);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred while creating the flashcard');
+                }
+            });
+
+            document.addEventListener('click', async function (e) {
+                if (e.target.classList.contains('delete-flashcard') || e.target.parentElement.classList.contains('delete-flashcard')) {
+                    const flashcard = e.target.closest('.flashcard');
+                    const id = flashcard.dataset.id;
+
+                    if (confirm('Are you sure you want to delete this flashcard?')) {
+                        try {
+                            const response = await fetch(`/flashcard/${id}`, {
+                                method: 'DELETE'
+                            });
+
+                            if (response.ok) {
+                                flashcard.remove();
+                            } else {
+                                const error = await response.json();
+                                alert(error.error);
+                            }
+                        } catch (error) {
+                            console.error('Error:', error);
+                            alert('An error occurred while deleting the flashcard');
+                        }
+                    }
+                }
+            });
+
+            focusModeButton.addEventListener('click', async function () {
+                try {
+                    const response = await fetch('/focus', {
+                        method: 'POST'
+                    });
+
+                    if (response.ok) {
+                        alert('Focus mode activated! Stay focused and earn rewards!');
+                        focusModeButton.textContent = 'Focus Mode Active';
+                        focusModeButton.disabled = true;
+                    } else {
+                        const error = await response.json();
+                        alert(error.error);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred while activating focus mode');
+                }
+            });
+
+            function addFlashcardToDOM(flashcard) {
+                const flashcardElement = document.createElement('div');
+                flashcardElement.className = 'flashcard';
+                flashcardElement.dataset.id = flashcard.id;
+
+                flashcardElement.innerHTML = `
+                    <div class="flashcard-header">
+                        <span class="category-tag">${flashcard.category}</span>
+                    </div>
+                    <div class="flashcard-content">
+                        <div class="task-description">${flashcard.task_description}</div>
+                    </div>
+                    <div class="time-required">
+                        <i class="fas fa-clock"></i> ${flashcard.time_required} hours
+                    </div>
+                    <div class="flashcard-footer">
+                        <div class="created-at">Created: ${flashcard.created_at}</div>
+                    </div>
+                `;
+
+                flashcardsContainer.appendChild(flashcardElement);
+            }
+        });
+    </script>
+</body>
+
+</html>

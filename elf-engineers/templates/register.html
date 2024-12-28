@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Page</title>
+    <style>
+        body {
+            background-image: url('https://static.vecteezy.com/system/resources/previews/010/683/005/non_2x/christmas-background-design-of-pine-tree-and-snowflake-with-snow-falling-in-the-winter-illustration-free-vector.jpg');
+            background-size: cover; /* Make the background image fill the screen */
+            background-repeat: no-repeat;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center; /* Center the form container */
+            align-items: flex-start;
+            width: 100%;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .form-container {
+            width: 40%;
+            padding: 20px;
+            background-color: rgba(14, 152, 58, 0.9); /* Slightly transparent background */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 4px solid rgba(27, 10, 13, 0.85);
+            border-radius: 8px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="email"],
+        input[type="password"],
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #890423dc;
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #e70822c3;
+        }
+
+        .social-login {
+            text-align: center;
+        }
+
+        .social-login p {
+            margin-bottom: 10px;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        .login-link a {
+            color: #010a01;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+            <nav style="display: flex; justify-content: flex-start; gap: 1rem; margin: 1rem 0; padding-left: 2rem;">
+                <a href="{{ url_for('About') }}" style="text-decoration: none; color: var(--colour-black); font-size: 1rem; padding: 0.3rem 0.8rem; border-radius: 20px; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px);">About</a>
+                <a href="{{ url_for('dashboard') }}" style="text-decoration: none; color: var(--colour-black); font-size: 1rem; padding: 0.3rem 0.8rem; border-radius: 20px; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px);">Dashboard</a>
+                {% if session.get('user_id') %}
+                    <a href="{{ url_for('logout') }}" style="text-decoration: none; color: var(--colour-black); font-size: 1rem; padding: 0.3rem 0.8rem; border-radius: 20px; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px);">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" style="text-decoration: none; color: var(--colour-black); font-size: 1rem; padding: 0.3rem 0.8rem; border-radius: 20px; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px);">Login</a>
+                {% endif %}
+                <button id="playButton" style="text-decoration: none; color: var(--colour-black); font-size: 1rem; padding: 0.3rem 0.8rem; border-radius: 20px; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px);">🎧</button>
+            </nav>
+            <script>
+                const playButton = document.getElementById('playButton');
+                const audio = new Audio('https://www.bensound.com/bensound-music/bensound-acousticbreeze.mp3'); // Replace with a direct URL to an audio file
+                audio.loop = true; // Set audio to loop
+    
+                // Play audio by default when the page loads
+                window.onload = () => {
+                    audio.play().catch(error => {
+                        console.error('Error playing audio on load:', error);
+                    });
+                };
+            
+                // Error handling
+                audio.addEventListener('error', () => {
+                  console.error('Audio failed to load. Check the file URL and network connection.');
+                  alert('Unable to play audio. Please check the file link.');
+                });
+            
+                let isPlaying = true; // Track the playing state, default to true since audio plays on load
+            
+                playButton.addEventListener('click', () => {
+                  if (isPlaying) {
+                    audio.pause(); // Stop the audio
+                    playButton.textContent = '🎧'; // Change button text
+                  } else {
+                    audio.play().catch(error => {
+                      console.error('Error playing audio:', error);
+                      alert('Playback error. Please try again.');
+                    });
+                    playButton.textContent = '☠️'; // Change button text
+                  }
+                  isPlaying = !isPlaying; // Toggle the playing state
+                });
+            </script>
+            <h1 class="site-title" style="font-family: 'Showcard Gothic', cursive; font-size: 3.5rem; text-align: left; color: #FF5733; text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); margin: 1rem 0; padding-left: 2rem; text-decoration: underline;">Sleigh it!</h1>
+    </header>
+    <div class="container">
+        <div class="form-container">
+            <h2>Register</h2>
+            <form method="POST" action="{{ url_for('register') }}">
+                <label>Name:</label>
+                <input type="text" name="name" required>
+                <label>Email:</label>
+                <input type="email" name="email" required>
+                <label>Class/Semester:</label>
+                <input type="text" name="class_sem" required>
+                <label>College:</label>
+                <input type="text" name="college" required>
+                <label>Age:</label>
+                <input type="number" name="age" required>
+                <label>Password:</label>
+                <input type="password" name="password" required>
+                <button type="submit">Register</button>
+            </form>
+            <p>Already have an account? <a href="{{ url_for('home') }}">Login here</a></p>
+        </div>
+    </div>
+</body>
+</html>
+

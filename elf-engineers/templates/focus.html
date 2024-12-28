@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pomodoro Timer</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/6f3103b13c.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      :root {
+        font-size: 62.5%;
+        /* 1rem = 10px */
+        --color-primary: #ffc9c9;
+        /* Crimson red */
+        --color-secondary: #006400;
+        /* Dark green */
+        --color-font: #fff;
+        /* White */
+        --color-shadow: rgba(161, 14, 14, 0.5);
+        /* Slightly transparent black */
+        --outline-color: #511212;
+        /* Red outline */
+        --berry-image: url("../images/berry.png");
+        /* Your berry image URL */
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+        background-color: var(--color-primary);
+        background-image: url("../images/ring.png"), var(--berry-image);
+        background-size: auto, 40px; /* Increased berry size */
+        background-repeat: no-repeat, repeat;
+        background-position: center, center;
+        font-size: 1.6rem;
+        font-family: "Open sans", sans-serif;
+      }
+
+      p,
+      i,
+      h1 {
+        color: var(--color-font);
+        text-shadow: -1px -1px 0 var(--outline-color),
+          1px -1px 0 var(--outline-color), -1px 1px 0 var(--outline-color),
+          1px 1px 0 var(--outline-color);
+      }
+
+      i {
+        font-size: 3.2rem;
+      }
+
+      .main-title {
+        font-size: 4.5rem; /* Increased size */
+        font-weight: 900; /* Make text thicker and bolder */
+        text-shadow: -2px -2px 0 var(--outline-color),
+          2px -2px 0 var(--outline-color), -2px 2px 0 var(--outline-color),
+          2px 2px 0 var(--outline-color);
+      }
+
+      section {
+        display: flex;
+        align-items: center;
+        height: 100%;
+      }
+
+      .container {
+        width: min(42.5rem, 100%);
+        margin-inline: auto;
+        padding-inline: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .mode-buttons {
+        display: flex;
+        margin-bottom: 1rem;
+      }
+
+      .mode-buttons button {
+        padding: 0.5rem 1rem;
+        margin: 0 0.5rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.7
+        ); /* Opaque white background */
+        color: var(--color-secondary); /* Dark green color */
+        box-shadow: 0px 0px 5px 2px var(--color-shadow);
+        font-weight: 700; /* Make text thicker and bolder */
+      }
+
+      .painel {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        text-align: center;
+        width: 20rem;
+        margin-block: 2rem;
+        padding: 1rem;
+        border-radius: 10rem;
+        background-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0px 0px 15px 5px var(--color-shadow);
+        display: none;
+      }
+
+      .painel p {
+        opacity: 0.8;
+        transition: 1s ease-in;
+      }
+
+      .painel p.active {
+        opacity: 1;
+        color: var(--color-secondary);
+      }
+
+      .timer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40rem;
+        height: 40rem;
+        border-radius: 50%;
+        box-shadow: 0px 0px 3px 1px var(--color-shadow);
+        background-color: var(--color-primary);
+        background-image: url("static/images/ring.png");
+        background-size: cover;
+      }
+
+      .circle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 28rem;
+        height: 28rem;
+        border-radius: 50%;
+        position: relative;
+        overflow: hidden;
+        /* Hide any part of the image that extends beyond the circle */
+        background-color: white; /* Set circle background to white */
+      }
+
+      .ring-image {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .circle::before {
+        content: "";
+        position: absolute;
+        width: 90%;
+        height: 90%;
+        border-radius: 50%;
+        background-color: white; /* Set the inner circle background to white too */
+      }
+
+      .circle::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 192, 203, 0.8) 10%,
+          rgba(255, 165, 0, 0.8) 25%,
+          rgba(255, 255, 0, 0.8) 40%,
+          rgba(173, 216, 230, 0.8) 55%,
+          rgba(255, 192, 203, 0.8) 70%,
+          rgba(255, 165, 0, 0.8) 85%,
+          rgba(255, 255, 0, 0.8) 100%
+        );
+        background-size: 8%;
+        background-repeat: repeat;
+        opacity: 0.7;
+        mix-blend-mode: overlay;
+        pointer-events: none;
+      }
+
+      .time {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        z-index: 2;
+      }
+
+      .time p {
+        font-size: 7rem; /* Increased size by 1.25x */
+        color: black; /* Make the timer text black */
+        font-weight: 700; /* Make text thicker and bolder */
+        text-shadow: none; /* Remove the red outline */
+      }
+
+      .time p:nth-of-type(2) {
+        position: relative;
+        top: -0.5rem;
+        margin-inline: 1rem;
+      }
+
+      .timer-options {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+
+      .timer-options button {
+        padding: 8px 12px;
+        margin: 5px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.8);
+        color: var(--color-secondary);
+        box-shadow: 0px 0px 5px 2px var(--color-shadow);
+      }
+
+      .timer-options button:hover {
+        background-color: rgba(255, 255, 255, 0.9);
+      }
+
+      .controls {
+        margin-top: 3rem;
+      }
+
+      .controls button,
+      .controls a {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        display: inline-block;
+        margin: 0 10px;
+      }
+
+      .controls #reset {
+        display: none;
+      }
+
+      .focus-mode {
+        margin-top: 1rem;
+        display: flex;
+        align-items: center;
+      }
+
+      .focus-mode label {
+        margin-left: 0.5rem;
+        color: var(--color-font);
+        text-shadow: -1px -1px 0 var(--outline-color),
+          1px -1px 0 var(--outline-color), -1px 1px 0 var(--outline-color),
+          1px 1px 0 var(--outline-color);
+        font-size: 1.8rem; /* Slightly more bigger */
+        font-weight: 700; /* Make text thicker and bolder */
+      }
+
+      html,
+      body {
+        background-image: url("../images/ring.png"), var(--berry-image);
+        background-size: auto, 40px; /* Increased berry size */
+        background-repeat: no-repeat, repeat;
+        background-position: center, center;
+        background-attachment: local; /* Ensure local attachment for correct sizing */
+      }
+
+      html,
+      body {
+        background-image: url("../images/ring.png"), var(--berry-image);
+        background-size: auto, 40px;
+        background-repeat: no-repeat, repeat;
+        background-position: center, center;
+        background-attachment: local;
+        background-position: center, center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <nav
+        style="
+          display: flex;
+          justify-content: flex-start;
+          gap: 1rem;
+          margin: 1rem 0;
+          padding-left: 2rem;
+        "
+      >
+        <a
+          href="{{ url_for('About') }}"
+          style="
+            text-decoration: none;
+            color: var(--colour-black);
+            font-size: 1rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+          "
+          >About</a
+        >
+        <a
+          href="{{ url_for('dashboard') }}"
+          style="
+            text-decoration: none;
+            color: var(--colour-black);
+            font-size: 1rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+          "
+          >Dashboard</a
+        >
+        {% if session.get('user_id') %}
+        <a
+          href="{{ url_for('logout') }}"
+          style="
+            text-decoration: none;
+            color: var(--colour-black);
+            font-size: 1rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+          "
+          >Logout</a
+        >
+        {% else %}
+        <a
+          href="{{ url_for('login') }}"
+          style="
+            text-decoration: none;
+            color: var(--colour-black);
+            font-size: 1rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+          "
+          >Login</a
+        >
+        {% endif %}
+        <button
+          id="playButton"
+          style="
+            text-decoration: none;
+            color: var(--colour-black);
+            font-size: 1rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+          "
+        >
+          🎧
+        </button>
+      </nav>
+      <script>
+        const playButton = document.getElementById("playButton");
+        const audio = new Audio(
+          "https://www.bensound.com/bensound-music/bensound-acousticbreeze.mp3"
+        ); // Replace with a direct URL to an audio file
+        audio.loop = true; // Set audio to loop
+
+        // Play audio by default when the page loads
+        window.onload = () => {
+          audio.play().catch((error) => {
+            console.error("Error playing audio on load:", error);
+          });
+        };
+
+        // Error handling
+        audio.addEventListener("error", () => {
+          console.error(
+            "Audio failed to load. Check the file URL and network connection."
+          );
+          alert("Unable to play audio. Please check the file link.");
+        });
+
+        let isPlaying = true; // Track the playing state, default to true since audio plays on load
+
+        playButton.addEventListener("click", () => {
+          if (isPlaying) {
+            audio.pause(); // Stop the audio
+            playButton.textContent = "🎧"; // Change button text
+          } else {
+            audio.play().catch((error) => {
+              console.error("Error playing audio:", error);
+              alert("Playback error. Please try again.");
+            });
+            playButton.textContent = "☠️"; // Change button text
+          }
+          isPlaying = !isPlaying; // Toggle the playing state
+        });
+      </script>
+      <h1
+        class="site-title"
+        style="
+          font-family: 'Showcard Gothic', cursive;
+          font-size: 3.5rem;
+          text-align: left;
+          color: #ff5733;
+          text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+          margin: 1rem 0;
+          padding-left: 2rem;
+          text-decoration: underline;
+        "
+      >
+        Sleigh it!
+      </h1>
+    </header>
+    <section>
+      <div class="container">
+        <h1 class="main-title">POMODORO</h1>
+        <div class="mode-buttons">
+          <button id="workButton">WORK</button>
+          <button id="breakButton">BREAK</button>
+        </div>
+        <div class="painel"></div>
+
+        <div class="timer">
+          <div class="circle">
+            <div class="time">
+              <p id="minutes"></p>
+              <p>:</p>
+              <p id="seconds"></p>
+            </div>
+          </div>
+        </div>
+        <div class="focus-mode">
+          <input type="checkbox" id="focusModeCheckbox" />
+          <label for="focusModeCheckbox">Focus Mode</label>
+        </div>
+
+        <div class="timer-options">
+          <div id="workButtons">
+            <button onclick="setWorkTime(30)">30 min Work</button>
+            <button onclick="setWorkTime(60)">1 Hour Work</button>
+            <button onclick="setWorkTime(120)">2 Hours Work</button>
+          </div>
+          <div id="breakButtons" style="display: none">
+            <button onclick="setBreakTime(5)">5 min Break</button>
+            <button onclick="setBreakTime(15)">15 min Break</button>
+            <button onclick="setBreakTime(30)">30 min Break</button>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button id="start" onclick="start()">
+            <i class="fa-solid fa-play"></i>
+          </button>
+          <button id="reset" onclick="reset()">
+            <i class="fa-solid fa-arrow-rotate-left"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+    <script>
+      // variables
+
+      let workTittle = document.getElementById("work");
+      let breakTittle = document.getElementById("break");
+
+      let workTime = 30; // Default to 30 minutes
+      let breakTime = 5; // Default break time
+      let seconds = "00";
+      let timerInterval;
+      let breakCount = 0;
+      let isWorkMode = true; // Flag to track current mode
+
+      // display
+      window.onload = () => {
+        document.getElementById("minutes").innerHTML = workTime;
+        document.getElementById("seconds").innerHTML = seconds;
+      };
+
+      // Toggle work/break buttons and timer settings
+      const workButton = document.getElementById("workButton");
+      const breakButton = document.getElementById("breakButton");
+      const workButtons = document.getElementById("workButtons");
+      const breakButtons = document.getElementById("breakButtons");
+
+      workButton.addEventListener("click", () => {
+        workButtons.style.display = "block";
+        breakButtons.style.display = "none";
+        isWorkMode = true;
+        workTime = workTime || 30; // Reset to default if not set
+        document.getElementById("minutes").innerHTML = workTime; // Update display
+      });
+
+      breakButton.addEventListener("click", () => {
+        workButtons.style.display = "none";
+        breakButtons.style.display = "block";
+        isWorkMode = false;
+        breakTime = breakTime || 5; // Reset to default if not set
+        document.getElementById("minutes").innerHTML = breakTime; // Update display
+      });
+
+      // Set work time
+      function setWorkTime(minutes) {
+        workTime = minutes;
+        if (isWorkMode) {
+          document.getElementById("minutes").innerHTML = workTime;
+        }
+      }
+
+      // Set Break time
+      function setBreakTime(minutes) {
+        breakTime = minutes;
+        if (!isWorkMode) {
+          // Only update if in break mode
+          document.getElementById("minutes").innerHTML = breakTime;
+        }
+      }
+
+      // start timer
+      function start() {
+        // change button
+        document.getElementById("start").style.display = "none";
+        document.getElementById("reset").style.display = "block";
+
+        // change the time
+        seconds = 59;
+
+        let currentMinutes = isWorkMode ? workTime - 1 : breakTime - 1;
+
+        // countdown
+        let timerFunction = () => {
+          //change the display
+          document.getElementById("minutes").innerHTML = currentMinutes;
+          document.getElementById("seconds").innerHTML =
+            seconds < 10 ? "0" + seconds : seconds;
+
+          // start
+          seconds = seconds - 1;
+
+          if (seconds === -1) {
+            currentMinutes = currentMinutes - 1;
+            if (currentMinutes === -1) {
+              if (isWorkMode) {
+                // start break
+                currentMinutes = breakTime - 1;
+                isWorkMode = false;
+                breakCount++;
+                // Add visual cues or sounds here for break start
+              } else {
+                // continue work
+                currentMinutes = workTime - 1;
+                isWorkMode = true;
+                breakCount++;
+                // Add visual cues or sounds here for work start
+              }
+            }
+            seconds = 59;
+          }
+        };
+        if (timerInterval) {
+          clearInterval(timerInterval);
+        }
+        // start countdown
+        timerInterval = setInterval(timerFunction, 1000); // 1000 = 1s
+      }
+
+      function reset() {
+        clearInterval(timerInterval);
+        document.getElementById("start").style.display = "block";
+        document.getElementById("reset").style.display = "none";
+        if (isWorkMode) {
+          document.getElementById("minutes").innerHTML = workTime;
+        } else {
+          document.getElementById("minutes").innerHTML = breakTime;
+        }
+
+        seconds = "00";
+        document.getElementById("seconds").innerHTML = seconds; // Update seconds on reset
+        breakCount = 0;
+      }
+    </script>
+  </body>
+</html>

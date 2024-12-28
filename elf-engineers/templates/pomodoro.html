@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section class="pomodoro-page">
+    <div class="container">
+        <h1 class="main-title">POMODORO</h1>
+
+        <!-- Mode buttons -->
+        <div class="mode-buttons">
+            <button id="workButton">WORK</button>
+            <button id="breakButton">BREAK</button>
+        </div>
+
+        <!-- Timer Display -->
+        <div class="timer">
+            <div class="circle">
+                <div class="time">
+                    <p id="minutes">00</p> <!-- Default display -->
+                    <p>:</p>
+                    <p id="seconds">00</p> <!-- Default display -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Timer Options -->
+        <div class="timer-options">
+            <!-- Work Mode Buttons -->
+            <div id="workButtons" class="timer-options">
+                <button onclick="setWorkTime(30)">30 min Work</button>
+                <button onclick="setWorkTime(60)">1 Hour Work</button>
+                <button onclick="setWorkTime(120)">2 Hours Work</button>
+            </div>
+            <!-- Break Mode Buttons -->
+            <div id="breakButtons" class="timer-options" style="display: none;">
+                <button onclick="setBreakTime(5)">5 min Break</button>
+                <button onclick="setBreakTime(15)">15 min Break</button>
+                <button onclick="setBreakTime(30)">30 min Break</button>
+            </div>
+        </div>
+
+        <!-- Control Buttons -->
+        <div class="controls">
+            <button id="start" onclick="start()">
+                <i class="fa-solid fa-play"></i> Start
+            </button>
+            <button id="reset" onclick="reset()">
+                <i class="fa-solid fa-arrow-rotate-left"></i> Reset
+            </button>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
