@@ -96,7 +96,7 @@ Sleigh It is a productivity app designed to make organizing tasks and staying fo
 
 ### 12. **🎵 Music Integration**
 
-- Users can play music directly from Spotify to enhance focus while studying or working.
+- Users can play music to enhance focus while studying or working.
 
 ### 13. **🌐 Cross-Device Synchronization**
 
