@@ -108,7 +108,7 @@ Sleigh It is a productivity app designed to make organizing tasks and staying fo
 
 ## 🚀 How to Use
 
-Clone repo in your system folder -> pip install requirements.txt-> cd elf engineers ->  on terminal python app.py
+Clone repo in your system folder --> cd elf engineers  --> pip install requirements.txt --> python app.py
 
 1. **Get Started**: Sign up or log in to access your personalized dashboard.
 2. **Explore the Dashboard**: Hover over elements to see interactive pop-ups and navigate using the header bar.
