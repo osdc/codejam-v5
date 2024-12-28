@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}Main Page{% endblock %}
+{% load static %}
+{% block content %}
+
+<div class="container my-5">
+    <div class="row text-center">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">🎓 Study Planner</h5>
+                    <p class="card-text">Plan your study sessions and stay organized with our intuitive study planner.</p>
+                    <a href="/study-planner/" class="btn btn-primary">Explore</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">✨ Predict Grade</h5>
+                    <p class="card-text">Estimate your grades based on performance and track your progress.</p>
+                    <a href="/predict-grade/" class="btn btn-primary">Try Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">⌛ Add to Calendar</h5>
+                    <p class="card-text">Sync your timetable and important dates directly to your Google Calendar.</p>
+                    <a href="/add-to-calender/" class="btn btn-primary">Sync Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-center">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">🌍 About Us</h5>
+                    <p class="card-text">Learn more about our mission to help students achieve academic success.</p>
+                    <a href="/about/" class="btn btn-primary">Learn More</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">🔄 Attendance Tracker</h5>
+                    <p class="card-text">Monitor your attendance and stay on top of your commitments.</p>
+                    <a href="/attendance/" class="btn btn-primary">Track Attendance</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">🔧 Admin Panel</h5>
+                    <p class="card-text">Manage the system and view analytics in the admin panel.</p>
+                    <a href="/admin/" class="btn btn-primary">Access</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

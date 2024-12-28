@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Planner</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f8ff; /* Light blue background */
+            color: #000000;
+        }
+        .navbar {
+            background-color: #87CEEB; /* Light blue navbar */
+        }
+        .navbar-brand, .nav-link {
+            color: #121212 !important;
+        }
+        .table {
+            background-color: #f0f8ff;
+            color: #000000;
+        }
+        .table thead {
+            background-color: #87CEEB; /* Light blue header */
+        }
+        .task-completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+        h1 {
+            color: #87CEEB; /* Light blue heading */
+        }
+        h2 {
+            color: #000000; /* Black color for JIIT STUDY PLANNER */
+        }
+        .list-group-item {
+            background-color: #f0f8ff;
+            color: #000000;
+            border: 1px solid #87CEEB;
+        }
+        .list-group-item:hover {
+            background-color: #b0e0e6;
+        }
+        .btn-success {
+            background-color: #87CEEB;
+            border-color: #87CEEB;
+            color: #121212;
+        }
+        .btn-success:hover {
+            background-color: #76c7c0;
+            border-color: #76c7c0;
+        }
+        input.form-control {
+            background-color: #f0f8ff;
+            color: #000000;
+            border: 1px solid #87CEEB;
+        }
+
+        /* Styles for the Sign-In Form at the Bottom */
+        .sign-in-footer {
+            background-color: #e0f7fa;
+            padding: 10px 20px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: none; /* Initially hidden */
+            text-align: center;
+        }
+        .sign-in-footer form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .sign-in-footer input,
+        .sign-in-footer button {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .show-sign-in-btn {
+            background-color: #87CEEB;
+            border-color: #87CEEB;
+            color: #121212;
+            cursor: pointer;
+        }
+        .show-sign-in-btn:hover {
+            background-color: #76c7c0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Study Planner</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#todo-section">To-Do List</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link show-sign-in-btn" onclick="location.href='https://localhost:8000';">Go Back</button>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <h2 class="text-center mb-4">JIIT STUDY PLANNER</h2>
+
+        <!-- Subjects Table -->
+        <div id="subjects-overview" class="row mb-4">
+            <div class="col">
+                <h3>Subjects Overview</h3>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Topics to Cover</th>
+                            <th>Topics Done</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Physics</td>
+                            <td>Electromagnetism, Thermodynamics, Quantum Mechanics, Optics, Relativity, Nuclear Physics, Wave Theory, Solid State Physics, Acoustics, Fluid Mechanics</td>
+                            <td><input type="text" class="form-control" placeholder="Enter topics done, separated by commas"></td>
+                        </tr>
+                        <tr>
+                            <td>Maths</td>
+                            <td>Calculus, Linear Algebra, Differential Equations, Complex Numbers, Probability Theory, Fourier Series, Laplace Transforms, Numerical Methods, Matrix Theory, Optimization</td>
+                            <td><input type="text" class="form-control" placeholder="Enter topics done, separated by commas"></td>
+                        </tr>
+                        <tr>
+                            <td>English</td>
+                            <td>Essay Writing, Grammar, Public Speaking, Literature, Critical Thinking, Poetry Analysis, Rhetorical Devices, Creative Writing, Phonetics, Business Communication</td>
+                            <td><input type="text" class="form-control" placeholder="Enter topics done, separated by commas"></td>
+                        </tr>
+                        <tr>
+                            <td>Coding</td>
+                            <td>Data Structures, Algorithms, Recursion, Sorting Algorithms, Object-Oriented Programming, Databases, Web Development, Mobile App Development, Machine Learning, Cloud Computing</td>
+                            <td><input type="text" class="form-control" placeholder="Enter topics done, separated by commas"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Daily To-Do List -->
+        <div id="todo-section" class="row">
+            <div class="col">
+                <h3>Daily To-Do List</h3>
+                <div class="mb-3">
+                    <input type="text" id="new-task" class="form-control" placeholder="Enter a new task">
+                    <button class="btn btn-success mt-2" onclick="addTask()">Add Task</button>
+                </div>
+                <ul class="list-group" id="todo-list">
+                    <li class="list-group-item">
+                        <input type="checkbox" class="form-check-input me-2" onclick="toggleTask(this)"> Complete Physics homework
+                    </li>
+                    <li class="list-group-item">
+                        <input type="checkbox" class="form-check-input me-2" onclick="toggleTask(this)"> Revise Calculus
+                    </li>
+                    <li class="list-group-item">
+                        <input type="checkbox" class="form-check-input me-2" onclick="toggleTask(this)"> Write an essay on Technology
+                    </li>
+                    <li class="list-group-item">
+                        <input type="checkbox" class="form-check-input me-2" onclick="toggleTask(this)"> Practice 5 coding problems
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign In Form at the Bottom -->
+    <div class="sign-in-footer">
+        <h5>Sign In</h5>
+        <form id="sign-in-form">
+            <div class="mb-3">
+                <input type="text" class="form-control" id="student-name" placeholder="Enter your name" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" id="enrollment-number" placeholder="Enter your enrollment number" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" id="batch" placeholder="Enter your batch" required>
+            </div>
+            <button type="submit" class="btn btn-success">Sign In</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and Dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toggle task completion
+        function toggleTask(checkbox) {
+            const listItem = checkbox.parentElement;
+            if (checkbox.checked) {
+                listItem.classList.add('task-completed');
+            } else {
+                listItem.classList.remove('task-completed');
+            }
+        }
+
+        // Add a new task to the to-do list
+        function addTask() {
+            const taskInput = document.getElementById('new-task');
+            const taskText = taskInput.value.trim();
+
+            if (taskText) {
+                const listItem = document.createElement('li');
+                listItem.className = 'list-group-item';
+                listItem.innerHTML = `  
+                    <input type="checkbox" class="form-check-input me-2" onclick="toggleTask(this)"> ${taskText}
+                `;
+                document.getElementById('todo-list').appendChild(listItem);
+                taskInput.value = '';
+            } else {
+                alert('Please enter a task!');
+            }
+        }
+
+        // Toggle visibility of the sign-in form
+        function toggleSignInForm() {
+            const signInFooter = document.querySelector('.sign-in-footer');
+            signInFooter.style.display = signInFooter.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Handle form submission
+        document.getElementById('sign-in-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('student-name').value;
+            const enrollmentNumber = document.getElementById('enrollment-number').value;
+            const batch = document.getElementById('batch').value;
+
+            if (name && enrollmentNumber && batch) {
+                alert(`Welcome, ${name}!
+Enrollment Number: ${enrollmentNumber}
+Batch: ${batch}`);
+            } else {
+                alert('Please fill out all fields.');
+            }
+        });
+    </script>
+</body>
+</html>
+<script>
+  
+  document.addEventListener('DOMContentLoaded', function() {
+      loadTasks();
+  });
+
+ 
+  function loadTasks() {
+      const todoList = document.getElementById('todo-list');
+      const storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+      
+      todoList.innerHTML = '';
+
+      
+      storedTasks.forEach(task => {
+          const listItem = document.createElement('li');
+          listItem.className = 'list-group-item';
+          listItem.innerHTML = `
+              <input type="checkbox" class="form-check-input me-2" onclick="toggleTask(this)" ${task.completed ? 'checked' : ''}>
+              ${task.text}
+          `;
+          if (task.completed) {
+              listItem.classList.add('task-completed');
+          }
+          todoList.appendChild(listItem);
+      });
+  }
+
+  
+  function saveTasks() {
+      const tasks = [];
+      document.querySelectorAll('#todo-list .list-group-item').forEach(item => {
+          tasks.push({
+              text: item.textContent.trim(),
+              completed: item.querySelector('input').checked
+          });
+      });
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
+
+ 
+  function toggleTask(checkbox) {
+      const listItem = checkbox.parentElement;
+      if (checkbox.checked) {
+          listItem.classList.add('task-completed');
+      } else {
+          listItem.classList.remove('task-completed');
+      }
+      saveTasks(); 
+  }
+
+  
+  function addTask() {
+      const taskInput = document.getElementById('new-task');
+      const taskText = taskInput.value.trim();
+
+      if (taskText) {
+          const listItem = document.createElement('li');
+          listItem.className = 'list-group-item';
+          listItem.innerHTML = `
+              <input type="checkbox" class="form-check-input me-2" onclick="toggleTask(this)"> ${taskText}
+          `;
+          document.getElementById('todo-list').appendChild(listItem);
+          taskInput.value = '';
+          saveTasks(); 
+      } else {
+          alert('Please enter a task!');
+      }
+  }
+</script>

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Sync Success{% endblock %}
+
+{% block content %}
+<div class="container my-5" style="background-color: #f7f3e9; border-radius: 15px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);">
+    <h1 class="text-center my-4" style="color: #3a3a8e; font-family: 'Comic Sans MS', sans-serif;">🎉 Sync Successful!</h1>
+    <p class="text-center" style="font-size: 1.2rem; color: #555;">
+        Your timetable has been successfully synced with your Google Calendar. You can now view and manage your classes and events with ease.
+    </p>
+
+    <!-- Success message -->
+    {% if status == 'success' %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ status|title }}:</strong> {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+
+    <div class="text-center mt-5" style="color: #3a3a8e;">
+        <h3>What Happens Next?</h3>
+        <ul style="list-style: none; padding: 0; font-size: 1rem;">
+            <li>📅 Your timetable is now visible on your Google Calendar.</li>
+            <li>🔔 You'll receive reminders for upcoming classes and events.</li>
+            <li>📲 You can access your schedule from any device connected to your Google account.</li>
+        </ul>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="/" class="btn btn-primary" style="background-color: #3a3a8e; border: none;">Go Back to Dashboard</a>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #eef3f7;
+        font-family: 'Arial', sans-serif;
+    }
+    h1, h3, ul {
+        font-family: 'Comic Sans MS', sans-serif;
+    }
+    ul li {
+        padding: 5px 0;
+    }
+    .container {
+        animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+{% endblock %}

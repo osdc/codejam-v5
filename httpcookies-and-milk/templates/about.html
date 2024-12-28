@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+<div class="container my-5" style="background-color: #f7f3e9; border-radius: 15px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);">
+    <h1 class="text-center my-4" style="color: #3a3a8e; font-family: 'Comic Sans MS', sans-serif;">📚 About Us</h1>
+    <p class="text-center" style="font-size: 1.2rem; color: #555;">
+        We are committed to empowering students with tools that make academic and personal growth seamless, efficient, and rewarding.
+    </p>
+
+    <div class="row">
+        <div class="col-md-6">
+            <img src="https://i.imgur.com/X4j2yZY.png" alt="About Us" class="img-fluid" style="border-radius: 15px;">
+        </div>
+        <div class="col-md-6">
+            <div style="background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);">
+                <h2 style="color: #3a3a8e; font-family: 'Comic Sans MS', sans-serif;">Features of this site</h2>
+                <p style="font-size: 1rem; color: #555;">
+                    Our platform is designed to simplify the academic journey. Key features include:
+                </p>
+                <ul style="list-style: none; padding: 0; font-size: 1rem;">
+                    <li>📅 <strong>Timetable Synchronization:</strong> Easily sync and manage your class schedules.</li>
+                    <li>🎉 <strong>Holidays & Important Dates:</strong> Stay informed about breaks, deadlines, and events.</li>
+                    <li>✅ <strong>To-Do List:</strong> Organize your tasks and priorities effectively.</li>
+                    <li>📖 <strong>Study Planner:</strong> Plan your study sessions for better productivity.</li>
+                    <li>📊 <strong>Attendance Tracker & Grades:</strong> Monitor your attendance and academic performance.</li>
+                    <li>📈 <strong>Last-Year Paper Trend Analysis:</strong> Get insights into previous exam patterns and prepare smarter.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-5" style="color: #3a3a8e;">
+        <h3>Why Choose Us?</h3>
+        <ul style="list-style: none; padding: 0; font-size: 1rem;">
+            <li>🌟 A comprehensive platform tailored for students.</li>
+            <li>💡 Simplifies academic and personal management.</li>
+            <li>📈 Provides actionable insights and recommendations.</li>
+            <li>🎯 Enhances productivity with intelligent tools.</li>
+        </ul>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #eef3f7;
+        font-family: 'Arial', sans-serif;
+    }
+    h1, h2, ul {
+        font-family: 'Comic Sans MS', sans-serif;
+    }
+    ul li {
+        padding: 5px 0;
+    }
+    .container {
+        animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+{% endblock %}

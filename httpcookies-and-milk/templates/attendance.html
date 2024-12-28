@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}JIIT Student Tracker- AcadMate{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        
+
+        <!-- Display Error Messages -->
+        {% if error %}
+            <div class="alert alert-danger">
+                <strong>Error:</strong> {{ error }}
+            </div>
+        {% endif %}
+
+        <!-- Display Streamlit App Using iframe -->
+        <div class="container-fluid" style="padding: 0; margin: 0; height: 100vh;">
+            <!-- Streamlit app displayed full-screen -->
+            <iframe src="http://localhost:8501" width="100%" height="100%" frameborder="0"></iframe>
+        </div>
+        <!-- Your existing Django content here -->
+    </div>
+{% endblock %}
