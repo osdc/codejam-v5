@@ -108,6 +108,8 @@ Sleigh It is a productivity app designed to make organizing tasks and staying fo
 
 ## 🚀 How to Use
 
+Clone repo in your system folder -> pip install requirements.txt-> cd elf engineers ->  on terminal python app.py
+
 1. **Get Started**: Sign up or log in to access your personalized dashboard.
 2. **Explore the Dashboard**: Hover over elements to see interactive pop-ups and navigate using the header bar.
 3. **Chat with the Snowman**: Enjoy witty remarks and productivity tips from the chatbot. 🤣
